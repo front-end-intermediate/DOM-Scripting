@@ -17,10 +17,8 @@
     - [for...in Loops](#forin-loops)
   - [EXERCISE I - Generating Content From an Array](#exercise-i---generating-content-from-an-array)
     - [Aside - Arrays are Objects](#aside---arrays-are-objects)
-    - [Aside - Template Strings (Template literals)](#aside---template-strings-template-literals)
-  - [Note the use of Template Strings instead of single quotes and that we have the ability to access variables and convert dog years to human years using JS inside the curly brackets.](#note-the-use-of-template-strings-instead-of-single-quotes-and-that-we-have-the-ability-to-access-variables-and-convert-dog-years-to-human-years-using-js-inside-the-curly-brackets)
+    - [Aside - Template Literals](#aside---template-literals)
     - [Aside: React](#aside-react)
-  - [Open for reference `other > React > 1-react.html`](#open-for-reference-other--react--1-reacthtml)
     - [Aside: Objects](#aside-objects)
   - [EXERCISE II - Content Generation with an Array of Objects](#exercise-ii---content-generation-with-an-array-of-objects)
     - [Array Methods](#array-methods)
@@ -322,6 +320,7 @@ box.push('test') // add an item
 box[0] // returns test
 box
 ```
+
 ---
 <!-- end aside  -->
 
@@ -494,7 +493,7 @@ nav.append(navList);
 Our nav bar now displays all the items in our array.
 
 ---
-### Aside - Template Strings (Template literals)
+### Aside - Template Literals
 
 Note that we used single quotes in the construction of our innerHTML: `listItem.innerHTML = '<a href="#">' + linkText + '</a>'`. Compare old school concatenation and the variable 'sentence' below:
 
@@ -507,6 +506,7 @@ console.log(sentence);
 ```
 
 Note the use of [Template Strings](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) instead of single quotes and that we have the ability to access variables and convert dog years to human years using JS inside the curly brackets.
+
 ---
 <!-- end aside  -->
 
@@ -534,6 +534,7 @@ Note: template strings and `let` and `const` variables are ES6 (Ecmascript versi
 ### Aside: React
 
 Open for reference `other > React > 1-react.html`
+
 ---
 <!-- end aside  -->
 
@@ -580,6 +581,7 @@ Note: this is what the above would look like without using template strings (cou
 ```js
 var content = "\n<div>\n  <h2>\n    " + me.first + " " + me.last + "\n  </h2>\n    <span>" + me.job + "</span>\n    <p>Twitter: " + tw + "</p>\n    <p>Blog: " + me.links.web.blog + "</p>\n</div>\n";
 ```
+
 ---
 <!-- end aside  -->
 
