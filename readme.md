@@ -30,7 +30,7 @@
   - [EXERCISE V - Adding an SVG Image](#exercise-v---adding-an-svg-image)
   - [AJAX and APIs](#ajax-and-apis)
     - [Converting `xhr.responseText` from a string to an object](#converting-xhrresponsetext-from-a-string-to-an-object)
-    - [EXERCISE VI - Setting the Content](#exercise-vi---setting-the-content)
+  - [EXERCISE VI - Setting the Content](#exercise-vi---setting-the-content)
     - [Notes](#notes)
 
 Today we begin by introducing much of the JavaScript you will need for this semester - loops, selectors, arrays, objects, template strings, and AJAX. We will be doing this in the context of DOM scripting. 
@@ -1093,7 +1093,7 @@ xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts');
 xhr.send();
 ```
 
-### EXERCISE VI - Setting the Content
+## EXERCISE VI - Setting the Content
 
 Once you get API data, you’ll typically want to use it to create some markup an add it to your site or app. 
 
