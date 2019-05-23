@@ -1,6 +1,41 @@
 # I - JavaScript, AJAX and DOM Manipulation
 
-Today we begin introducing much of the JavaScript you will need for this semester - arrays, objects, template strings, and functions. We will be doing this in the context of DOM scripting. 
+- [I - JavaScript, AJAX and DOM Manipulation](#i---javascript-ajax-and-dom-manipulation)
+  - [Syllabus](#syllabus)
+  - [Homework](#homework)
+    - [I - New York Times API](#i---new-york-times-api)
+    - [II - Create a Helper Method](#ii---create-a-helper-method)
+  - [Reading](#reading)
+  - [VSCode](#vscode)
+  - [The Command Line](#the-command-line)
+  - [Node Package Manager](#node-package-manager)
+    - [package.json](#packagejson)
+  - [DOM Scripting](#dom-scripting)
+    - [.querySelectorAll()](#queryselectorall)
+    - [.querySelector()](#queryselector)
+  - [Looping - for and forEach()](#looping---for-and-foreach)
+    - [for...in Loops](#forin-loops)
+  - [EXERCISE I - Generating Content From an Array](#exercise-i---generating-content-from-an-array)
+    - [Aside - Arrays are Objects](#aside---arrays-are-objects)
+    - [Aside - Template Strings (Template literals)](#aside---template-strings-template-literals)
+  - [Note the use of Template Strings instead of single quotes and that we have the ability to access variables and convert dog years to human years using JS inside the curly brackets.](#note-the-use-of-template-strings-instead-of-single-quotes-and-that-we-have-the-ability-to-access-variables-and-convert-dog-years-to-human-years-using-js-inside-the-curly-brackets)
+    - [Aside: React](#aside-react)
+  - [Open for reference `other > React > 1-react.html`](#open-for-reference-other--react--1-reacthtml)
+    - [Aside: Objects](#aside-objects)
+  - [EXERCISE II - Content Generation with an Array of Objects](#exercise-ii---content-generation-with-an-array-of-objects)
+    - [Array Methods](#array-methods)
+      - [Array.prototype.filter()](#arrayprototypefilter)
+      - [Arrow Functions](#arrow-functions)
+      - [Array.prototype.map() and join()](#arrayprototypemap-and-join)
+  - [EXERCISE III - Using Array.prototype.map()](#exercise-iii---using-arrayprototypemap)
+  - [EXERCISE IV - Sticky Menu](#exercise-iv---sticky-menu)
+  - [EXERCISE V - Adding an SVG Image](#exercise-v---adding-an-svg-image)
+  - [AJAX and APIs](#ajax-and-apis)
+    - [Converting `xhr.responseText` from a string to an object](#converting-xhrresponsetext-from-a-string-to-an-object)
+    - [EXERCISE VI - Setting the Content](#exercise-vi---setting-the-content)
+    - [Notes](#notes)
+
+Today we begin by introducing much of the JavaScript you will need for this semester - loops, selectors, arrays, objects, template strings, and AJAX. We will be doing this in the context of DOM scripting. 
 
 * Install [Visual Studio Code](https://code.visualstudio.com/) 
 * Install [Node.js](https://nodejs.org/en/) 
@@ -13,25 +48,23 @@ Today we begin introducing much of the JavaScript you will need for this semeste
 
 ## Homework
 
-### Part One
+### I - New York Times API
 
 Add a new category of New York Times articles using _your own_ api key.
 
-#### Steps
-
 1. Download and unzip the files as completed by me at the end of the class. `cd` into the directory and run `npm install` and then `npm run start`
 
-1. Follow the instructions for getting a developer key [here](https://developer.nytimes.com/get-started)
+2. Follow the instructions for getting a developer key [here](https://developer.nytimes.com/get-started)
 
-1. Use the [top stories API endpoint](https://developer.nytimes.com/docs/top-stories-product/1/overview)
+3. Use the [top stories API endpoint](https://developer.nytimes.com/docs/top-stories-product/1/overview)
 
-1. Request the top stories from a specific section of their publication and incorporate them into the layout
+4. Request the top stories from a specific section of their publication and incorporate them into the layout
 
 ```
 https://api.nytimes.com/svc/topstories/v2/{section_name}.json?api-key=1234_my_api_key_5678
 ```
 
-### Part Two
+### II - Create a Helper Method
 
 Refactor your JS file to use a helper method for `querySelector` and `querySelectorAll` following the instructions [here](https://gomakethings.com/an-easier-way-to-get-elements-in-the-dom-with-vanilla-js/).
 
@@ -91,7 +124,7 @@ $ npm init -y
 $ npm install browser-sync --save-dev
 ```
 
-* `npm install browser-sync --save-dev` installs [Browser Sync](https://www.browsersync.io) into a newly created `node_modules` folder. `--save-dev` adds the software to a list of development dependencies in `package.json` - examine it.
+* `npm install browser-sync --save-dev` installs [Browser Sync](https://www.browsersync.io) into a newly created `node_modules` folder. `--save-dev` adds the software to a list of development dependencies in `package.json` - rexamine it.
 
 ```sh
 touch .gitignore
@@ -99,7 +132,7 @@ touch .gitignore
 
 `touch .gitignore` creates a `.gitignore` file. Edit and add `node_modules`, save and close. Git will not track the `node_modules` folder.
 
-### Editing package.json
+### package.json
 
 * Browser Sync [Command Line (CLI) documentation](https://www.browsersync.io/docs/command-line)
 * [Github Repo](https://github.com/BrowserSync/browser-sync)
@@ -132,13 +165,15 @@ DOM scripting is JavaScript in the browser. The HTML DOM (Document Object Model)
 
 The process we will use is:
 
-1. Select an html element to work on
-1. Add an event listener to the selected element (e.g.click)
-1. Create commands to run when the event occurs on the listener
+1. Select an html element 
+2. Add an event listener to the selected element (e.g.click)
+3. Create commands to run when the event occurs on the listener
 
-### Selecting elements in the DOM
+### .querySelectorAll()
 
-Use document`.querySelectorAll()` to find all matching elements on a page. You can use any valid CSS selector.
+Use document`.querySelectorAll()` to find all matching elements on a page. You can use any valid CSS selector. 
+
+In the browser's console:
 
 ```js
 // Get all links in the nav
@@ -148,27 +183,31 @@ var elems = document.querySelectorAll('#main a');
 var elemsPara = document.querySelectorAll('p');
 ```
 
-Returns a NodeList.
+Returns a [NodeList](https://developer.mozilla.org/en-US/docs/Web/API/NodeList).
+
+### .querySelector()
 
 Use `document.querySelector()` (without the 'All') to find the first matching element on a page.
+
+In the browser's console:
 
 ```js
 // The first div
 var elem = document.querySelector('div');
 
 // The first link
-var elemLink = document.querySelectorAll('#main a');
+var elemLink = document.querySelector('#main a');
 
 // The first div with a data attribute of main
 var elem = document.querySelector('[data-headline="main"]');
 
-// An element that doesn't exist
+// returns null
 var elemNone = document.querySelector('.foo');
 ```
 
-Returns an HTML element
+Returns an HTML element or Node
 
-If an element isn’t found, `querySelector()` returns null. If you try to do something with the nonexistant element you'll get an error. You can check that a matching element was found before using it.
+If an element isn’t found, `querySelector()` returns null. If you try to do something with the nonexistant element you'll get an error. You typically check that a matching element was found before using it.
 
 ```js
 // Verify element exists before doing anything with it
@@ -177,9 +216,7 @@ if (elem) {
 }
 ```
 
-## Looping through items
-
-### Arrays and NodeLists
+## Looping - for and forEach()
 
 In JavaScript, you can use a `for` to loop through array and node list items.
 
@@ -192,72 +229,61 @@ for (let i = 0; i < elems.length; i++) {
 }
 ```
 
-### Objects
-
-A `for...in` loop is a modified version of a `for` loop that you can use to loop through _objects_.
-
-The first part, `key`, is a variable that gets assigned to the object key on each loop. The second part is the object to loop over.
-
-```js
-var dinner = {
-  // key: value
-  main: 'pasta',
-  appetizer: 'corn',
-  drink: 'martini',
-  desert: 'parfait',
-  guests: 4,
-  alcohol: true,
-};
-
-for (let key in dinner) {
-    console.log(key); // key
-    console.log(dinner[key]); // value
-}
-```
-
-## array.forEach()
-
 ES6 introduced a new `forEach()` method for looping over arrays.
 
-You pass a callback function into `forEach()`. The first argument is the current item in the loop. The second is the current index in the array. You can name these two variables anything you want.
+You pass a [callback function](https://developer.mozilla.org/en-US/docs/Glossary/Callback_function) into `forEach()`. The first argument is the current item in the loop. The second is the current index in the array. You can name these two variables anything you want.
 
 Unlike with a for loop, you can’t terminate the `forEach()` function before it’s completed. You can return to end the current loop, but you can’t call break.
 
 ```js
-var pizzas = [
-    'cheese',
-    'ham',
-    'chicken',
-    'veg'
-];
+var elems = document.querySelectorAll('#main a');
 
-pizzas.forEach(function (pizza, index) {
+elems.forEach(function (item, index) {
     console.log(index) // index
-    console.log(pizza) // value
+    console.log(item) // value
 });
 ```
 
-The `Array.forEach()` method only works with arrays, not NodeLists (like those returned from `querySelectorAll())`. While there is a `NodeList.forEach()` method, it has poor browser support at this time.
+The `.forEach()` method works with arrays _and_ NodeLists (like those returned from `querySelectorAll())`. The `NodeList.forEach()` method has decent but not universal browser support at this time.
 
 You can convert NodeLists into Arrays with the `Array.from()` method and use `Array.forEach()` on that.
 
 ```js
 Array.from(document.querySelectorAll('#main a'))
 .forEach(function (item, index) {
-    // Do something...
     console.log(item);
     console.log(index)
 });
 ```
 
-## EXERCISE - generated content from an array
+### for...in Loops
+
+A `for...in` loop is a modified version of a `for` loop that you can use to loop through _objects_.
+
+The first part, `key`, is a variable that gets assigned to the object key on each loop. The second part is the object to loop over.
+
+```js
+var string1 = "";
+var object1 = {a: 1, b: 2, c: 3};
+
+for (var property1 in object1) {
+  string1 += object1[property1];
+}
+
+console.log(string1);
+// expected output: "123"
+
+```
+
+## EXERCISE I - Generating Content From an Array
 
 We will replace the existing nav labels with items from an array using a `for loop`.
 
 Examine the two provided JS files. Note that they are made available to `index.html` via the script tag at the bottom of that document:
 
 ```html
-<script src="js/navitems.js"></script>
+  <script src="js/navitems.js"></script>
+  <script src="js/myscripts.js"></script>
 ```
 
 Note the difference between `navItemsObject` and `navItemsArray`. The latter contains a simple list of values while the former offers an array of objects consisting of key/value pairs.
@@ -271,9 +297,10 @@ In the console:
 > Array.isArray(navItemsArray)
 ```
 
-### Objects
+---
+### Aside - Arrays are Objects
 
-JavaScript objects are containers for named values.
+JavaScript objects are containers for named values:
 
 ```js
 var car = {type:"Fiat", model:"500", color:"white"}
@@ -295,6 +322,8 @@ box.push('test') // add an item
 box[0] // returns test
 box
 ```
+---
+<!-- end aside  -->
 
 Add to `myScripts.js`:
 
@@ -303,7 +332,7 @@ console.log(navItemsArray[2])
 console.log(navItemsArray.length)
 ```
 
-Select the element with the id main:
+Select the element with the id `main`:
 
 ```js
 const nav = document.querySelector('#main');
@@ -324,7 +353,9 @@ const navList = nav.querySelectorAll('li a');
 
 Leave the two lines above as the only items in your script block.
 
-Compare `navList` and `navItemsArray` in the console and note the `prototypes` in the inspector. `navLIst` comes from our JavaScript `const navList = nav.querySelectorAll('li a');` while `navItemsArray` comes from '`navItems.js`. 
+Compare `navList` and `navItemsArray` in the console and note the `prototypes` in the inspector. 
+
+(`navList` comes from our JavaScript `const navList = nav.querySelectorAll('li a');` while `navItemsArray` comes from '`navItems.js`.)
 
 Both have a length property - `navList.length` and `navItemsArray.length`.
 
@@ -462,7 +493,8 @@ nav.append(navList);
 
 Our nav bar now displays all the items in our array.
 
-#### Aside - Template Strings (aka Template literals)
+---
+### Aside - Template Strings (Template literals)
 
 Note that we used single quotes in the construction of our innerHTML: `listItem.innerHTML = '<a href="#">' + linkText + '</a>'`. Compare old school concatenation and the variable 'sentence' below:
 
@@ -474,9 +506,9 @@ const sentence = `My dog ${name} is ${age * 7} years old.`;
 console.log(sentence);
 ```
 
-Note the use of tick marks instead of single quotes and that we have the ability to access variables and convert dog years to human years using JS inside the curly brackets.
-
-#### Using [Template Strings](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
+Note the use of [Template Strings](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) instead of single quotes and that we have the ability to access variables and convert dog years to human years using JS inside the curly brackets.
+---
+<!-- end aside  -->
 
 Switch out the concatenation for a *template string*:
 
@@ -498,15 +530,19 @@ Note: template strings and `let` and `const` variables are ES6 (Ecmascript versi
 
 * Translate the code back to ES5 at [Babeljs.io](https://babeljs.io).
 
-#### Aside: React
+---
+### Aside: React
 
 Open for reference `other > React > 1-react.html`
+---
+<!-- end aside  -->
 
-#### Aside: Objects
+---
+### Aside: Objects
 
 Open for reference: `other > javascript > Objects > objects.html`
 
-Examine the sample object in that file in the browser console:
+Examine the sample object in the browser console:
 
 ```sh
 > last
@@ -544,48 +580,57 @@ Note: this is what the above would look like without using template strings (cou
 ```js
 var content = "\n<div>\n  <h2>\n    " + me.first + " " + me.last + "\n  </h2>\n    <span>" + me.job + "</span>\n    <p>Twitter: " + tw + "</p>\n    <p>Blog: " + me.links.web.blog + "</p>\n</div>\n";
 ```
+---
+<!-- end aside  -->
 
-## EXERCISE - dynamic generation with an array of objects
+## EXERCISE II - Content Generation with an Array of Objects
 
-We have been working with a simple array.
-
-An array of objects is a very common data structure.
+So far we have been working with a simple array. Most APIs consist of an array of objects:
 
 ```js
-var navItems = [
+
+const navItemsObject = [
   {
-    label: 'LOGO', link: '#'
+    label: 'LOGO',
+    link: '#',
   },
   {
-    label: 'Watchlist', link: '#watchlist'
+    label: 'Watchlist',
+    link: '#watchlist',
   },
   {
-    label: 'Research', link: '#research'
+    label: 'Research',
+    link: '#research',
   },
   {
-    label: 'Markets', link: '#markets'
+    label: 'Markets',
+    link: '#markets',
   },
   {
-    label: 'Workbook', link: '#workbook'
+    label: 'Workbook',
+    link: '#workbook',
   },
   {
-    label: 'Connect', link: '#connect'
+    label: 'Connect',
+    link: '#connect',
   },
   {
-    label: 'Desktop', link: '#desktop'
+    label: 'Desktop',
+    link: '#desktop',
   },
   {
-    label: 'FAQ', link: '#faq'
-  }
+    label: 'FAQ',
+    link: '#faq',
+  },
 ];
 ```
 
-Add the links using `navItems` instead of `navItemsArray`. Note the the 'dot' accessor notation for dealing with an object and the addition of the anchor tags:
+Add the links using `navItemsObject` instead of `navItemsArray`. Note the the 'dot' accessor notation for dealing with an object and the addition of the anchor tags:
 
 ```js
-for (let i =0; i < navItems.length; i++ ){
+for (let i = 0; i < navItemsObject.length; i++) {
   const listItem = document.createElement('li');
-  listItem.innerHTML = `<a href="${navItems[i].link}">${navItems[i].label}</a>`;
+  listItem.innerHTML = `<a href="${navItemsObject[i].link}">${navItemsObject[i].label}</a>`;
   navList.appendChild(listItem);
 }
 ```
@@ -598,7 +643,7 @@ We'll use another method for developing our nav - using an Array method called `
 
 First let's look at another Array method - `filter` and arrow functions.
 
-#### Array Methods: [Array.prototype.filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
+#### [Array.prototype.filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
 
 Note the inventors sample data in `navitems.js`:
 
@@ -627,17 +672,21 @@ const fifteen = inventors.filter (
 console.table(fifteen);
 ```
 
-[Arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) are commonly used as a shorter syntax for anonymous functions. Much of the documentation you will read uses them and so shall we.
+#### Arrow Functions
+
+[Arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) are commonly used as a shorter syntax for anonymous functions although they have additional functionality
 
 Refactor using an arrow function with implicit return:
 
 ```js
 const fifteen = inventors.filter(
   inventor => (inventor.year >= 1500 && inventor.year < 1600)
-  )
+)
 ```
 
-#### Array Methods: [Array.prototype.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) and [join()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join)
+Note the lack of a `return` statement. While they can be used with arrow functions they are typically not in short functions. The `return` is implicit.
+
+#### [Array.prototype.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) and [join()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join)
 
 Provide an array of the inventors first and last names:
 
@@ -664,16 +713,16 @@ console.log('Full names: ' + fullNames);
 
 Note the use of `join()` to add a space after the comma.
 
-## EXERCISE - Using .map
+## EXERCISE III - Using Array.prototype.map()
 
-Here's an alternate method for creating the list items using `map()` and template strings:
+Let's try creating the list items using `map()` and template strings:
 
 ```js
 const markup = `
     <ul>
-      ${navItems.map(
-        function(navItem) {
-          return `<li><a href="${navItem.link}">${navItem.label}</a></li>` }
+      ${navItemsObject.map(
+        function(item) {
+          return `<li><a href="${item.link}">${item.label}</a></li>` }
         )}
     </ul>
     `;
@@ -688,9 +737,9 @@ Join the array to avoid the comma:
 ```js
 const markup = `
     <ul>
-      ${navItems.map(
-        function(navItem) {
-          return `<li><a href="${navItem.link}">${navItem.label}</a></li>` }
+      ${navItemsObject.map(
+        function(item) {
+          return `<li><a href="${item.link}">${item.label}</a></li>` }
         ).join('')}
     </ul>
     `;
@@ -709,14 +758,17 @@ nav.innerHTML = '';
 
 const markup = `
 <ul>
-  ${navItems.map( navItem => `<li><a href="${navItem.link}">${navItem.label}</a></li>` ).join('')}
+  ${navItemsObject
+    .map(item => `<li><a href="${item.link}">${item.label}</a></li>`)
+    .join('')}
 </ul>
 `;
 
 nav.innerHTML = markup;
+
 ```
 
-## EXERCISE - Sticky Menu
+## EXERCISE IV - Sticky Menu
 
 Problem: the menu scrolls off the screen and we want to to be available at all times.
 
@@ -794,28 +846,6 @@ function fixNav() {
 }
 ```
 
-We added the class `fixed-nav` to the html body tag (as opposed to, say, the nav itself) so that we can use it to target other elements on the page which may not be children of the nav. Let's do this with the site-wrap.
-
-```css
-.site-wrap {
-  max-width: 780px;
-  margin: 40px auto;
-  background:white;
-  padding:40px;
-  text-align: justify;
-  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.05);
-  /* add these two */
-  transform: scale(0.98);
-  transition: transform 0.5s;
-}
-```
-
-```css
-body.fixed-nav .site-wrap {
-  transform: scale(1);
-}
-```
-
 When the nav gets position fixed it no longer takes up space in the window so the content beneath it jumps upward (reflows).
 
 Take care of this jump using `offsetHeight` to add an amount of padding equal to the height of the nav to the body element.
@@ -834,7 +864,9 @@ function fixNav() {
 
 Note `paddingTop` (camel case) - I used Javascript for this because the height of the nav bar (`offSetHeight`) could vary. Otherwise I would have used the CSS file. Always try to use CSS instead of Javascript wherever possible.
 
-## EXERCISE - Adding an SVG Image
+## EXERCISE V - Adding an SVG Image
+
+We added the class `fixed-nav` to the html body tag (as opposed to, say, the nav itself) so that we can use it to target other elements on the page which are not children of the nav. We will take advatage of this now.
 
 Select the first list item on the nav, add a class and set the innerHTML so that we get a link which will return us to the top of the page:
 
@@ -857,6 +889,7 @@ Format the logo and create the sliding logo behavior. Note: CSS only, no JavaScr
 li.logo img {
   padding-top: 0.25rem;
   width: 2.5rem;
+
 }
 
 li.logo {
@@ -864,8 +897,6 @@ li.logo {
   overflow: hidden;
   background: white;
   transition: all 0.5s;
-  font-weight: 600;
-  font-size: 30px;
 }
 
 .fixed-nav li.logo {
@@ -877,7 +908,7 @@ li.logo {
 
 ## AJAX and APIs
 
-APIs, or Application Programming Interfaces, allow websites and web apps to talk to and share data with a server.
+APIs (Application Programming Interfaces) allow websites and web apps to share data with a server.
 
 AJAX is a method you can use to get and send data to APIs.
 
@@ -970,7 +1001,7 @@ Copy and paste the above into the console of your browser.
 
 We used a GET request to get a list of posts from JSON Placeholder, but, there are a handful of possible request types you can make. HTTP methods are typically verbs that describe what the request your making does.
 
-The four most common are GET, POST, PUT, and DELETE. We will be using the others laster. You can see a list at the [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods).
+The four most common are GET, POST, PUT, and DELETE. We will be using the others later. You can see a list at the [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods).
 
 The way you send information to an API will vary from API to API. For example, to get post 42 on JSON Placeholder, you’d use `https://jsonplaceholder.typicode.com/post/42`.
 
@@ -1016,7 +1047,7 @@ xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts/10');
 xhr.send();
 ```
 
-## Converting `xhr.responseText` from a string to an object
+### Converting `xhr.responseText` from a string to an object
 
 The JSON response you get back is sent as a string and, to work with the data, we need to convert it back into an object. You do this with the `JSON.parse()` method.
 
@@ -1060,7 +1091,7 @@ xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts');
 xhr.send();
 ```
 
-## EXERCISE - Setting the Content
+### EXERCISE VI - Setting the Content
 
 Once you get API data, you’ll typically want to use it to create some markup an add it to your site or app. 
 
@@ -1072,7 +1103,7 @@ Start by storing the API key and the element we want to manipulate in a variable
 
 ```js
 var elem = document.querySelector('.site-wrap');
-const nytapi = 'd7d88f32a04d4c6aab4e46735441d0ee';
+const nytapi = 'OuQiMDj0xtgzO80mtbAa4phGCAJW7GKa';
 ```
 
 Add a function that uses xhr to get the data:
@@ -1212,17 +1243,17 @@ Let's expand the content to include images, links, headers and headlines:
 
 ```js
 function renderStories(data) {
-  var content = (JSON.parse(data.responseText));
+  var content = JSON.parse(data.responseText);
   var stories = content.results;
-  stories.forEach(function (story) {
+  stories.forEach(function(story) {
     var storyEl = document.createElement('div');
     storyEl.className = 'entry';
     storyEl.innerHTML = `
-      <div>
-      <img src="${story.multimedia[0].url}" /> 
+    <img src="${story.multimedia[0].url}" /> 
+    <div>
       <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
-      </div>
       <p>${story.abstract}</p>
+    </div>
     `;
     elem.prepend(storyEl); // NEW
   });
@@ -1233,23 +1264,15 @@ Add some new css to support the new elements:
 
 ```css
 .entry {
-    margin-bottom: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 7fr;
+  grid-column-gap: 1rem;
+  margin-bottom: 1rem;
 }
-.entry h4 {
-    margin: 0.25rem 0;
-}
-.entry p {
-    margin: 0;
-    margin-left: 75px;
-}
-.entry img {
-    float: left;
-    width: 75px;
-    padding: 0 0.5rem 0 0;
-}
+
 .entry a {
-    color: #007eb6;
-    text-decoration: none;
+  color: #007eb6;
+  text-decoration: none;
 }
 ```
 
