@@ -1,9 +1,11 @@
 # I - JavaScript, AJAX and DOM Manipulation
 
-Today we begin introducing much of the JavaScript you will need for this semester - arrays, objects, template strings, and functions. We will be doing this in the context of DOM scripting. DOM is an acronym for Document Object Model.
+Today we begin introducing much of the JavaScript you will need for this semester - arrays, objects, template strings, and functions. We will be doing this in the context of DOM scripting. 
 
-* Install [Visual Studio Code](https://code.visualstudio.com/) on your laptop now.
-* Install [Node.js](https://nodejs.org/en/) on your laptop now.
+* Install [Visual Studio Code](https://code.visualstudio.com/) 
+* Install [Node.js](https://nodejs.org/en/) 
+* Install [Git](https://git-scm.com) 
+* Create a Github account
 
 ## Syllabus
 
@@ -25,24 +27,20 @@ Add a new category of New York Times articles using _your own_ api key.
 
 1. Request the top stories from a specific section of their publication and incorporate them into the layout
 
-### Part Two
-
-Refactor your JS file to use a helper method for `querySelector` and `querySelectorAll` following the instructions [here](https://gomakethings.com/an-easier-way-to-get-elements-in-the-dom-with-vanilla-js/).
-
 ```
 https://api.nytimes.com/svc/topstories/v2/{section_name}.json?api-key=1234_my_api_key_5678
 ```
 
+### Part Two
 
-## Reading etc.
+Refactor your JS file to use a helper method for `querySelector` and `querySelectorAll` following the instructions [here](https://gomakethings.com/an-easier-way-to-get-elements-in-the-dom-with-vanilla-js/).
+
+
+## Reading
 
 * Watch this video on Node and NPM: [Node.js Tutorial for Absolute Beginners](https://youtu.be/U8XF6AFGqlc) on YouTube
-* Install [GIT](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) on your laptop
-* Create a Github account
 
 ## VSCode
-
-Install [Visual Studio Code](https://code.visualstudio.com/) on your laptop.
 
 In this class we will be using [Visual Studio Code](https://code.visualstudio.com/) as our editor. We will discuss its features on an as needed basis. 
 
