@@ -28,10 +28,9 @@
   - [EXERCISE III - Using Array.prototype.map()](#exercise-iii---using-arrayprototypemap)
   - [EXERCISE IV - Sticky Menu](#exercise-iv---sticky-menu)
   - [EXERCISE V - Adding an SVG Image](#exercise-v---adding-an-svg-image)
-  - [AJAX and APIs](#ajax-and-apis)
+  - [EXERCISE VI - AJAX and APIs](#exercise-vi---ajax-and-apis)
     - [Converting `xhr.responseText` from a string to an object](#converting-xhrresponsetext-from-a-string-to-an-object)
-  - [EXERCISE VI - Setting the Content](#exercise-vi---setting-the-content)
-    - [Notes](#notes)
+  - [EXERCISE VII - Adding the Content](#exercise-vii---adding-the-content)
 
 Today we begin by introducing much of the JavaScript you will need for this semester - loops, selectors, arrays, objects, template strings, and AJAX. We will be doing this in the context of DOM scripting. 
 
@@ -908,7 +907,7 @@ li.logo {
 
 (Note the use of max-width above. We are using this because transitions do not animate width.)
 
-## AJAX and APIs
+## EXERCISE VI - AJAX and APIs
 
 APIs (Application Programming Interfaces) allow websites and web apps to share data with a server.
 
@@ -1093,7 +1092,7 @@ xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts');
 xhr.send();
 ```
 
-## EXERCISE VI - Setting the Content
+## EXERCISE VII - Adding the Content
 
 Once you get API data, you’ll typically want to use it to create some markup an add it to your site or app. 
 
@@ -1433,24 +1432,3 @@ function requestStories(url) {
 requestStories()
 ```
 
-### Notes
-
-Using `.map` instead of `forEach`:
-
-```js
-function renderStories(data) {
-  var content = (JSON.parse(data.responseText));
-  var stories = content.results.slice(0, limit);
-  //NEW
-  const htmlFrag = stories.map(story => `
-    <div class="entry">
-    <div>
-      <img src="${story.multimedia[0].url}" /> 
-      <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
-    </div>
-    <p>${story.abstract}</p>
-    </div>
-  `).join('')
-  elem.innerHTML = htmlFrag;
-}
-```
