@@ -30,6 +30,8 @@
   - [EXERCISE VI - AJAX and APIs](#exercise-vi---ajax-and-apis)
     - [Converting `xhr.responseText` from a string to an object](#converting-xhrresponsetext-from-a-string-to-an-object)
   - [EXERCISE VII - Adding the Content](#exercise-vii---adding-the-content)
+  - [The fetch() API](#the-fetch-api)
+  - [EXERCISE - Categories](#exercise---categories)
 
 Today we begin by introducing much of the JavaScript you will need for this semester - loops, selectors, arrays, objects, template strings, and AJAX. We will be doing this in the context of DOM scripting. 
 
@@ -1386,3 +1388,49 @@ function requestStories(url) {
 requestStories()
 ```
 
+## The fetch() API
+
+The [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) is a newer alternative to XMLHttpRequest.
+
+```js
+fetch(nytUrl)
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson) {
+    renderStories(myJson);
+  });
+
+function renderStories(data) {
+  data.results.forEach(function(story) {
+    var storyElement = document.createElement('div');
+    storyElement.className = 'entry';
+    storyElement.innerHTML = `
+    <img src="${story.multimedia[0].url}" /> 
+    <div>
+      <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
+      <p>${story.abstract}</p>
+    </div>
+    `;
+    elem.prepend(storyElement); // NEW
+  });
+}
+```
+
+Using arrow functions:
+
+```js
+fetch(nytUrl)
+  .then(response => response.json())
+  .then(myJson => renderStories(myJson));
+```
+
+## EXERCISE - Categories
+
+```js
+var elem = document.querySelector('.site-wrap');
+const nytapi = 'OuQiMDj0xtgzO80mtbAa4phGCAJW7GKa';
+const nytUrl = `https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=${nytapi}`;
+const limit = 3;
+var categories = ['food', 'fashion', 'travel']; // NEW
+```
