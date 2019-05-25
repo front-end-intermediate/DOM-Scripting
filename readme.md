@@ -16,7 +16,6 @@
   - [Looping - for and forEach()](#looping---for-and-foreach)
     - [for...in Loops](#forin-loops)
   - [EXERCISE I - Generating Content From an Array](#exercise-i---generating-content-from-an-array)
-    - [Aside - Arrays are Objects](#aside---arrays-are-objects)
     - [Aside - Template Literals](#aside---template-literals)
     - [Aside: React](#aside-react)
     - [Aside: Objects](#aside-objects)
@@ -298,35 +297,6 @@ In the console:
 > Array.isArray(navItemsArray)
 ```
 
----
-### Aside - Arrays are Objects
-
-JavaScript objects are containers for named values:
-
-```js
-var car = {type:"Fiat", model:"500", color:"white"}
-```
-
-Note that an Array is an object in JavaScript. Because an array is an object at its core you can add properties to it.
-
-In the console:
-
-```js
-var box = []
-typeof box // an array is an object at its core 
-Array.isArray(box) // test if the object is in fact an array
-box['size'] = 9 // because an array is an object at its core you can add properties to it
-box['size']  // returns 9
-box.size // alternate syntax for box['size']
-box[0] // undefined because there is no first item yet
-box.push('test') // add an item
-box[0] // returns test
-box
-```
-
----
-<!-- end aside  -->
-
 Add to `myScripts.js`:
 
 ```js
@@ -334,22 +304,22 @@ console.log(navItemsArray[2])
 console.log(navItemsArray.length)
 ```
 
-Select the element with the id `main`:
+Select the element with the class `main`:
 
 ```js
-const nav = document.querySelector('#main');
+const nav = document.querySelector('.main');
 ```
 
-Select all the links in nav:
+To select all the links in nav we could try:
 
 ```js
 const navList = document.querySelectorAll('#main li a');
 ```
 
-It is common to use `element.querySelector` as opposed to `document.querySelector`:
+But here it is perhaps a bit more efficient to use `element.querySelector` (as opposed to `document.querySelector`):
 
 ```js
-const nav = document.getElementById('main');
+const nav = document.querySelector('.main');
 const navList = nav.querySelectorAll('li a');
 ```
 
@@ -368,9 +338,7 @@ Replace our placeholder nav items with content from an array
 * use a `for` loop and `innerHTML`:
 
 ```js
-// your scripts go here
-
-const nav = document.getElementById('main');
+const nav = document.querySelector('.main');
 const navList = nav.querySelectorAll('li a');
 
 for (let i=0; i < navList.length; i++ ){
@@ -406,22 +374,16 @@ Solution: dynamically generate the nav from items in the array.
 
 * depopulate the nav children
 
-We could edit the HTML:
+Edit the HTML:
 
 ```html
-<nav id="main"></nav>
-```
-
-Let's use JS to accomplish the same:
-
-```js
-nav.innerHTML = ''
+<nav class="main"></nav>
 ```
 
 Append a `<ul>` tag to nav using:
 
-1. [document.createElement()](https://plainjs.com/javascript/manipulation/create-a-dom-element-51/) creates an element, e.g. `var div = document.createElement('div');`. 
-2. [append](https://plainjs.com/javascript/manipulation/append-or-prepend-to-an-element-29/).
+1. [document.createElement()](https://vanillajstoolkit.com/reference/dom-injection/#createelement) creates an element, e.g. `var div = document.createElement('div');`. 
+2. [append](https://vanillajstoolkit.com/reference/dom-injection/#append).
 
 JavaScript offers a number of methods to determine the insertion point.
 
@@ -451,9 +413,7 @@ Let's empty the html content of our nav and append a new div:
 ```js
 // your scripts go here
 
-const nav = document.getElementById('main');
-
-nav.innerHTML = '';
+const nav = document.querySelector('.main');
 
 const navList = document.createElement('ul');
 nav.append(navList);
@@ -477,9 +437,7 @@ E.g.:
 ```js
 // your scripts go here
 
-const nav = document.getElementById('main');
-
-nav.innerHTML = '';
+const nav = document.querySelector('.main');
 
 const navList = document.createElement('ul');
 
@@ -755,11 +713,7 @@ nav.innerHTML = markup;
 Refactor using an arrow function:
 
 ```js
-// your scripts go here
-
-const nav = document.getElementById('main');
-
-nav.innerHTML = '';
+const nav = document.querySelector('.main');
 
 const markup = `
 <ul>
