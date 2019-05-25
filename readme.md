@@ -28,10 +28,11 @@
   - [EXERCISE III - Using Array.prototype.map()](#exercise-iii---using-arrayprototypemap)
   - [EXERCISE IV - Sticky Menu](#exercise-iv---sticky-menu)
   - [EXERCISE V - Adding an SVG Image](#exercise-v---adding-an-svg-image)
-  - [AJAX and APIs](#ajax-and-apis)
+  - [EXERCISE VI - AJAX and APIs](#exercise-vi---ajax-and-apis)
     - [Converting `xhr.responseText` from a string to an object](#converting-xhrresponsetext-from-a-string-to-an-object)
-  - [EXERCISE VI - Setting the Content](#exercise-vi---setting-the-content)
-    - [Notes](#notes)
+  - [EXERCISE VII - Adding the Content](#exercise-vii---adding-the-content)
+  - [The fetch() API](#the-fetch-api)
+  - [EXERCISE - Categories](#exercise---categories)
 
 Today we begin by introducing much of the JavaScript you will need for this semester - loops, selectors, arrays, objects, template strings, and AJAX. We will be doing this in the context of DOM scripting. 
 
@@ -274,6 +275,8 @@ console.log(string1);
 ```
 
 ## EXERCISE I - Generating Content From an Array
+
+In this class we will implement [this single page web site](http://oit2.scps.nyu.edu/~devereld/intermediate/session1/) using JavaScript.
 
 We will replace the existing nav labels with items from an array using a `for loop`.
 
@@ -908,9 +911,7 @@ li.logo {
 
 (Note the use of max-width above. We are using this because transitions do not animate width.)
 
-## AJAX and APIs
-
-APIs (Application Programming Interfaces) allow websites and web apps to share data with a server.
+## EXERCISE VI - AJAX and APIs
 
 AJAX is a method you can use to get and send data to APIs.
 
@@ -918,7 +919,7 @@ _AJAX stands for Asynchronous JavaScript And XML. In a nutshell, it is the use o
 
 Making AJAX requests with the `XMLHttpRequest()` method, often referred to as `XHR`, is a three step process:
 
-1. Set up our request by creating a new XMLHttpRequest().
+1. Set up our request by creating a new `XMLHttpRequest()`.
 2. Create an `onreadystatechange` function to run when the request state changes.
 3. Open and send our request.
 
@@ -999,15 +1000,15 @@ xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts');
 xhr.send();
 ```
 
-Copy and paste the above into the console of your browser.
+Copy and paste the above into myscripts to test.
 
 We used a GET request to get a list of posts from JSON Placeholder, but, there are a handful of possible request types you can make. HTTP methods are typically verbs that describe what the request your making does.
 
-The four most common are GET, POST, PUT, and DELETE. We will be using the others later. You can see a list at the [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods).
+The four most common are GET, POST, PUT, and DELETE. You can see a list at the [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods).
 
 The way you send information to an API will vary from API to API. For example, to get post 42 on JSON Placeholder, you’d use `https://jsonplaceholder.typicode.com/post/42`.
 
-The most common response type from API calls is JSON, an acronym for JavaScript Object Notation. It has the same structure and format (for the most part) as a JavaScript object (sometimes it’s wrapped in an array).
+The most common response type from API calls is JSON - [JavaScript Object Notation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON). 
 
 The response data can be accessed from the responseText property on the XMLHttpRequest object.
 
@@ -1093,7 +1094,7 @@ xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts');
 xhr.send();
 ```
 
-## EXERCISE VI - Setting the Content
+## EXERCISE VII - Adding the Content
 
 Once you get API data, you’ll typically want to use it to create some markup an add it to your site or app. 
 
@@ -1433,24 +1434,49 @@ function requestStories(url) {
 requestStories()
 ```
 
-### Notes
+## The fetch() API
 
-Using `.map` instead of `forEach`:
+The [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) is a newer alternative to XMLHttpRequest.
 
 ```js
+fetch(nytUrl)
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson) {
+    renderStories(myJson);
+  });
+
 function renderStories(data) {
-  var content = (JSON.parse(data.responseText));
-  var stories = content.results.slice(0, limit);
-  //NEW
-  const htmlFrag = stories.map(story => `
-    <div class="entry">
+  data.results.forEach(function(story) {
+    var storyElement = document.createElement('div');
+    storyElement.className = 'entry';
+    storyElement.innerHTML = `
+    <img src="${story.multimedia[0].url}" /> 
     <div>
-      <img src="${story.multimedia[0].url}" /> 
       <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
+      <p>${story.abstract}</p>
     </div>
-    <p>${story.abstract}</p>
-    </div>
-  `).join('')
-  elem.innerHTML = htmlFrag;
+    `;
+    elem.prepend(storyElement); // NEW
+  });
 }
+```
+
+Using arrow functions:
+
+```js
+fetch(nytUrl)
+  .then(response => response.json())
+  .then(myJson => renderStories(myJson));
+```
+
+## EXERCISE - Categories
+
+```js
+var elem = document.querySelector('.site-wrap');
+const nytapi = 'OuQiMDj0xtgzO80mtbAa4phGCAJW7GKa';
+const nytUrl = `https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=${nytapi}`;
+const limit = 3;
+var categories = ['food', 'fashion', 'travel']; // NEW
 ```
