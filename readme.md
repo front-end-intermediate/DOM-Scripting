@@ -994,6 +994,21 @@ const nytUrl = `https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=${
 
 The [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) is a newer and easier to read alternative to XMLHttpRequest. 
 
+`fetch()` returns a [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises). 
+
+```js
+const prom = fetch(nytUrl)
+console.log(prom)
+```
+
+In order to work with promises you call `.then` against them:
+
+```js
+fetch(nytUrl).then( response => console.log(response))
+```
+
+The data that returns needs to be converted from raw data into JSON:
+
 ```js
 fetch(nytUrl)
   .then(function(response) {
@@ -1004,7 +1019,7 @@ fetch(nytUrl)
   });
 ```
 
-`fetch()` returns a [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises). 
+To get the data into our application we create a function and pass the data to it:
 
 ```js
 fetch(nytUrl)
