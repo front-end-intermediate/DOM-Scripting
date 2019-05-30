@@ -28,10 +28,11 @@
   - [EXERCISE IV - Sticky Menu](#exercise-iv---sticky-menu)
   - [EXERCISE V - Adding an SVG Image](#exercise-v---adding-an-svg-image)
   - [EXERCISE VI - AJAX and APIs](#exercise-vi---ajax-and-apis)
+    - [XHR](#xhr)
     - [Converting `xhr.responseText` from a string to an object](#converting-xhrresponsetext-from-a-string-to-an-object)
-  - [EXERCISE VII - Adding the Content](#exercise-vii---adding-the-content)
+  - [EXERCISE VII - Adding Content](#exercise-vii---adding-content)
   - [The fetch() API](#the-fetch-api)
-  - [EXERCISE VII - Sections](#exercise-vii---sections)
+  - [EXERCISE VIII - Sections](#exercise-viii---sections)
     - [Final Script](#final-script)
   - [Final Touches](#final-touches)
   - [Notes](#notes)
@@ -124,8 +125,8 @@ $ npm init -y
 $ npm install browser-sync --save-dev
 ```
 
-- `npm install browser-sync --save-dev` installs [Browser Sync](https://www.browsersync.io) into a newly created `node_modules` folder
-- `--save-dev` adds browser-sync to a list of development dependencies in `package.json`
+* `npm install browser-sync --save-dev` installs [Browser Sync](https://www.browsersync.io) into a newly created `node_modules` folder
+* `--save-dev` adds browser-sync to a list of development dependencies in `package.json`
 
 ### NPM Scripts
 
@@ -692,7 +693,7 @@ const markup = `
 nav.innerHTML = markup;
 ```
 
-Refactor using an arrow function:
+Finally, refactor using an arrow function:
 
 ```js
 const nav = document.querySelector("nav");
@@ -809,7 +810,7 @@ We added the class `fixed-nav` to the html body tag (as opposed to, say, the nav
 Select the first list item on the nav, add a class and set the innerHTML so that we get a link which will return us to the top of the page:
 
 ```js
-const logo = nav.querySelector("#main ul li");
+const logo = nav.querySelector(".main ul li");
 logo.classList.add("logo");
 logo.innerHTML = '<a href="#"><img src="img/logo.svg" /></a>';
 ```
@@ -849,6 +850,8 @@ _AJAX stands for Asynchronous JavaScript And XML. In a nutshell, it is the use o
 
 An API (Application Programming Interface) is a set of subroutine definitions, communication protocols, and tools for building software. In general terms, it is a set of clearly defined methods of communication among various components. A good API makes it easier to develop a computer program by providing all the building blocks, which are then put together by the programmer.
 
+### XHR
+
 To start off we'll use `XMLHttpRequest()` and then graduate to a more modern browser API.
 
 Making AJAX requests with the `XMLHttpRequest()` method, often referred to as `XHR`, is a three step process:
@@ -862,6 +865,8 @@ We'll make requests data from [JSON Placeholder](https://jsonplaceholder.typicod
 The XHR request will return with a status property that contains an HTTP status code. Codes from 200 to 299 are considered a success. Anything else is not.
 
 We can check that our request was successful by making sure the `xhr.status` was greater than or equal to 200 and less than 300.
+
+E.g.:
 
 ```js
 // Set up our HTTP request
@@ -894,25 +899,19 @@ Then, we’ll send our request.
 Try this in the console:
 
 ```js
-// Set up our HTTP request
 var xhr = new XMLHttpRequest();
 
-// Setup our listener to process request state changes
 xhr.onreadystatechange = function() {
-  // Only run if the request is complete
+
   if (xhr.readyState !== 4) return;
 
   // Process our return data
   if (xhr.status >= 200 && xhr.status < 300) {
-    // This will run when the request is successful
     console.log("success!", xhr);
   } else {
-    // This will run when it's not
     console.log("The request failed!");
   }
 
-  // This will run either way
-  // All three of these are optional, depending on what you're trying to do
   console.log("This always runs...");
 };
 
@@ -922,8 +921,6 @@ xhr.onreadystatechange = function() {
 xhr.open("GET", "https://jsonplaceholder.typicode.com/posts");
 xhr.send();
 ```
-
-Copy and paste the above into `myscripts.js` to test.
 
 We used a GET request to get a list of posts from JSON Placeholder, but, there are a handful of possible request types you can make. HTTP methods are typically verbs that describe what the request your making does.
 
@@ -946,27 +943,18 @@ Here it is in context. (Note that this example requests only post number 10.)
 Paste this into the console:
 
 ```js
-// Set up our HTTP request
 var xhr = new XMLHttpRequest();
 
-// Setup our listener to process request state changes
 xhr.onreadystatechange = function() {
-  // Only run if the request is complete
   if (xhr.readyState !== 4) return;
 
-  // Process our return data
   if (xhr.status >= 200 && xhr.status < 300) {
-    // This will run when the request is successful
     console.log(xhr.responseText);
   } else {
-    // This will run when it's not
     console.log(xhr.responseText);
   }
 };
 
-// Create and send a GET request
-// The first argument is the post type (GET, POST, PUT, DELETE, etc.)
-// The second argument is the endpoint URL
 xhr.open("GET", "https://jsonplaceholder.typicode.com/posts/10");
 xhr.send();
 ```
@@ -1013,9 +1001,9 @@ xhr.open("GET", "https://jsonplaceholder.typicode.com/posts");
 xhr.send();
 ```
 
-## EXERCISE VII - Adding the Content
+## EXERCISE VII - Adding Content
 
-Once you get API data, you’ll typically want to use it to create some markup.
+<!-- Once you get API data, you’ll typically want to use it to create some markup. -->
 
 We will use the [NY Times developer](https://developer.nytimes.com) API for getting a data using my API key.
 
@@ -1027,233 +1015,12 @@ Start by removing the existing HTML content from the site-wrap div in  `index.ht
 <div class="site-wrap"></div>
 ```
 
-Store the API key and the element we want to manipulate in a variable:
+Store the API key, a template string with the complete URL, and the element we want to manipulate in a variable:
 
 ```js
 var elem = document.querySelector(".site-wrap");
 const nytapi = "uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0";
-
-//Add a function that uses xhr to get the data:
-
-function requestStories(url) {
-  var request = new XMLHttpRequest();
-  request.onreadystatechange = function() {
-    // Only run if the request is complete
-    if (request.readyState !== 4) return;
-
-    // Process our return data
-    if (request.status === 200) {
-      // Success!
-      console.log(request);
-    } else {
-      // Request failed
-      console.log("boo hoo");
-    }
-  };
-  request.open(
-    "GET",
-    "https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0"
-  );
-  request.send();
-}
-
-// And the call that function:
-
-requestStories();
-```
-
-What we get back is the entire request. Let's send that to another function called `renderStories()` which will add the content we want from the request to the DOM.
-
-First, change `console.log(request);` to a call to the function that passes the data `renderStories(request);`
-
-```js
-function requestStories(url) {
-  var request = new XMLHttpRequest();
-  request.onreadystatechange = function() {
-    // Only run if the request is complete
-    if (request.readyState !== 4) return;
-
-    // Process our return data
-    if (request.status === 200) {
-      // Success!
-      renderStories(request); // NEW
-    } else {
-      // Request failed
-      console.log("boo hoo");
-    }
-  };
-  request.open(
-    "GET",
-    "https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0"
-  );
-  request.send();
-}
-
-// Then add the `renderStories Function passing the request in a `data`::
-
-function renderStories(data) {
-  console.log(data);
-}
-
-// And the call that function:
-
-requestStories();
-```
-
-Note the prototype of the returned info: `XMLHttpRequest`.
-
-Convert the data to JSON:
-
-```js
-function renderStories(data) {
-  var content = JSON.parse(data.responseText);
-  console.log(content);
-}
-```
-
-Note the prototype of the content variable: `Object`. This is due to `JSON.parse()` and is something we can work with.
-
-Lets access the `results` portion of the data (the articles) and put them in a new variable `stories`:
-
-```js
-function renderStories(data) {
-  var content = JSON.parse(data.responseText);
-  var stories = content.results;
-  console.log(stories);
-}
-```
-
-Note the prototype of the stories variable: `Array` and recall that we can use the `forEach` method on a variable. THe `forEach` method requires a function:
-
-```js
-function renderStories(data) {
-  var content = JSON.parse(data.responseText);
-  var stories = content.results;
-  stories.forEach(function(story) {
-    console.log(story.title);
-  });
-}
-```
-
-Now, within the `forEach` we'll make a `div` and set its contents. The `innerHTML` property and the `textContent` property are good candidates.
-
-```js
-function renderStories(data) {
-  var content = JSON.parse(data.responseText);
-  var stories = content.results;
-  stories.forEach(function(story) {
-    var storyEl = document.createElement("div");
-    storyEl.className = "entry";
-    storyEl.innerHTML = `
-      <p>${story.abstract}</p>
-    `;
-    console.log(storyEl);
-  });
-}
-```
-
-Next, we'll add the `storyEl` to the DOM with `prepend`:
-
-```js
-function renderStories(data) {
-  var content = JSON.parse(data.responseText);
-  var stories = content.results;
-  stories.forEach(function(story) {
-    var storyEl = document.createElement("div");
-    storyEl.className = "entry";
-    storyEl.innerHTML = `
-      <p>${story.abstract}</p>
-    `;
-    elem.prepend(storyEl); // NEW
-  });
-}
-```
-
-Note that we are using the variable we set up earlier `var elem = document.querySelector('.site-wrap');` as the target for the `prepend`.
-
-Let's expand the content to include images, links, headers and headlines:
-
-```js
-function renderStories(data) {
-  var content = JSON.parse(data.responseText);
-  var stories = content.results;
-  stories.forEach(function(story) {
-    var storyEl = document.createElement("div");
-    storyEl.className = "entry";
-    storyEl.innerHTML = `
-    <img src="${story.multimedia[0].url}" /> 
-    <div>
-      <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
-      <p>${story.abstract}</p>
-    </div>
-    `;
-    elem.prepend(storyEl); // NEW
-  });
-}
-```
-
-Add some new css to support the new elements:
-
-```css
-.entry {
-  display: grid;
-  grid-template-columns: 1fr 7fr;
-  grid-column-gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.entry a {
-  color: #007eb6;
-  text-decoration: none;
-}
-```
-
-Here is the full script:
-
-```js
-const nytapi = "uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0";
-
-function requestStories(url) {
- var request = new XMLHttpRequest();
- request.onreadystatechange = function() {
-   // Only run if the request is complete
-   if (request.readyState !== 4) return;
-
-   // Process our return data
-   if (request.status === 200) {
-     // Success!
-     renderStories(request); 
-   } else {
-     // Request failed
-     console.log("boo hoo");
-   }
- };
-
- request.open(
-   "GET",
-   "https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0"
- );
- request.send();
-}
-
-function renderStories(data) {
- var content = JSON.parse(data.responseText);
- var stories = content.results;
- stories.forEach(function(story) {
-   var storyEl = document.createElement("div");
-   storyEl.className = "entry";
-   storyEl.innerHTML = `
-   <img src="${story.multimedia[0].url}" /> 
-   <div>
-     <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
-     <p>${story.abstract}</p>
-   </div>
-   `;
-   elem.prepend(storyEl); 
- });
-}
-
-requestStories();
+const nytUrl = `https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=${nytapi}`
 ```
 
 ## The fetch() API
@@ -1305,6 +1072,30 @@ function renderStories(data) {
 }
 ```
 
+Note: not all NYTimes stories include images and, depending on the day, our script could error if `story.multimedia[0]` was undefined. For this we will use a [Conditional (ternary) operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator)
+
+```js
+<img src="${story.multimedia[0] ? story.multimedia[0].url : '/img/no-image.png'}" /> 
+```
+
+Ternaries are very popular in cases like this. Imagine trying to write an `if(){} else(){}` statement inside the string literal.
+
+Add some new css to support the new elements:
+
+```css
+.entry {
+  display: grid;
+  grid-template-columns: 1fr 7fr;
+  grid-column-gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.entry a {
+  color: #007eb6;
+  text-decoration: none;
+}
+```
+
 Using arrow functions:
 
 ```js
@@ -1313,7 +1104,7 @@ fetch(nytUrl)
   .then(myJson => renderStories(myJson));
 ```
 
-## EXERCISE VII - Sections
+## EXERCISE VIII - Sections
 
 Let's add additional Sections to our page.
 
@@ -1348,6 +1139,16 @@ const navItemsObject = [
 ];
 ```
 
+Note: Arts does not appear. Edit the logo related scripts:
+
+```js
+const logo = document.createElement("li");
+const navList = nav.querySelector("nav ul");
+logo.classList.add("logo");
+logo.innerHTML = '<a href="#"><img src="img/logo.svg" /></a>';
+navList.prepend(logo);
+```
+
 Add a categories and limits variable:
 
 ```js
@@ -1366,12 +1167,12 @@ function renderStories(data) {
 Create a new getArticlesByCategory function and call it:
 
 ```js
-  function getArticlesByCategory(cat) {
-    console.log(cat);
-    cat.forEach(function(category, index) {
-      fetchArticles(category, index);
-    });
-  }
+function getArticlesByCategory(cat) {
+ console.log(cat);
+ cat.forEach(function(category, index) {
+   fetchArticles(category, index);
+ });
+}
 
 getArticlesByCategory(categories);
 ```
@@ -1543,16 +1344,6 @@ getArticlesByCategory(categories);
 
 ## Final Touches
 
-If the first section (arts) is not showing up:
-
-```js
- const logo = document.createElement("li");
- const navList = nav.querySelector("nav ul");
- logo.classList.add("logo");
- logo.innerHTML = '<a href="#"><img src="img/logo.svg" /></a>';
- navList.prepend(logo);
- ```
-
 - Add [smooth scrolling](https://github.com/cferdinandi/smooth-scroll/)
 - Move everything [out of](https://vanillajstoolkit.com/boilerplates/iife/) the global scope
 - Implement [local storage](https://gomakethings.com/saving-html-to-localstorage-with-vanilla-js/)
@@ -1560,3 +1351,85 @@ If the first section (arts) is not showing up:
 
 ## Notes
 
+What we get back is the entire request. Let's send that to another function called `renderStories()` which will add the content we want from the request to the DOM.
+
+Note the prototype of the content variable: `Object`. This is due to `JSON.parse()` and is something we can work with.
+
+Lets access the `results` portion of the data (the articles) and put them in a new variable `stories`:
+
+```js
+function renderStories(data) {
+  var content = JSON.parse(data.responseText);
+  var stories = content.results;
+  console.log(stories);
+}
+```
+
+Note the prototype of the stories variable: `Array` and recall that we can use the `forEach` method on a variable. THe `forEach` method requires a function:
+
+```js
+function renderStories(data) {
+  var content = JSON.parse(data.responseText);
+  var stories = content.results;
+  stories.forEach(function(story) {
+    console.log(story.title);
+  });
+}
+```
+
+Now, within the `forEach` we'll make a `div` and set its contents. The `innerHTML` property and the `textContent` property are good candidates.
+
+```js
+function renderStories(data) {
+  var content = JSON.parse(data.responseText);
+  var stories = content.results;
+  stories.forEach(function(story) {
+    var storyEl = document.createElement("div");
+    storyEl.className = "entry";
+    storyEl.innerHTML = `
+      <p>${story.abstract}</p>
+    `;
+    console.log(storyEl);
+  });
+}
+```
+
+Next, we'll add the `storyEl` to the DOM with `prepend`:
+
+```js
+function renderStories(data) {
+  var content = JSON.parse(data.responseText);
+  var stories = content.results;
+  stories.forEach(function(story) {
+    var storyEl = document.createElement("div");
+    storyEl.className = "entry";
+    storyEl.innerHTML = `
+      <p>${story.abstract}</p>
+    `;
+    elem.prepend(storyEl); // NEW
+  });
+}
+```
+
+Note that we are using the variable we set up earlier `var elem = document.querySelector('.site-wrap');` as the target for the `prepend`.
+
+Let's expand the content to include images, links, headers and headlines:
+
+```js
+function renderStories(data) {
+  var content = JSON.parse(data.responseText);
+  var stories = content.results;
+  stories.forEach(function(story) {
+    var storyEl = document.createElement("div");
+    storyEl.className = "entry";
+    storyEl.innerHTML = `
+    <img src="${story.multimedia[0].url}" /> 
+    <div>
+      <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
+      <p>${story.abstract}</p>
+    </div>
+    `;
+    elem.prepend(storyEl); // NEW
+  });
+}
+```
