@@ -37,6 +37,11 @@ header {
   justify-content: center;
 }
 
+h1 {
+  font-family: 'Lobster', cursive;
+  font-weight: normal;
+}
+
 @media (max-width: 640px) {
   header {
     height: 120px;
