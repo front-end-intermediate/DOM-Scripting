@@ -5,7 +5,6 @@
   - [Homework](#homework)
     - [I - New York Times API](#i---new-york-times-api)
     - [II - Create a Helper Method](#ii---create-a-helper-method)
-  - [Reading](#reading)
   - [VSCode](#vscode)
   - [The Command Line](#the-command-line)
   - [Node Package Manager](#node-package-manager)
@@ -14,7 +13,6 @@
     - [.querySelectorAll()](#queryselectorall)
     - [.querySelector()](#queryselector)
   - [Looping - for and forEach()](#looping---for-and-foreach)
-    - [for...in Loops](#forin-loops)
   - [EXERCISE I - Generating Content From an Array](#exercise-i---generating-content-from-an-array)
     - [Aside - Template Literals](#aside---template-literals)
     - [Aside: React](#aside-react)
@@ -70,13 +68,9 @@ https://api.nytimes.com/svc/topstories/v2/{section_name}.json?api-key=1234_my_ap
 
 Refactor your JS file to use a helper method for `querySelector` and `querySelectorAll` following the instructions [here](https://gomakethings.com/an-easier-way-to-get-elements-in-the-dom-with-vanilla-js/).
 
-## Reading
-
-- Watch this video on Node and NPM: [Node.js Tutorial for Absolute Beginners](https://youtu.be/U8XF6AFGqlc) on YouTube
-
 ## VSCode
 
-In this class we will be using [Visual Studio Code](https://code.visualstudio.com/) as our editor. We will discuss its features on an as needed basis.
+In this class we will be using [Visual Studio Code](https://code.visualstudio.com/) as our editor. We will discuss its features on an as-needed basis.
 
 In VSCode press `cmd + shift + p` and type in the word `shell`. Select `Install code command in PATH`
 
@@ -163,8 +157,6 @@ Note: Browser Sync has an interface running at port 3001: [http://localhost:3001
 
 The HTML DOM (Document Object Model) specification allows JavaScript to access and manipulate the elements of an HTML document.
 
-<!-- See the [Mozilla Developer's Network](https://developer.mozilla.org/en-US/docs/Web/JavaScript) entry on JS and on [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model) scripting. -->
-
 The process we will use is:
 
 1. Select an html element
@@ -178,9 +170,7 @@ Use `document.querySelectorAll('selector')` to find all matching elements on a p
 In the browser's console:
 
 ```js
-var listItems = document.querySelectorAll("#main li");
-
-var navLinks = listItems.querySelectorAll("a");
+var elems = document.querySelectorAll(".main li");
 ```
 
 Returns a [NodeList](https://developer.mozilla.org/en-US/docs/Web/API/NodeList).
@@ -220,7 +210,7 @@ var elems = document.querySelectorAll("nav a");
 
 for (let i = 0; i < elems.length; i++) {
   console.log(i); // index
-  console.log(elems[i]); // value
+  console.log(elems[i]); // accessor > value
 }
 ```
 
@@ -228,7 +218,7 @@ ES6 introduced a new `forEach()` method for looping over arrays.
 
 You pass a [callback function](https://developer.mozilla.org/en-US/docs/Glossary/Callback_function) into `forEach()`. The first argument is the current item in the loop. The second is the current index in the array.
 
-Unlike with a for loop, you can’t terminate the `forEach()` function before it’s completed. You can return to end the current loop, but you can’t call break.
+Unlike a for loop, you can’t terminate the `forEach()` function before it’s completed with `break`. 
 
 ```js
 var elems = document.querySelectorAll("nav a");
@@ -248,29 +238,11 @@ Array.from(document.querySelectorAll("nav a")).forEach(function(item, index) {
 });
 ```
 
-### for...in Loops
-
-A `for...in` loop is a modified version of a `for` loop that you can use to loop through _objects_.
-
-The first part, `key`, is a variable that gets assigned to the object key on each loop. The second part is the object to loop over.
-
-```js
-var myString = "";
-var myObject = { a: 1, b: 2, c: 3 };
-
-for (var property in myObject) {
-  myString += myObject[property];
-}
-
-console.log(myString);
-// expected output: "123"
-```
-
 ## EXERCISE I - Generating Content From an Array
 
 In today's class we will implement [this single page web site](http://oit2.scps.nyu.edu/~devereld/intermediate/session1/).
 
-We will beginn by replacing the existing nav labels with items from an array using a `for loop`.
+We will begin by replacing the existing nav with items from an array using a `for loop`.
 
 Examine the two provided JS files. Note that they are made available to `index.html` via the script tag at the bottom of that document:
 
@@ -284,10 +256,10 @@ Note the difference between `navItemsObject` and `navItemsArray`. The latter is 
 In the console:
 
 ```js
-> navItemsArray
-> navItemsObject
-> typeof navItemsArray
-> Array.isArray(navItemsArray)
+navItemsArray
+navItemsObject
+typeof navItemsArray
+Array.isArray(navItemsArray)
 ```
 
 In `myScripts.js`:
@@ -313,8 +285,8 @@ const navList = nav.querySelectorAll("li a");
 
 Compare `navList` and `navItemsArray` in the console and note the `prototypes` in the inspector.
 
-- `navList` comes from our JavaScript: `const navList = nav.querySelectorAll('li a');`
-- `navItemsArray` comes from '`navItems.js`.)
+- `navList` is from our JavaScript: `const navList = nav.querySelectorAll('li a');`
+- `navItemsArray` is from '`navItems.js`.)
 
 Both have a length property - `navList.length` and `navItemsArray.length`.
 
@@ -343,24 +315,12 @@ var elem = document.querySelector(".site-wrap");
 var html = elem.innerHTML;
 
 // Set HTML content
-elem.innerHTML =
-  'We can dynamically change the HTML to include HTML elements like <a href="#">this link</a>.';
-
-// Add HTML to the end of an element's existing content
-elem.innerHTML += " Add this after what is already there.";
-
-// Add HTML to the beginning of an element's existing content
-elem.innerHTML = "We can add this to the beginning. " + elem.innerHTML;
-
-// You can inject entire elements into other ones, too
-elem.innerHTML += "<p>A new paragraph</p>";
+elem.innerHTML = 'We can dynamically change the HTML to include <a href="#">HTML elements</a>.';
 ```
 
-We are using the existing `<li>` elements in the DOM but there are 8 items in our `navItemsArray` array.
+We are using the six existing `<li>` elements in the DOM but there are 8 items in our `navItemsArray` array.
 
-Solution: dynamically generate the nav from items in the array.
-
-- depopulate the nav children
+We need to dynamically generate the nav from items in the array.
 
 Edit the HTML:
 
@@ -396,10 +356,11 @@ target.prepend(div);
 target.append(div);
 ```
 
-Let's empty the html content of our nav and append a new div:
+Let's empty the html content of our nav and append a new div. 
+
+Delete eveything in `myscripts` and add:
 
 ```js
-// myscripts.js
 const nav = document.querySelector(".main");
 
 const navList = document.createElement("ul");
@@ -408,27 +369,17 @@ nav.append(navList);
 
 Note the `<ul>` in the header.
 
-- dynamically create the nav based on the number of items in the array using a for loop:
+Dynamically create the nav based on the number of items in the array using a for loop:
 
 ```js
-for (let i = 0; i < navItemsArray.length; i++) {
-  let listItem = document.createElement("li");
-  let linkText = navItemsArray[i];
-  listItem.innerHTML = '<a href="#">' + linkText + "</a>";
-  navList.append(listItem);
-}
-```
+const nav = document.querySelector('.main');
 
-E.g.:
-
-```js
-const nav = document.querySelector(".main");
-const navList = document.createElement("ul");
+const navList = document.createElement('ul');
 
 for (let i = 0; i < navItemsArray.length; i++) {
-  let listItem = document.createElement("li");
+  let listItem = document.createElement('li');
   let linkText = navItemsArray[i];
-  listItem.innerHTML = '<a href="#">' + linkText + "</a>";
+  listItem.innerHTML = '<a href="#">' + linkText + '</a>';
   navList.append(listItem);
 }
 
@@ -452,7 +403,7 @@ console.log(oldschool);
 console.log(sentence);
 ```
 
-[Template Strings](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) use back ticks instead of quotes and have access to JS inside curly brackets preceeded by a `$` sign.
+[Template Strings](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) use back ticks instead of quotes and have access to JS expressions inside plaeholders -  `${ ... }`.
 
 ---
 
@@ -468,13 +419,23 @@ for (let i = 0; i < navItemsArray.length; i++) {
 }
 ```
 
+Finally, use `forEach()` instead of a for loop:
+
+```js
+navItemsArray.forEach(function(item) {
+  let listItem = document.createElement('li');
+  listItem.innerHTML = `<a href="#">${item}</a>`;
+  navList.appendChild(listItem);
+});
+```
+
 ---
 
 ### Aside: React
 
 Open for reference `other > React > 1-react.html`
 
-Since we will be spending much of our time this semester in React, it is worthwhile to point out at this time that React, at a very fundamental level, is a simpler means of createing DOM elements.
+Since we will be spending much of our time this semester in React, it is worthwhile to point out at this time that React, at a very fundamental level, offers an alternate way to create DOM elements.
 
 The second file, `2-react-jsx.html`, uses [Babel](https://babeljs.io) to help create a DOM element.
 
@@ -485,6 +446,8 @@ The second file, `2-react-jsx.html`, uses [Babel](https://babeljs.io) to help cr
 ## EXERCISE II - Content Generation with an Array of Objects
 
 So far we have been working with a simple array. Most APIs consist of an array of objects:
+
+`https://jsonplaceholder.typicode.com/posts`
 
 ```js
 const navItemsObject = [
@@ -528,13 +491,28 @@ Add the links using `navItemsObject` instead of `navItemsArray`.
 Note the the 'dot' accessor notation for dealing with an object and the addition of the anchor tags:
 
 ```js
+const nav = document.querySelector('.main');
+
+const navList = document.createElement('ul');
+
 for (let i = 0; i < navItemsObject.length; i++) {
-  const listItem = document.createElement("li");
-  listItem.innerHTML = `<a href="${navItemsObject[i].link}">${
-    navItemsObject[i].label
-  }</a>`;
+  const listItem = document.createElement('li');
+  listItem.innerHTML = `<a href="${navItemsObject[i].link}">${navItemsObject[i]
+    .label}</a>`;
   navList.appendChild(listItem);
 }
+
+nav.append(navList);
+```
+
+Refactor to use `forEach()`:
+
+```js
+navItemsObject.forEach(function(item) {
+  let listItem = document.createElement('li');
+  listItem.innerHTML = `<a href="${item.link}">${item.label}</a>`;
+  navList.appendChild(listItem);
+});
 ```
 
 Navigate and inspect the code and note that we now have anchor tags with page fragment links in our html and are able to navigate within our page.
@@ -548,10 +526,10 @@ Open `other > javascript > Objects > objects.html` in a browser tab.
 Examine the sample object in the browser console:
 
 ```sh
-> last
-> me
-> me.links
-> me.links.social.twitter
+last
+me
+me.links
+me.links.social.twitter
 ```
 
 Add to script block:
@@ -559,6 +537,8 @@ Add to script block:
 ```js
 const { twitter, facebook } = me.links.social;
 ```
+
+This is an example of [destructing](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) - a JavaScript expression that makes it possible to unpack values from arrays, or properties from objects, into distinct variables. We will be using it extensively in this class.
 
 Create a multi-line template string and display it on the page:
 
@@ -575,15 +555,6 @@ const content = `
 `;
 document.body.innerHTML = content;
 ```
-
-The new line:
-
-```js
-const { twitter, facebook } = me.links.social;
-```
-
-Is an example of [destructing](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) - a JavaScript expression that makes it possible to unpack values from arrays, or properties from objects, into distinct variables. We will be using it extensively in this class.
-
 ---
 
 <!-- end aside  -->
@@ -637,6 +608,8 @@ Note the lack of a `return` statement. While they can be used within arrow funct
 
 #### [Array.prototype.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) and [join()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join)
 
+The map method transforms a collection by applying a function to all of its elements and building a new collection from the returned values.
+
 Provide an array of the inventors first and last names:
 
 ```js
@@ -664,6 +637,8 @@ console.log("Full names: " + fullNames);
 Let's try creating the list items using `map()` and template strings:
 
 ```js
+const nav = document.querySelector('.main');
+
 const markup = `
     <ul>
       ${navItemsObject.map(function(item) {
@@ -689,15 +664,11 @@ const markup = `
         .join("")}
     </ul>
     `;
-
-nav.innerHTML = markup;
 ```
 
 Finally, refactor using an arrow function:
 
 ```js
-const nav = document.querySelector("nav");
-
 const markup = `
 <ul>
   ${navItemsObject
@@ -705,9 +676,9 @@ const markup = `
     .join("")}
 </ul>
 `;
-
-nav.innerHTML = markup;
 ```
+
+These methods, `.map`, `.filter`, and others we have yet to look at such as `.reduce`, are _the prefered_ means of manipulating data today. 
 
 ## EXERCISE IV - Sticky Menu
 
@@ -718,7 +689,7 @@ Solution: we will anchor the menu to the top of the screen once the user has scr
 Note: this behavior can be managed without JavaScript using the css position property:
 
 ```css
-#main {
+.main {
   position: sticky;
   top: 0px;
 }
@@ -787,7 +758,7 @@ function fixNav() {
 
 When the nav gets position fixed it no longer takes up space in the window so the content beneath it jumps upward (reflows).
 
-Take care of this jump using `offsetHeight` to add an amount of padding equal to the height of the nav to the body element.
+Take care of this jump using `nav.offsetHeight` to add an amount of padding equal to the height of the nav to the body element.
 
 ```js
 function fixNav() {
@@ -844,8 +815,6 @@ Note the use of max-width above. We are using this because transitions do not an
 
 ## EXERCISE VI - AJAX and APIs
 
-AJAX is a method you can use to get and send data to APIs.
-
 _AJAX stands for Asynchronous JavaScript And XML. In a nutshell, it is the use of the XMLHttpRequest object to communicate with servers. It can send and receive information in various formats, including JSON, XML, HTML, and text files. AJAX’s most appealing characteristic is its “asynchronous” nature, which means it can communicate with the server, exchange data, and update the page without having to refresh the page._ - [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/Guide/AJAX/Getting_Started)
 
 An API (Application Programming Interface) is a set of subroutine definitions, communication protocols, and tools for building software. In general terms, it is a set of clearly defined methods of communication among various components. A good API makes it easier to develop a computer program by providing all the building blocks, which are then put together by the programmer.
@@ -892,9 +861,9 @@ xhr.onreadystatechange = function() {
 };
 ```
 
-Finally, we’ll open our request, specifying the request type and the URL to make our request to.
+Finally, we open our request, specifying the request type and the URL to make our request to.
 
-Then, we’ll send our request.
+Then, we send our request.
 
 Try this in the console:
 
@@ -922,7 +891,7 @@ xhr.open("GET", "https://jsonplaceholder.typicode.com/posts");
 xhr.send();
 ```
 
-We used a GET request to get a list of posts from JSON Placeholder, but, there are a handful of possible request types you can make. HTTP methods are typically verbs that describe what the request your making does.
+We used a GET request to get a list of posts from JSON Placeholder, but, there are a handful of possible request types you can make. HTTP methods are typically verbs that describe what the request you're making does.
 
 The four most common are GET, POST, PUT, and DELETE. You can see a list at the [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods).
 
@@ -1003,8 +972,6 @@ xhr.send();
 
 ## EXERCISE VII - Adding Content
 
-<!-- Once you get API data, you’ll typically want to use it to create some markup. -->
-
 We will use the [NY Times developer](https://developer.nytimes.com) API for getting a data using my API key.
 
 The specific API endpoint for this is their [top stories endpoint](https://developer.nytimes.com/docs/top-stories-product/1/overview). It lets us request the top stories from a specific section of their publication.
@@ -1015,25 +982,17 @@ Start by removing the existing HTML content from the site-wrap div in  `index.ht
 <div class="site-wrap"></div>
 ```
 
-Store the API key, a template string with the complete URL, and the element we want to manipulate in a variable:
+Store the API key, a template string with the complete URL, and the element we want to manipulate (`.site-wrap`) in a variable:
 
 ```js
-var elem = document.querySelector(".site-wrap");
+var root = document.querySelector(".site-wrap");
 const nytapi = "uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0";
 const nytUrl = `https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=${nytapi}`
 ```
 
 ## The fetch() API
 
-The [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) is a newer alternative to XMLHttpRequest.
-
-Add a new variable to the top of the scripts:
-
-```js
-const nytUrl = `https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=${nytapi}`
-```
-
-Remove the XHR code and `requestStories();` and add:
+The [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) is a newer and easier to read alternative to XMLHttpRequest. 
 
 ```js
 fetch(nytUrl)
@@ -1045,7 +1004,7 @@ fetch(nytUrl)
   });
 ```
 
-`fetch()` is a [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises) based API. 
+`fetch()` returns a [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises). 
 
 ```js
 fetch(nytUrl)
