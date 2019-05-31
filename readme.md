@@ -43,9 +43,14 @@ We begin by introducing much of the JavaScript you will need for this semester -
   - [EXERCISE VII - Adding Content](#exercise-vii---adding-content)
     - [The fetch() API](#the-fetch-api)
   - [EXERCISE VIII - Sections](#exercise-viii---sections)
-    - [Final Script](#final-script)
-  - [Final Touches](#final-touches)
+    - [Array.slice()](#arrayslice)
+  - [Final Script](#final-script)
   - [Notes](#notes)
+    - [Smooth Scrolling](#smooth-scrolling)
+    - [Immediately Invoked Function Expression](#immediately-invoked-function-expression)
+    - [Local Storage](#local-storage)
+    - [Final HTML](#final-html)
+    - [Final CSS](#final-css)
 
 ## Syllabus
 
@@ -1024,7 +1029,11 @@ fetch(nytUrl)
   .then(function(myJson) {
     renderStories(myJson);
   });
+```
 
+In `renderStories` we take the passed data (our JSON) and run a `forEach` on every item that creates a `div` with the desired content:
+
+```js
 function renderStories(data) {
   data.results.forEach(function(story) {
     var storyEl = document.createElement("div");
@@ -1044,10 +1053,10 @@ function renderStories(data) {
 Note: not all NYTimes stories include images and, depending on the day, our script could error if `story.multimedia[0]` was undefined. For this we will use a [Conditional (ternary) operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator)
 
 ```js
-   <img src="${ story.multimedia.length > 0 ? story.multimedia[0].url : '/img/no-image.png' }" />
+<img src="${ story.multimedia.length > 0 ? story.multimedia[0].url : 'img/no-image.png' }" />
 ```
 
-Ternaries are very popular in cases like this. Imagine trying to write an `if(){} else(){}` statement inside the string literal. In React they are essential.
+Ternaries are popular in cases like this. (Imagine trying to write an `if(){} else(){}` statement inside a string literal.) In React they are essential.
 
 Add some new css to support the new elements:
 
@@ -1077,7 +1086,7 @@ fetch(nytUrl)
 
 Let's add additional Sections to our page.
 
-Replace navItemsObject.js with
+Replace `navItemsObject.js` with
 
 ```js
 const navItemsObject = [
@@ -1108,9 +1117,10 @@ const navItemsObject = [
 ];
 ```
 
-Note: Arts does not appear. Edit the logo related scripts:
+Note: Arts does not appear in the nav. Edit the logo related scripts:
 
 ```js
+// logo
 const logo = document.createElement("li");
 const navList = nav.querySelector("nav ul");
 logo.classList.add("logo");
@@ -1118,7 +1128,7 @@ logo.innerHTML = '<a href="#"><img src="img/logo.svg" /></a>';
 navList.prepend(logo);
 ```
 
-Add a categories and limits variable:
+Add a categories and limit variable:
 
 ```js
 const limit = 6;
@@ -1133,29 +1143,30 @@ function renderStories(data) {
 }
 ```
 
-Create a new `getArticlesByCategory` function and call it:
+Create a new `getArticlesByCategory` function and call it with the categories array:
 
 ```js
 function getArticlesByCategory(cat) {
- console.log(cat);
- cat.forEach(function(category, index) {
-   fetchArticles(category, index);
+ cat.forEach(function(category) {
+   fetchArticles(category);
  });
 }
 
 getArticlesByCategory(categories);
 ```
 
+This function's sole purpose is to call a new function `fetchArticles` with each of the items in our categories array.
+
 Create a fetchArticles function that generate a url based on the section:
 
 ```js
-  function fetchArticles(section) {
-    fetch(
-      `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${nytapi}`
-    )
-      .then(response => response.json())
-      .then(myJson => renderStories(myJson));
-  }
+function fetchArticles(section) {
+ fetch(
+   `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${nytapi}`
+ )
+   .then(response => response.json())
+   .then(myJson => renderStories(myJson));
+}
 ```
 
 In the `renderStories()` function we begin by adding the title to a new div:
@@ -1169,7 +1180,7 @@ function renderStories(data) {
 }
 ```
 
-Now we will use `forEach` to create our html fragments and append them to the section heading div so we can have nice category headers:
+Now we use `forEach` to create our html fragments again and append them to the section heading div so we can have nice category headers:
 
 ```js
 function renderStories(data) {
@@ -1184,9 +1195,7 @@ function renderStories(data) {
     storyEl = document.createElement("div");
     storyEl.className = "entry";
     storyEl.innerHTML = `
-    <img src="${
-      story.multimedia[0].url ? story.multimedia[0].url : "No image available"
-    }" />
+    <img src="${ story.multimedia.length > 0 ? story.multimedia[0].url : 'img/no-image.png' }" />
     <div>
       <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
       <p>${story.abstract}</p>
@@ -1196,6 +1205,8 @@ function renderStories(data) {
   });
 }
 ```
+
+### Array.slice()
 
 Note the use of the Array method [slice()]((https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)) and our limit variable to constrain the number of articles displayed.
 
@@ -1230,11 +1241,11 @@ and are also available in  `navItemsObject`  we can simplify things a bit by cha
 const categories = navItemsObject.map(item => item.label);
 ```
 
-### Final Script
+## Final Script
 
 ```js
 // variables
-var elem = document.querySelector('.site-wrap');
+var root = document.querySelector('.site-wrap');
 const nytapi = 'uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0';
 const limit = 6;
 const categories = navItemsObject.map(item => item.label);
@@ -1274,14 +1285,12 @@ function fixNav() {
 
 // articles
 function getArticlesByCategory(cat) {
-  console.log(cat);
   cat.forEach(function(category, index) {
     fetchArticles(category, index);
   });
 }
 
-function fetchArticles(section, idx) {
-  console.log('index ' + idx);
+function fetchArticles(section) {
   fetch(
     `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${nytapi}`,
   )
@@ -1293,7 +1302,7 @@ function renderStories(data) {
   var sectionHead = document.createElement('div');
   sectionHead.id = data.section;
   sectionHead.innerHTML = `<h3 class="section-head">${data.section}</h3>`;
-  elem.prepend(sectionHead);
+  root.prepend(sectionHead);
 
   stories = data.results.slice(0, limit);
 
@@ -1304,7 +1313,7 @@ function renderStories(data) {
     <img src="${
       story.multimedia.length > 0
         ? story.multimedia[0].url
-        : '/img/no-image.png'
+        : 'img/no-image.png'
     }" />
     <div>
       <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
@@ -1321,11 +1330,11 @@ getArticlesByCategory(categories);
 
 ```
 
-## Final Touches
+## Notes
 
-- Add [smooth scrolling](https://github.com/cferdinandi/smooth-scroll/)
-- Move everything [out of](https://vanillajstoolkit.com/boilerplates/iife/) the global scope
-- Implement [local storage](https://gomakethings.com/saving-html-to-localstorage-with-vanilla-js/)
+### Smooth Scrolling
+
+Add [smooth scrolling](https://github.com/cferdinandi/smooth-scroll/)
 
 ```js
 <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
@@ -1337,92 +1346,217 @@ getArticlesByCategory(categories);
 </script>
 ```
 
-```js
+### Immediately Invoked Function Expression
 
+Move everything [out of](https://vanillajstoolkit.com/boilerplates/iife/) the global scope
+
+```js
+;(function () {
+
+    'use strict';
+
+    // Code goes here...
+
+})();
 ```
 
+### Local Storage
 
-## Notes
-
-What we get back is the entire request. Let's send that to another function called `renderStories()` which will add the content we want from the request to the DOM.
-
-Note the prototype of the content variable: `Object`. This is due to `JSON.parse()` and is something we can work with.
-
-Lets access the `results` portion of the data (the articles) and put them in a new variable `stories`:
+Implement [local storage](https://gomakethings.com/saving-html-to-localstorage-with-vanilla-js/)
 
 ```js
 function renderStories(data) {
-  var content = JSON.parse(data.responseText);
-  var stories = content.results;
-  console.log(stories);
+  ...
+ localStorage.setItem('articles', root.innerHTML);
+ ...
 }
 ```
 
-Note the prototype of the stories variable: `Array` and recall that we can use the `forEach` method on a variable. THe `forEach` method requires a function:
-
 ```js
-function renderStories(data) {
-  var content = JSON.parse(data.responseText);
-  var stories = content.results;
-  stories.forEach(function(story) {
-    console.log(story.title);
-  });
+let saved = localStorage.getItem('articles');
+if (saved) {
+ elem.innerHTML = saved;
+} else {
+ getArticlesByCategory(categories);
 }
 ```
 
-Now, within the `forEach` we'll make a `div` and set its contents. The `innerHTML` property and the `textContent` property are good candidates.
+In Chrome's inspector select Application and browser to Storage > Local Storage.
 
-```js
-function renderStories(data) {
-  var content = JSON.parse(data.responseText);
-  var stories = content.results;
-  stories.forEach(function(story) {
-    var storyEl = document.createElement("div");
-    storyEl.className = "entry";
-    storyEl.innerHTML = `
-      <p>${story.abstract}</p>
-    `;
-    console.log(storyEl);
-  });
-}
+### Final HTML
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>All the News</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Lobster&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+
+  <body>
+    <header>
+      <h1>All the News That Fits We Print!</h1>
+    </header>
+
+    <nav class="main"></nav>
+
+    <div class="site-wrap"></div>
+
+    <script src="js/navitems.js"></script>
+
+    <script src="js/myscripts.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+    <script>
+      var scroll = new SmoothScroll('a[href*="#"]', {
+        speed: 500,
+        easing: 'easeInOutQuad',
+      });
+    </script>
+  </body>
+</html>
 ```
 
-Next, we'll add the `storyEl` to the DOM with `prepend`:
+### Final CSS
 
-```js
-function renderStories(data) {
-  var content = JSON.parse(data.responseText);
-  var stories = content.results;
-  stories.forEach(function(story) {
-    var storyEl = document.createElement("div");
-    storyEl.className = "entry";
-    storyEl.innerHTML = `
-      <p>${story.abstract}</p>
-    `;
-    elem.prepend(storyEl); // NEW
-  });
+```css
+* {
+  margin: 0;
+  padding: 0;
 }
-```
 
-Note that we are using the variable we set up earlier `var elem = document.querySelector('.site-wrap');` as the target for the `prepend`.
-
-Let's expand the content to include images, links, headers and headlines:
-
-```js
-function renderStories(data) {
-  var content = JSON.parse(data.responseText);
-  var stories = content.results;
-  stories.forEach(function(story) {
-    var storyEl = document.createElement("div");
-    storyEl.className = "entry";
-    storyEl.innerHTML = `
-    <img src="${story.multimedia[0].url}" /> 
-    <div>
-      <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
-      <p>${story.abstract}</p>
-    </div>
-    `;
-    elem.prepend(storyEl); // NEW
-  });
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  line-height: 1.4;
 }
+
+html {
+  box-sizing: border-box;
+  background: #eee;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+.site-wrap {
+  max-width: 90vw;
+  margin: 40px auto;
+  background: white;
+  padding: 1rem;
+  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.05);
+}
+
+header {
+  height: 320px;
+  background: url(../img/img.jpg) center no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h1 {
+  font-family: 'Lobster', cursive;
+  font-weight: normal;
+}
+
+@media (max-width: 640px) {
+  header {
+    height: 120px;
+  }
+}
+
+p {
+  margin: 1rem 0;
+}
+
+h1 {
+  color: white;
+  font-size: 7vw;
+  font-weight: 400;
+  text-shadow: 3px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+nav {
+  background: #007eb6;
+  width: 100%;
+  transition: all 0.5s;
+  z-index: 1;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2.5rem;
+}
+
+nav li {
+  flex: 1;
+  text-align: center;
+}
+
+nav a {
+  text-decoration: none;
+  display: inline-block;
+  color: white;
+  text-transform: capitalize;
+  font-weight: 700;
+}
+
+img {
+  width: 100%;
+}
+body.fixed-nav nav {
+  position: fixed;
+  top: 0;
+  box-shadow: 0 5px 3px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  z-index: 1;
+}
+li.logo img {
+  padding-top: 0.25rem;
+  width: 2.5rem;
+}
+li.logo {
+  max-width: 0;
+  overflow: hidden;
+  background: white;
+  transition: all 0.5s;
+}
+.fixed-nav li.logo {
+  max-width: 500px;
+}
+.entry {
+  display: grid;
+  grid-template-columns: 1fr 7fr;
+  grid-column-gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.entry a {
+  color: #007eb6;
+  text-decoration: none;
+}
+.section-head {
+  font-family: Lobster;
+  color: #007eb6;
+  font-size: 2.5rem;
+  text-transform: capitalize;
+  padding-bottom: 0.25rem;
+  padding-top: 4rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #007eb6;
+}
+
 ```
