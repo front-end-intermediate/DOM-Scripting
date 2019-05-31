@@ -1,5 +1,16 @@
 # I - JavaScript, AJAX and DOM Manipulation
 
+In today's class we will implement [this single page web site](http://oit2.scps.nyu.edu/~devereld/intermediate/session1/).
+
+The interesting point about this page is that the content is almost entirely generated using JavaScript (try selecting `view > developer > View Source` in Chrome). 
+
+In creating this page we will focus on techniques that are critical not just for working effectively with DOM manipulation, but that are also critical for React and other JavaScript frameworks.
+
+We begin by introducing much of the JavaScript you will need for this semester - functions, loops, selectors, array and object methods, template strings, and AJAX. 
+
+- Install [Visual Studio Code](https://code.visualstudio.com/)
+- Install [Node.js](https://nodejs.org/en/)
+
 - [I - JavaScript, AJAX and DOM Manipulation](#i---javascript-ajax-and-dom-manipulation)
   - [Syllabus](#syllabus)
   - [Homework](#homework)
@@ -12,6 +23,7 @@
   - [DOM Scripting](#dom-scripting)
     - [.querySelectorAll()](#queryselectorall)
     - [.querySelector()](#queryselector)
+    - [Aside - A Common Source of Errors](#aside---a-common-source-of-errors)
   - [Looping - for and forEach()](#looping---for-and-foreach)
   - [EXERCISE I - Generating Content From an Array](#exercise-i---generating-content-from-an-array)
     - [Aside - Template Literals](#aside---template-literals)
@@ -27,26 +39,22 @@
   - [EXERCISE V - Adding an SVG Image](#exercise-v---adding-an-svg-image)
   - [EXERCISE VI - AJAX and APIs](#exercise-vi---ajax-and-apis)
     - [XHR](#xhr)
-    - [Converting `xhr.responseText` from a string to an object](#converting-xhrresponsetext-from-a-string-to-an-object)
+    - [Convert `xhr.responseText` from a string to an object](#convert-xhrresponsetext-from-a-string-to-an-object)
   - [EXERCISE VII - Adding Content](#exercise-vii---adding-content)
-  - [The fetch() API](#the-fetch-api)
+    - [The fetch() API](#the-fetch-api)
   - [EXERCISE VIII - Sections](#exercise-viii---sections)
     - [Final Script](#final-script)
   - [Final Touches](#final-touches)
   - [Notes](#notes)
-
-Today we begin by introducing much of the JavaScript you will need for this semester - loops, selectors, arrays, objects, template strings, and AJAX. We will be doing this in the context of DOM scripting.
-
-- Install [Visual Studio Code](https://code.visualstudio.com/)
-- Install [Node.js](https://nodejs.org/en/)
-- Install [Git](https://git-scm.com)
-- Create a Github account
 
 ## Syllabus
 
 [Syllabus](http://daniel.deverell.com/syllabii/_intermediate-syllabus.pdf)
 
 ## Homework
+
+- Install [Git](https://git-scm.com)
+- Create a Github account
 
 ### I - New York Times API
 
@@ -61,7 +69,7 @@ Add a new category of New York Times articles using _your own_ api key.
 4. Request the top stories from a specific section of their publication and incorporate them into the layout
 
 ```
-https://api.nytimes.com/svc/topstories/v2/{section_name}.json?api-key=1234_my_api_key_5678
+https://api.nytimes.com/svc/topstories/v2/<section_name>.json?api-key=<_your_api_key_>
 ```
 
 ### II - Create a Helper Method
@@ -72,7 +80,7 @@ Refactor your JS file to use a helper method for `querySelector` and `querySelec
 
 In this class we will be using [Visual Studio Code](https://code.visualstudio.com/) as our editor. We will discuss its features on an as-needed basis.
 
-In VSCode press `cmd + shift + p` and type in the word `shell`. Select `Install code command in PATH`
+Start VSCode, press `cmd + shift + p` and type in the word `shell`. Select `Install code command in PATH`.
 
 ![Image of layout](other/images/vscode.png)
 
@@ -80,37 +88,37 @@ In VSCode press `cmd + shift + p` and type in the word `shell`. Select `Install 
 
 You are going to need to have a minimal set of terminal commands at your disposal.
 
-Note: Windows users should use the Git Bash terminal that is installed along with Git.
+Windows users should use the Git Bash terminal that is installed along with Git.
 
 Start the terminal app (Mac OS) or Git Bash (Windows).
 
 ```sh
-$ cd  // change directory
-$ cd ~  // go to your home directory
-$ cd <PATH>  // Mac: copy and paste the folder you want to go to
-$ cd Desk  // tab completion
-$ cd ..  // go up one level
-$ ls  // list files, dir on a PC
-$ ls -al  // list file with flags that expand the command
-$ pwd  // print working directory
+cd  // change directory
+cd ~  // go to your home directory
+cd <PATH>  // Mac: copy and paste the folder you want to go to
+cd Desk  // tab completion
+cd ..  // go up one level
+ls  // list files, dir on a PC
+ls -al  // list file with flags that expand the command
+pwd  // print working directory
 ```
 
 `cd` into today's working directory and type:
 
 ```sh
-$ code .
+code .
 ```
 
 ## Node Package Manager
 
 [Node Package Manager](https://www.npmjs.com) (NPM) is an essential part of the web design and development ecosystem. [Node](https://nodejs.org/en/) includes NPM as part of its install.
 
-Open the integrated terminal in VSCode (`View > Terminal`) with `ctrl + ~` (control + tilde).
+Open the integrated terminal in VSCode (`View > Terminal`) with `ctrl + ~`.
 
-For our first foray into NPM we will install and use [Browser Sync](https://www.browsersync.io).
+For our first foray into NPM we will install and use [Browser Sync](https://www.browsersync.io) for hot reloarding.
 
 ```sh
-$ npm init -y
+npm init -y
 ```
 
 - `npm init -y` creates `package.json` - examine it.
@@ -124,7 +132,7 @@ $ npm install browser-sync --save-dev
 
 ### NPM Scripts
 
-`package.json` contains a single script by default. NPM scripts are very powerful but can be difficult to write - most because the documentation is hard to find or written for other techniques.
+`package.json` contains a single script by default. NPM scripts are very powerful but can be difficult to write - primarily because the documentation is hard to find or cryptic.
 
 One hint is to always look for the command line documentation for any software you've installed via NPM. NPM scripts are best viewed as command line instructions which can be called by node.
 
@@ -136,22 +144,20 @@ Here is the documentation for browser-sync:
 Create the NPM script in `package.json` using the Browser Sync command line documentation:
 
 ```js
-  "scripts": {
-    "start": "browser-sync start --server 'app' --files 'app'"
-  },
+"scripts": {
+  "start": "browser-sync start --server 'app' --files 'app'"
+},
 ```
 
 And run the process using VS Code's embedded terminal (View > Terminal):
 
 ```sh
-$ npm run start
+npm run start
 ```
 
 ![Image of layout](other/images/layout.png)
 
-This will open `index.html` in your browser - examine the html and css in the inspector.
-
-Note: Browser Sync has an interface running at port 3001: [http://localhost:3001](http://localhost:3001)
+This will open `index.html` in your browser. If it opens in a browser other than Chrome, start Chrome and copy and paste the URL into a new tab in Chrome. 
 
 ## DOM Scripting
 
@@ -187,6 +193,10 @@ var elem = document.querySelector(".main a");
 
 Returns an HTML element or Node.
 
+---
+
+### Aside - A Common Source of Errors
+
 If an element isn’t found, `querySelector()` returns null.
 
 ```js
@@ -200,6 +210,9 @@ if (elem) {
   // Do something...
 }
 ```
+---
+
+<!-- end aside -->
 
 ## Looping - for and forEach()
 
@@ -239,8 +252,6 @@ Array.from(document.querySelectorAll("nav a")).forEach(function(item, index) {
 ```
 
 ## EXERCISE I - Generating Content From an Array
-
-In today's class we will implement [this single page web site](http://oit2.scps.nyu.edu/~devereld/intermediate/session1/).
 
 We will begin by replacing the existing nav with items from an array using a `for loop`.
 
@@ -445,9 +456,11 @@ The second file, `2-react-jsx.html`, uses [Babel](https://babeljs.io) to help cr
 
 ## EXERCISE II - Content Generation with an Array of Objects
 
-So far we have been working with a simple array. Most APIs consist of an array of objects:
+So far we have been working with a simple array. Most APIs consist of an array of objects: 
 
-`https://jsonplaceholder.typicode.com/posts`
+* [JSON Placeholder](https://jsonplaceholder.typicode.com/posts)
+* [City Growth](https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json)
+* navItemsObject:
 
 ```js
 const navItemsObject = [
@@ -701,13 +714,10 @@ The DOM method [`offSetTop`](https://developer.mozilla.org/en-US/docs/Web/API/HT
 
 ```js
 let topOfNav = nav.offsetTop;
+window.addEventListener("scroll", fixNav);
 ```
 
 The DOM method - [addEventListener('event', function)](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener), see also [event types](https://developer.mozilla.org/en-US/docs/Web/Events) allows us to listen for an event in the browser and run a function when it occurs.
-
-```js
-window.addEventListener("scroll", fixNav);
-```
 
 Use [window.scrollY](https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollY) to get the number of pixels that the document is currently scrolled vertically:
 
@@ -821,7 +831,7 @@ An API (Application Programming Interface) is a set of subroutine definitions, c
 
 ### XHR
 
-To start off we'll use `XMLHttpRequest()` and then graduate to a more modern browser API.
+To start off we'll look at the classic `XMLHttpRequest()` browser API.
 
 Making AJAX requests with the `XMLHttpRequest()` method, often referred to as `XHR`, is a three step process:
 
@@ -928,7 +938,7 @@ xhr.open("GET", "https://jsonplaceholder.typicode.com/posts/10");
 xhr.send();
 ```
 
-### Converting `xhr.responseText` from a string to an object
+### Convert `xhr.responseText` from a string to an object
 
 The JSON response you get back is sent as a string but, in order to work with the data, we need to convert it back into an object. You do this with the `JSON.parse()` method.
 
@@ -990,24 +1000,9 @@ const nytapi = "uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0";
 const nytUrl = `https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=${nytapi}`
 ```
 
-## The fetch() API
+### The fetch() API
 
 The [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) is a newer and easier to read alternative to XMLHttpRequest. 
-
-`fetch()` returns a [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises). 
-
-```js
-const prom = fetch(nytUrl)
-console.log(prom)
-```
-
-In order to work with promises you call `.then` against them:
-
-```js
-fetch(nytUrl).then( response => console.log(response))
-```
-
-The data that returns needs to be converted from raw data into JSON:
 
 ```js
 fetch(nytUrl)
@@ -1019,7 +1014,7 @@ fetch(nytUrl)
   });
 ```
 
-To get the data into our application we create a function and pass the data to it:
+`fetch()` returns a [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises). 
 
 ```js
 fetch(nytUrl)
@@ -1032,16 +1027,16 @@ fetch(nytUrl)
 
 function renderStories(data) {
   data.results.forEach(function(story) {
-    var storyElement = document.createElement("div");
-    storyElement.className = "entry";
-    storyElement.innerHTML = `
+    var storyEl = document.createElement("div");
+    storyEl.className = "entry";
+    storyEl.innerHTML = `
     <img src="${story.multimedia[0].url}" /> 
     <div>
       <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
       <p>${story.abstract}</p>
     </div>
     `;
-    elem.prepend(storyElement); // NEW
+    root.prepend(storyEl); // NEW
   });
 }
 ```
@@ -1049,10 +1044,10 @@ function renderStories(data) {
 Note: not all NYTimes stories include images and, depending on the day, our script could error if `story.multimedia[0]` was undefined. For this we will use a [Conditional (ternary) operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator)
 
 ```js
-<img src="${story.multimedia[0] ? story.multimedia[0].url : '/img/no-image.png'}" /> 
+   <img src="${ story.multimedia.length > 0 ? story.multimedia[0].url : '/img/no-image.png' }" />
 ```
 
-Ternaries are very popular in cases like this. Imagine trying to write an `if(){} else(){}` statement inside the string literal.
+Ternaries are very popular in cases like this. Imagine trying to write an `if(){} else(){}` statement inside the string literal. In React they are essential.
 
 Add some new css to support the new elements:
 
@@ -1070,7 +1065,7 @@ Add some new css to support the new elements:
 }
 ```
 
-Using arrow functions:
+Refactor using arrow functions:
 
 ```js
 fetch(nytUrl)
@@ -1138,7 +1133,7 @@ function renderStories(data) {
 }
 ```
 
-Create a new getArticlesByCategory function and call it:
+Create a new `getArticlesByCategory` function and call it:
 
 ```js
 function getArticlesByCategory(cat) {
@@ -1181,7 +1176,7 @@ function renderStories(data) {
   var sectionHead = document.createElement("div");
   sectionHead.id = data.section;
   sectionHead.innerHTML = `<h3 class="section-head">${data.section}</h3>`;
-  elem.prepend(sectionHead);
+  root.prepend(sectionHead);
 
   stories = data.results.slice(0, limit);
 
@@ -1212,11 +1207,13 @@ Style the new category headers:
 
 ```css
 .section-head {
-  text-transform: uppercase;
+  font-family: Lobster;
+  color: #007eb6;
+  font-size: 2.5rem;
+  text-transform: capitalize;
   padding-bottom: 0.25rem;
   padding-top: 4rem;
   margin-bottom: 1rem;
-  color: #666;
   border-bottom: 1px solid #007eb6;
 }
 ```
@@ -1237,40 +1234,45 @@ const categories = navItemsObject.map(item => item.label);
 
 ```js
 // variables
-var elem = document.querySelector(".site-wrap");
-const nytapi = "uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0";
+var elem = document.querySelector('.site-wrap');
+const nytapi = 'uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0';
 const limit = 6;
 const categories = navItemsObject.map(item => item.label);
-const nav = document.querySelector("nav");
+const nav = document.querySelector('nav');
 let topOfNav = nav.offsetTop;
 
+// navigation
 function renderNav() {
   const markup = `
   <ul>
     ${navItemsObject
       .map(
-        item => `<li><a data-scroll href="${item.link}">${item.label}</a></li>`
+        item => `<li><a data-scroll href="${item.link}">${item.label}</a></li>`,
       )
-      .join("")}
+      .join('')}
   </ul>
   `;
   nav.innerHTML = markup;
 
-  const logo = nav.querySelector("nav ul li");
-  logo.classList.add("logo");
+  const logo = document.createElement('li');
+  const navList = nav.querySelector('nav ul');
+  logo.classList.add('logo');
   logo.innerHTML = '<a href="#"><img src="img/logo.svg" /></a>';
+  navList.prepend(logo);
 }
 
+// fixed nav
 function fixNav() {
   if (window.scrollY >= topOfNav) {
-    document.body.style.paddingTop = nav.offsetHeight + "px";
-    document.body.classList.add("fixed-nav");
+    document.body.style.paddingTop = nav.offsetHeight + 'px';
+    document.body.classList.add('fixed-nav');
   } else {
-    document.body.classList.remove("fixed-nav");
+    document.body.classList.remove('fixed-nav');
     document.body.style.paddingTop = 0;
   }
 }
 
+// articles
 function getArticlesByCategory(cat) {
   console.log(cat);
   cat.forEach(function(category, index) {
@@ -1279,16 +1281,16 @@ function getArticlesByCategory(cat) {
 }
 
 function fetchArticles(section, idx) {
-  console.log("index " + idx);
+  console.log('index ' + idx);
   fetch(
-    `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${nytapi}`
+    `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${nytapi}`,
   )
     .then(response => response.json())
     .then(myJson => renderStories(myJson));
 }
 
 function renderStories(data) {
-  var sectionHead = document.createElement("div");
+  var sectionHead = document.createElement('div');
   sectionHead.id = data.section;
   sectionHead.innerHTML = `<h3 class="section-head">${data.section}</h3>`;
   elem.prepend(sectionHead);
@@ -1296,11 +1298,13 @@ function renderStories(data) {
   stories = data.results.slice(0, limit);
 
   stories.forEach(story => {
-    storyEl = document.createElement("div");
-    storyEl.className = "entry";
+    storyEl = document.createElement('div');
+    storyEl.className = 'entry';
     storyEl.innerHTML = `
     <img src="${
-      story.multimedia[0].url ? story.multimedia[0].url : "No image available"
+      story.multimedia.length > 0
+        ? story.multimedia[0].url
+        : '/img/no-image.png'
     }" />
     <div>
       <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
@@ -1312,8 +1316,9 @@ function renderStories(data) {
 }
 
 renderNav();
-window.addEventListener("scroll", fixNav);
+window.addEventListener('scroll', fixNav);
 getArticlesByCategory(categories);
+
 ```
 
 ## Final Touches
@@ -1321,6 +1326,20 @@ getArticlesByCategory(categories);
 - Add [smooth scrolling](https://github.com/cferdinandi/smooth-scroll/)
 - Move everything [out of](https://vanillajstoolkit.com/boilerplates/iife/) the global scope
 - Implement [local storage](https://gomakethings.com/saving-html-to-localstorage-with-vanilla-js/)
+
+```js
+<script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+<script>
+  var scroll = new SmoothScroll('a[href*="#"]', {
+    speed: 500,
+    easing: 'easeInOutQuad',
+  });
+</script>
+```
+
+```js
+
+```
 
 
 ## Notes
