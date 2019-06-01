@@ -6,9 +6,9 @@ In creating this page we will focus on techniques that are critical, not just fo
 
 The following software is needed:
 
-- [Visual Studio Code](https://code.visualstudio.com/)
-- [Node.js](https://nodejs.org/en/)
-- [Google Chrome](https://www.google.com/chrome/)
+* [Visual Studio Code](https://code.visualstudio.com/)
+* [Node.js](https://nodejs.org/en/)
+* [Google Chrome](https://www.google.com/chrome/)
 
 - [I - JavaScript, AJAX and DOM Manipulation](#i---javascript-ajax-and-dom-manipulation)
   - [Syllabus](#syllabus)
@@ -66,11 +66,11 @@ Add a new category of New York Times articles using _your own_ api key.
 
 1. Download and unzip the files as completed by me at the end of the class. `cd` into the directory and run `npm install` and then `npm run start`
 
-1. Follow the instructions for getting a developer key [here](https://developer.nytimes.com/get-started)
+2. Follow the instructions for getting a developer key [here](https://developer.nytimes.com/get-started)
 
-1. Use the [top stories API endpoint](https://developer.nytimes.com/docs/top-stories-product/1/overview)
+3. Use the [top stories API endpoint](https://developer.nytimes.com/docs/top-stories-product/1/overview)
 
-1. Request the top stories from a specific section of their publication and incorporate them into the layout
+4. Request the top stories from a specific section of their publication and incorporate them into the layout
 
 ```
 https://api.nytimes.com/svc/topstories/v2/<section_name>.json?api-key=<_your_api_key_>
