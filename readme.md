@@ -1,3 +1,12 @@
+# Web Front-End II: Intermediate (Full Stack Web Development)
+
+* INFO1-CE 9040
+* 6/6/2019 - 8/15/2019
+* 6:30 PM - 9:30 PM
+* Location: 7 East 12th Street Room 225
+* Instructor: Daniel Deverell `daniel.deverell@nyu.edu`
+* [Syllabus](http://daniel.deverell.com/syllabii/_intermediate-syllabus.pdf)
+
 # I - JavaScript, AJAX and DOM Manipulation
 
 In today's class we will implement [this single page web site](http://oit2.scps.nyu.edu/~devereld/intermediate/session1/) with content is almost entirely generated using JavaScript (try selecting `view > developer > View Source` in Chrome). 
@@ -10,8 +19,10 @@ The following software is needed:
 * [Node.js](https://nodejs.org/en/)
 * [Google Chrome](https://www.google.com/chrome/)
 
+Table of Contents
+
+- [Web Front-End II: Intermediate (Full Stack Web Development)](#web-front-end-ii-intermediate-full-stack-web-development)
 - [I - JavaScript, AJAX and DOM Manipulation](#i---javascript-ajax-and-dom-manipulation)
-  - [Syllabus](#syllabus)
   - [Homework](#homework)
     - [I - New York Times API](#i---new-york-times-api)
     - [II - Create a Helper Method](#ii---create-a-helper-method)
@@ -50,10 +61,6 @@ The following software is needed:
     - [Local Storage](#local-storage)
     - [Final HTML](#final-html)
     - [Final CSS](#final-css)
-
-## Syllabus
-
-[Syllabus](http://daniel.deverell.com/syllabii/_intermediate-syllabus.pdf)
 
 ## Homework
 
