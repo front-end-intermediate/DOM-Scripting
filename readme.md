@@ -25,7 +25,7 @@ Table of Contents
 - [I - JavaScript, AJAX and DOM Manipulation](#i---javascript-ajax-and-dom-manipulation)
   - [Homework](#homework)
     - [I - New York Times API](#i---new-york-times-api)
-    - [II - Create a Helper Method](#ii---create-a-helper-method)
+    - [II - Practice fetch()](#ii---practice-fetch)
   - [VSCode](#vscode)
   - [The Command Line](#the-command-line)
   - [Node Package Manager](#node-package-manager)
@@ -83,9 +83,9 @@ Add a new category of New York Times articles using _your own_ api key.
 https://api.nytimes.com/svc/topstories/v2/<section_name>.json?api-key=<_your_api_key_>
 ```
 
-### II - Create a Helper Method
+### II - Practice fetch()
 
-Refactor your JS file to use a helper method for `querySelector` and `querySelectorAll` following the instructions [here](https://gomakethings.com/an-easier-way-to-get-elements-in-the-dom-with-vanilla-js/).
+<iframe width="560" height="315" src="https://www.youtube.com/embed/y4gZMJKAeWs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## VSCode
 
