@@ -85,7 +85,7 @@ https://api.nytimes.com/svc/topstories/v2/<section_name>.json?api-key=<_your_api
 
 ### II - Practice fetch()
 
-Download the [starter HTML](local/typeahead/template.html) and complete [this exercise](https://youtu.be/y4gZMJKAeWs).
+Using the starter HTML from `other/typeahead/template.html`, complete [this exercise](https://youtu.be/y4gZMJKAeWs).
 
 ## VSCode
 
