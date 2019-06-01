@@ -13,7 +13,7 @@ In today's class we will implement [this single page web site](http://oit2.scps.
 
 In creating this page we will focus on techniques that are critical, not just for working effectively with DOM manipulation, but for React and other JavaScript frameworks.
 
-The following software is needed:
+The following are used in today's class:
 
 * [Visual Studio Code](https://code.visualstudio.com/)
 * [Node.js](https://nodejs.org/en/)
