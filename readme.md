@@ -85,7 +85,7 @@ https://api.nytimes.com/svc/topstories/v2/<section_name>.json?api-key=<_your_api
 
 ### II - Practice fetch()
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/y4gZMJKAeWs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+Download the [starter HTML](local/typeahead/template.html) and complete [this exercise](https://youtu.be/y4gZMJKAeWs).
 
 ## VSCode
 
