@@ -1,15 +1,14 @@
 # I - JavaScript, AJAX and DOM Manipulation
 
-In today's class we will implement [this single page web site](http://oit2.scps.nyu.edu/~devereld/intermediate/session1/).
+In today's class we will implement [this single page web site](http://oit2.scps.nyu.edu/~devereld/intermediate/session1/) with content is almost entirely generated using JavaScript (try selecting `view > developer > View Source` in Chrome). 
 
-The interesting point about this page is that the content is almost entirely generated using JavaScript (try selecting `view > developer > View Source` in Chrome). 
+In creating this page we will focus on techniques that are critical, not just for working effectively with DOM manipulation, but for React and other JavaScript frameworks.
 
-In creating this page we will focus on techniques that are critical not just for working effectively with DOM manipulation, but that are also critical for React and other JavaScript frameworks.
+The following software is needed:
 
-We begin by introducing much of the JavaScript you will need for this semester - functions, loops, selectors, array and object methods, template strings, and AJAX. 
-
-- Install [Visual Studio Code](https://code.visualstudio.com/)
-- Install [Node.js](https://nodejs.org/en/)
+- [Visual Studio Code](https://code.visualstudio.com/)
+- [Node.js](https://nodejs.org/en/)
+- [Google Chrome](https://www.google.com/chrome/)
 
 - [I - JavaScript, AJAX and DOM Manipulation](#i---javascript-ajax-and-dom-manipulation)
   - [Syllabus](#syllabus)
@@ -67,11 +66,11 @@ Add a new category of New York Times articles using _your own_ api key.
 
 1. Download and unzip the files as completed by me at the end of the class. `cd` into the directory and run `npm install` and then `npm run start`
 
-2. Follow the instructions for getting a developer key [here](https://developer.nytimes.com/get-started)
+1. Follow the instructions for getting a developer key [here](https://developer.nytimes.com/get-started)
 
-3. Use the [top stories API endpoint](https://developer.nytimes.com/docs/top-stories-product/1/overview)
+1. Use the [top stories API endpoint](https://developer.nytimes.com/docs/top-stories-product/1/overview)
 
-4. Request the top stories from a specific section of their publication and incorporate them into the layout
+1. Request the top stories from a specific section of their publication and incorporate them into the layout
 
 ```
 https://api.nytimes.com/svc/topstories/v2/<section_name>.json?api-key=<_your_api_key_>
