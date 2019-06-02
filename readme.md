@@ -49,7 +49,7 @@ Table of Contents
   - [EXERCISE V - Adding an SVG Image](#exercise-v---adding-an-svg-image)
   - [EXERCISE VI - AJAX and APIs](#exercise-vi---ajax-and-apis)
     - [XHR](#xhr)
-    - [Convert `xhr.responseText` from a string to an object](#convert-xhrresponsetext-from-a-string-to-an-object)
+    - [`xhr.responseText` String to Object](#xhrresponsetext-string-to-object)
   - [EXERCISE VII - Adding Content](#exercise-vii---adding-content)
     - [The fetch() API](#the-fetch-api)
   - [EXERCISE VIII - Sections](#exercise-viii---sections)
@@ -949,7 +949,7 @@ xhr.open("GET", "https://jsonplaceholder.typicode.com/posts/10");
 xhr.send();
 ```
 
-### Convert `xhr.responseText` from a string to an object
+### `xhr.responseText` String to Object
 
 The JSON response you get back is sent as a string but, in order to work with the data, we need to convert it back into an object. You do this with the `JSON.parse()` method.
 
@@ -1045,7 +1045,7 @@ function renderStories(data) {
     var storyEl = document.createElement("div");
     storyEl.className = "entry";
     storyEl.innerHTML = `
-    <img src="${story.multimedia[0].url}" /> 
+    <img src="${story.multimedia[0].url}" />
     <div>
       <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
       <p>${story.abstract}</p>
