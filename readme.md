@@ -62,6 +62,8 @@ Table of Contents
     - [Final HTML](#final-html)
     - [Final CSS](#final-css)
 
+---
+
 ## Homework
 
 - Install [Git](https://git-scm.com)
@@ -86,6 +88,8 @@ https://api.nytimes.com/svc/topstories/v2/<section_name>.json?api-key=<_your_api
 ### II - Practice fetch()
 
 Using the starter HTML from `other/typeahead/template.html`, complete [this exercise](https://youtu.be/y4gZMJKAeWs).
+
+---
 
 ## VSCode
 
