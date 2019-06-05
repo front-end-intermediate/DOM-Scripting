@@ -1,23 +1,23 @@
 # Web Front-End II: Intermediate (Full Stack Web Development)
 
-* INFO1-CE 9040
-* 6/6/2019 - 8/15/2019
-* 6:30 PM - 9:30 PM
-* Location: 7 East 12th Street Room 225
-* Instructor: Daniel Deverell `daniel.deverell@nyu.edu`
-* [Syllabus](http://daniel.deverell.com/syllabii/_intermediate-syllabus.pdf)
+- INFO1-CE 9040
+- 6/6/2019 - 8/15/2019
+- 6:30 PM - 9:30 PM
+- Location: 7 East 12th Street Room 225
+- Instructor: Daniel Deverell `daniel.deverell@nyu.edu`
+- [Syllabus](http://daniel.deverell.com/syllabii/_intermediate-syllabus.pdf)
 
 # I - JavaScript, AJAX and DOM Manipulation
 
-In today's class we will implement [this single page web site](http://oit2.scps.nyu.edu/~devereld/intermediate/session1/) with content is almost entirely generated using JavaScript (try selecting `view > developer > View Source` in Chrome). 
+In today's class we will implement [this single page web site](http://oit2.scps.nyu.edu/~devereld/intermediate/session1/) with content is almost entirely generated using JavaScript (try selecting `view > developer > View Source` in Chrome).
 
 In creating this page we will focus on techniques that are critical, not just for working effectively with DOM manipulation, but for React and other JavaScript frameworks.
 
 The following are used in today's class:
 
-* [Visual Studio Code](https://code.visualstudio.com/)
-* [Node.js](https://nodejs.org/en/)
-* [Google Chrome](https://www.google.com/chrome/)
+- [Visual Studio Code](https://code.visualstudio.com/)
+- [Node.js](https://nodejs.org/en/)
+- [Google Chrome](https://www.google.com/chrome/)
 
 Table of Contents
 
@@ -142,8 +142,8 @@ npm init -y
 $ npm install browser-sync --save-dev
 ```
 
-* `npm install browser-sync --save-dev` installs [Browser Sync](https://www.browsersync.io) into a newly created `node_modules` folder
-* `--save-dev` adds browser-sync to a list of development dependencies in `package.json`
+- `npm install browser-sync --save-dev` installs [Browser Sync](https://www.browsersync.io) into a newly created `node_modules` folder
+- `--save-dev` adds browser-sync to a list of development dependencies in `package.json`
 
 ### NPM Scripts
 
@@ -172,7 +172,7 @@ npm run start
 
 ![Image of layout](other/images/layout.png)
 
-This will open `index.html` in your browser. If it opens in a browser other than Chrome, start Chrome and copy and paste the URL into a new tab in Chrome. 
+This will open `index.html` in your browser. If it opens in a browser other than Chrome, start Chrome and copy and paste the URL into a new tab in Chrome.
 
 ## DOM Scripting
 
@@ -191,7 +191,7 @@ Use `document.querySelectorAll('selector')` to find all matching elements on a p
 In the browser's console:
 
 ```js
-var elems = document.querySelectorAll(".main li");
+var elems = document.querySelectorAll('.main li');
 ```
 
 Returns a [NodeList](https://developer.mozilla.org/en-US/docs/Web/API/NodeList).
@@ -203,7 +203,7 @@ Use `document.querySelector()` (without the 'All') to find the first matching el
 In the browser's console:
 
 ```js
-var elem = document.querySelector(".main a");
+var elem = document.querySelector('.main a');
 ```
 
 Returns an HTML element or Node.
@@ -215,7 +215,7 @@ Returns an HTML element or Node.
 If an element isn’t found, `querySelector()` returns null.
 
 ```js
-var elem = document.querySelector(".foo");
+var elem = document.querySelector('.foo');
 ```
 
 If you try to do something with a nonexistant element you'll get an error (pretty common). You typically check that a matching element was found before using it:
@@ -225,6 +225,7 @@ if (elem) {
   // Do something...
 }
 ```
+
 ---
 
 <!-- end aside -->
@@ -234,7 +235,7 @@ if (elem) {
 In JavaScript, you can use a `for` to loop through array and node list items.
 
 ```js
-var elems = document.querySelectorAll("nav a");
+var elems = document.querySelectorAll('nav a');
 
 for (let i = 0; i < elems.length; i++) {
   console.log(i); // index
@@ -242,14 +243,14 @@ for (let i = 0; i < elems.length; i++) {
 }
 ```
 
-ES6 introduced a new `forEach()` method for looping over arrays.
+ES6 introduced a new [`forEach()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach) method for looping over arrays.
 
 You pass a [callback function](https://developer.mozilla.org/en-US/docs/Glossary/Callback_function) into `forEach()`. The first argument is the current item in the loop. The second is the current index in the array.
 
-Unlike a for loop, you can’t terminate the `forEach()` function before it’s completed with `break`. 
+Unlike a for loop, you can’t terminate the `forEach()` function before it’s completed with `break`.
 
 ```js
-var elems = document.querySelectorAll("nav a");
+var elems = document.querySelectorAll('nav a');
 
 elems.forEach(function(item, index) {
   console.log(index); // index
@@ -260,7 +261,7 @@ elems.forEach(function(item, index) {
 The `.forEach()` method works with arrays _and_ NodeLists. The `NodeList.forEach()` method has decent but not universal browser support at this time so it is common to convert NodeLists into Arrays with the `Array.from()` method and use `forEach()` on that:
 
 ```js
-Array.from(document.querySelectorAll("nav a")).forEach(function(item, index) {
+Array.from(document.querySelectorAll('nav a')).forEach(function(item, index) {
   console.log(item);
   console.log(index);
 });
@@ -282,10 +283,10 @@ Note the difference between `navItemsObject` and `navItemsArray`. The latter is 
 In the console:
 
 ```js
-navItemsArray
-navItemsObject
-typeof navItemsArray
-Array.isArray(navItemsArray)
+navItemsArray;
+navItemsObject;
+typeof navItemsArray;
+Array.isArray(navItemsArray);
 ```
 
 In `myScripts.js`:
@@ -293,20 +294,20 @@ In `myScripts.js`:
 Select the element with the class `main`:
 
 ```js
-const nav = document.querySelector(".main");
+const nav = document.querySelector('.main');
 ```
 
 To select all the links in nav we could try:
 
 ```js
-const navList = document.querySelectorAll("#main li a");
+const navList = document.querySelectorAll('#main li a');
 ```
 
 But here it is perhaps a bit more efficient to use `element.querySelector` (as opposed to `document.querySelector`):
 
 ```js
-const nav = document.querySelector(".main");
-const navList = nav.querySelectorAll("li a");
+const nav = document.querySelector('.main');
+const navList = nav.querySelectorAll('li a');
 ```
 
 Compare `navList` and `navItemsArray` in the console and note the `prototypes` in the inspector.
@@ -323,8 +324,8 @@ Replace our placeholder nav items with content from an array
 - use a `for` loop and `innerHTML`:
 
 ```js
-const nav = document.querySelector(".main");
-const navList = nav.querySelectorAll("li a");
+const nav = document.querySelector('.main');
+const navList = nav.querySelectorAll('li a');
 
 for (let i = 0; i < navList.length; i++) {
   console.log(i);
@@ -335,13 +336,14 @@ for (let i = 0; i < navList.length; i++) {
 The `innerHTML` property can be used to both get and set HTML content in an element.
 
 ```js
-var elem = document.querySelector(".site-wrap");
+var elem = document.querySelector('.site-wrap');
 
 // Get HTML content
 var html = elem.innerHTML;
 
 // Set HTML content
-elem.innerHTML = 'We can dynamically change the HTML to include <a href="#">HTML elements</a>.';
+elem.innerHTML =
+  'We can dynamically change the HTML to include <a href="#">HTML elements</a>.';
 ```
 
 We are using the six existing `<li>` elements in the DOM but there are 8 items in our `navItemsArray` array.
@@ -363,11 +365,11 @@ JavaScript offers a number of methods to determine the insertion point.
 
 ```js
 // Create a new HTML element and add some text
-var div = document.createElement("div");
-div.textContent = "Hello world";
+var div = document.createElement('div');
+div.textContent = 'Hello world';
 
 // Get the element to add your new HTML element before, after, or within
-const target = document.querySelector("#main");
+const target = document.querySelector('.main');
 
 // Inject the `div` element before the `#app` element
 target.before(div);
@@ -382,14 +384,14 @@ target.prepend(div);
 target.append(div);
 ```
 
-Let's empty the html content of our nav and append a new div. 
+Let's empty the html content of our nav and append a new div.
 
 Delete eveything in `myscripts` and add:
 
 ```js
-const nav = document.querySelector(".main");
+const nav = document.querySelector('.main');
 
-const navList = document.createElement("ul");
+const navList = document.createElement('ul');
 nav.append(navList);
 ```
 
@@ -412,7 +414,7 @@ for (let i = 0; i < navItemsArray.length; i++) {
 nav.append(navList);
 ```
 
-Our nav bar now displays all the items in our array.
+Our nav bar now displays all the items in our array but the code is fugly. This is a good example of [imperative programming](https://tylermcginnis.com/imperative-vs-declarative-programming/). We will need to progress beyond this to a more declarative style.
 
 ---
 
@@ -421,15 +423,15 @@ Our nav bar now displays all the items in our array.
 Note that we used single quotes in the construction of our innerHTML: `listItem.innerHTML = '<a href="#">' + linkText + '</a>'`. Compare old school concatenation and the variable 'sentence' below:
 
 ```js
-const name = "Yorik";
+const name = 'Yorik';
 const age = 2;
-const oldschool = "My dog " + name + " is " + age * 7 + "years old.";
-const sentence = `My dog ${name} is ${age * 7} years old.`;
-console.log(oldschool);
-console.log(sentence);
+const oldschool = 'My dog ' + name + ' is ' + age * 7 + 'years old.';
+const newschool = `My dog ${name} is ${age * 7} years old.`;
+console.log('oldschool ', oldschool);
+console.log('newschool ', newschool);
 ```
 
-[Template Strings](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) use back ticks instead of quotes and have access to JS expressions inside plaeholders -  `${ ... }`.
+[Template Strings](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) use back ticks instead of quotes and have access to JS expressions inside plaeholders - `${ ... }`.
 
 ---
 
@@ -439,7 +441,7 @@ Switch out the concatenation for a _template string_:
 
 ```js
 for (let i = 0; i < navItemsArray.length; i++) {
-  let listItem = document.createElement("li");
+  let listItem = document.createElement('li');
   listItem.innerHTML = `<a href="#">${navItemsArray[i]}</a>`;
   navList.appendChild(listItem);
 }
@@ -471,46 +473,46 @@ The second file, `2-react-jsx.html`, uses [Babel](https://babeljs.io) to help cr
 
 ## EXERCISE II - Content Generation with an Array of Objects
 
-So far we have been working with a simple array. Most APIs consist of an array of objects: 
+So far we have been working with a simple array. Most APIs consist of an array of objects:
 
-* [JSON Placeholder](https://jsonplaceholder.typicode.com/posts)
-* [City Growth](https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json)
-* navItemsObject:
+- [JSON Placeholder](https://jsonplaceholder.typicode.com/posts)
+- [City Growth](https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json)
+- navItemsObject:
 
 ```js
 const navItemsObject = [
   {
-    label: "LOGO",
-    link: "#"
+    label: 'LOGO',
+    link: '#',
   },
   {
-    label: "Watchlist",
-    link: "#watchlist"
+    label: 'Watchlist',
+    link: '#watchlist',
   },
   {
-    label: "Research",
-    link: "#research"
+    label: 'Research',
+    link: '#research',
   },
   {
-    label: "Markets",
-    link: "#markets"
+    label: 'Markets',
+    link: '#markets',
   },
   {
-    label: "Workbook",
-    link: "#workbook"
+    label: 'Workbook',
+    link: '#workbook',
   },
   {
-    label: "Connect",
-    link: "#connect"
+    label: 'Connect',
+    link: '#connect',
   },
   {
-    label: "Desktop",
-    link: "#desktop"
+    label: 'Desktop',
+    link: '#desktop',
   },
   {
-    label: "FAQ",
-    link: "#faq"
-  }
+    label: 'FAQ',
+    link: '#faq',
+  },
 ];
 ```
 
@@ -525,8 +527,9 @@ const navList = document.createElement('ul');
 
 for (let i = 0; i < navItemsObject.length; i++) {
   const listItem = document.createElement('li');
-  listItem.innerHTML = `<a href="${navItemsObject[i].link}">${navItemsObject[i]
-    .label}</a>`;
+  listItem.innerHTML = `<a href="${navItemsObject[i].link}">${
+    navItemsObject[i].label
+  }</a>`;
   navList.appendChild(listItem);
 }
 
@@ -583,6 +586,7 @@ const content = `
 `;
 document.body.innerHTML = content;
 ```
+
 ---
 
 <!-- end aside  -->
@@ -597,13 +601,13 @@ Note the inventors sample data in `navitems.js`:
 
 ```js
 const inventors = [
-  { first: "Albert", last: "Einstein", year: 1879, passed: 1955 },
-  { first: "Isaac", last: "Newton", year: 1643, passed: 1727 },
-  { first: "Galileo", last: "Galilei", year: 1564, passed: 1642 },
-  { first: "Marie", last: "Curie", year: 1867, passed: 1934 },
-  { first: "Johannes", last: "Kepler", year: 1571, passed: 1630 },
-  { first: "Nicolaus", last: "Copernicus", year: 1473, passed: 1543 },
-  { first: "Max", last: "Planck", year: 1858, passed: 1947 }
+  { first: 'Albert', last: 'Einstein', year: 1879, passed: 1955 },
+  { first: 'Isaac', last: 'Newton', year: 1643, passed: 1727 },
+  { first: 'Galileo', last: 'Galilei', year: 1564, passed: 1642 },
+  { first: 'Marie', last: 'Curie', year: 1867, passed: 1934 },
+  { first: 'Johannes', last: 'Kepler', year: 1571, passed: 1630 },
+  { first: 'Nicolaus', last: 'Copernicus', year: 1473, passed: 1543 },
+  { first: 'Max', last: 'Planck', year: 1858, passed: 1947 },
 ];
 ```
 
@@ -627,7 +631,7 @@ Refactor using an arrow function with implicit return:
 
 ```js
 const fifteen = inventors.filter(
-  inventor => inventor.year >= 1500 && inventor.year < 1600
+  inventor => inventor.year >= 1500 && inventor.year < 1600,
 );
 console.table(fifteen);
 ```
@@ -645,7 +649,7 @@ var fullNames = inventors.map(function(inventor) {
   return `${inventor.first} ${inventor.last}`;
 });
 
-console.log("Full names: " + fullNames);
+console.log('Full names: ' + fullNames);
 ```
 
 Notice the commas separating the names.
@@ -655,9 +659,9 @@ Refactor it to use an arrow function and join the results with a slash:
 ```js
 const fullNames = inventors
   .map(inventor => `${inventor.first} ${inventor.last}`)
-  .join(" / ");
+  .join(' / ');
 
-console.log("Full names: " + fullNames);
+console.log('Full names: ' + fullNames);
 ```
 
 ## EXERCISE III - Using Array.prototype.map()
@@ -689,7 +693,7 @@ const markup = `
         .map(function(item) {
           return `<li><a href="${item.link}">${item.label}</a></li>`;
         })
-        .join("")}
+        .join('')}
     </ul>
     `;
 ```
@@ -701,12 +705,14 @@ const markup = `
 <ul>
   ${navItemsObject
     .map(item => `<li><a href="${item.link}">${item.label}</a></li>`)
-    .join("")}
+    .join('')}
 </ul>
 `;
 ```
 
-These methods, `.map`, `.filter`, and others we have yet to look at such as `.reduce`, are _the prefered_ means of manipulating data today. 
+Note the use of nested template strings here.
+
+These methods, `.map`, `.filter`, and others we have yet to look at such as `.reduce`, are _the prefered_ means of manipulating data today.
 
 ## EXERCISE IV - Sticky Menu
 
@@ -728,29 +734,30 @@ I have elected not to do so because not only is it useful to understand position
 The DOM method [`offSetTop`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop) allows us to get information about the position of an element relative to the top of the browser's window.
 
 ```js
+// sticky nav
 let topOfNav = nav.offsetTop;
-window.addEventListener("scroll", fixNav);
+window.addEventListener('scroll', function() {
+  console.log(topOfNav);
+  console.log(window.scrollY);
+});
 ```
 
 The DOM method - [addEventListener('event', function)](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener), see also [event types](https://developer.mozilla.org/en-US/docs/Web/Events) allows us to listen for an event in the browser and run a function when it occurs.
 
-Use [window.scrollY](https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollY) to get the number of pixels that the document is currently scrolled vertically:
-
-```js
-function fixNav() {
-  console.log(topOfNav);
-  console.log(window.scrollY);
-}
-```
+Note [window.scrollY](https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollY) to get the number of pixels that the document is currently scrolled vertically:
 
 When `topOfNav` is equal to or greater than `window.scrollY` we use CSS to make the menu stay at the top of the screen.
 
 To do so we'll employ [classList](https://plainjs.com/javascript/attributes/adding-removing-and-testing-for-classes-9/):
 
 ```js
+// sticky nav
+let topOfNav = nav.offsetTop;
+window.addEventListener('scroll', fixNav);
+
 function fixNav() {
   if (window.scrollY >= topOfNav) {
-    document.body.classList.add("fixed-nav");
+    document.body.classList.add('fixed-nav');
   }
 }
 ```
@@ -774,9 +781,9 @@ Add an `else` to our `if` statement to remove the sticky behavior when the banne
 ```js
 function fixNav() {
   if (window.scrollY >= topOfNav) {
-    document.body.classList.add("fixed-nav");
+    document.body.classList.add('fixed-nav');
   } else {
-    document.body.classList.remove("fixed-nav");
+    document.body.classList.remove('fixed-nav');
   }
 }
 ```
@@ -788,10 +795,10 @@ Take care of this jump using `nav.offsetHeight` to add an amount of padding equa
 ```js
 function fixNav() {
   if (window.scrollY >= topOfNav) {
-    document.body.style.paddingTop = nav.offsetHeight + "px";
-    document.body.classList.add("fixed-nav");
+    document.body.style.paddingTop = nav.offsetHeight + 'px';
+    document.body.classList.add('fixed-nav');
   } else {
-    document.body.classList.remove("fixed-nav");
+    document.body.classList.remove('fixed-nav');
     document.body.style.paddingTop = 0;
   }
 }
@@ -806,8 +813,8 @@ We added the class `fixed-nav` to the html body tag (as opposed to, say, the nav
 Select the first list item on the nav, add a class and set the innerHTML so that we get a link which will return us to the top of the page:
 
 ```js
-const logo = nav.querySelector(".main ul li");
-logo.classList.add("logo");
+const logo = nav.querySelector('.main ul li');
+logo.classList.add('logo');
 logo.innerHTML = '<a href="#"><img src="img/logo.svg" /></a>';
 ```
 
@@ -821,15 +828,15 @@ Some interesting applications of SVG:
 Format the logo and create the sliding logo behavior. Note: CSS only, no JavaScript:
 
 ```css
-li.logo img {
-  padding-top: 0.25rem;
-  width: 2.5rem;
-}
 li.logo {
   max-width: 0;
   overflow: hidden;
   background: white;
   transition: all 0.5s;
+}
+li.logo img {
+  padding-top: 0.25rem;
+  width: 2.5rem;
 }
 .fixed-nav li.logo {
   max-width: 500px;
@@ -874,15 +881,15 @@ xhr.onreadystatechange = function() {
   // Process our return data
   if (xhr.status >= 200 && xhr.status < 300) {
     // This will run when the request is successful
-    console.log("success!", xhr);
+    console.log('success!', xhr);
   } else {
     // This will run when it's not
-    console.log("The request failed!");
+    console.log('The request failed!');
   }
 
   // This will run either way
   // All three of these are optional, depending on what you're trying to do
-  console.log("This always runs...");
+  console.log('This always runs...');
 };
 ```
 
@@ -896,25 +903,26 @@ Try this in the console:
 var xhr = new XMLHttpRequest();
 
 xhr.onreadystatechange = function() {
-
   if (xhr.readyState !== 4) return;
 
   // Process our return data
   if (xhr.status >= 200 && xhr.status < 300) {
-    console.log("success!", xhr);
+    console.log('success!', xhr);
   } else {
-    console.log("The request failed!");
+    console.log('The request failed!');
   }
 
-  console.log("This always runs...");
+  console.log('This always runs...');
 };
 
 // Create and send a GET request
 // The first argument is the post type (GET, POST, PUT, DELETE, etc.)
 // The second argument is the endpoint URL
-xhr.open("GET", "https://jsonplaceholder.typicode.com/posts");
+xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts');
 xhr.send();
 ```
+
+Try: `console.log('success!', xhr.response);`
 
 We used a GET request to get a list of posts from JSON Placeholder, but, there are a handful of possible request types you can make. HTTP methods are typically verbs that describe what the request you're making does.
 
@@ -949,13 +957,13 @@ xhr.onreadystatechange = function() {
   }
 };
 
-xhr.open("GET", "https://jsonplaceholder.typicode.com/posts/10");
+xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts/10');
 xhr.send();
 ```
 
 ### `xhr.responseText` String to Object
 
-The JSON response you get back is sent as a string but, in order to work with the data, we need to convert it back into an object. You do this with the `JSON.parse()` method.
+The JSON response you get back is sent as a string (`console.log(typeof(xhr.responseText))`) but, in order to work with the data, we need to convert it into an object. You do this with the `JSON.parse()` method.
 
 ```js
 // Convert data string to an object
@@ -991,9 +999,11 @@ xhr.onreadystatechange = function() {
   }
 };
 
-xhr.open("GET", "https://jsonplaceholder.typicode.com/posts");
+xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts');
 xhr.send();
 ```
+
+Try: `console.log(typeof(JSON.parse(xhr.responseText)));`
 
 ## EXERCISE VII - Adding Content
 
@@ -1001,7 +1011,7 @@ We will use the [NY Times developer](https://developer.nytimes.com) API for gett
 
 The specific API endpoint for this is their [top stories endpoint](https://developer.nytimes.com/docs/top-stories-product/1/overview). It lets us request the top stories from a specific section of their publication.
 
-Start by removing the existing HTML content from the site-wrap div in  `index.html` so you are left with an empty div:
+Start by removing the existing HTML content from the site-wrap div in `index.html` so you are left with an empty div:
 
 ```html
 <div class="site-wrap"></div>
@@ -1010,14 +1020,14 @@ Start by removing the existing HTML content from the site-wrap div in  `index.ht
 Store the API key, a template string with the complete URL, and the element we want to manipulate (`.site-wrap`) in a variable:
 
 ```js
-var root = document.querySelector(".site-wrap");
-const nytapi = "uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0";
-const nytUrl = `https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=${nytapi}`
+var root = document.querySelector('.site-wrap');
+const nytapi = 'uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0';
+const nytUrl = `https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=${nytapi}`;
 ```
 
 ### The fetch() API
 
-The [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) is a newer and easier to read alternative to XMLHttpRequest. 
+The [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) is a newer and easier to read alternative to XMLHttpRequest.
 
 ```js
 fetch(nytUrl)
@@ -1029,7 +1039,7 @@ fetch(nytUrl)
   });
 ```
 
-`fetch()` returns a [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises). 
+`fetch()` returns a [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises).
 
 ```js
 fetch(nytUrl)
@@ -1046,8 +1056,8 @@ In `renderStories` we take the passed data (our JSON) and run a `forEach` on eve
 ```js
 function renderStories(data) {
   data.results.forEach(function(story) {
-    var storyEl = document.createElement("div");
-    storyEl.className = "entry";
+    var storyEl = document.createElement('div');
+    storyEl.className = 'entry';
     storyEl.innerHTML = `
     <img src="${story.multimedia[0].url}" />
     <div>
@@ -1084,12 +1094,29 @@ Add some new css to support the new elements:
 }
 ```
 
-Refactor using arrow functions:
+Refactor using arrow functions amd `.map()`:
 
 ```js
 fetch(nytUrl)
   .then(response => response.json())
   .then(myJson => renderStories(myJson));
+
+function renderStories(data) {
+  data.results.map(story => {
+    var storyEl = document.createElement('div');
+    storyEl.className = 'entry';
+    storyEl.innerHTML = `
+    <img src="${
+      story.multimedia.length > 0 ? story.multimedia[0].url : 'img/no-image.png'
+    }" />
+      <div>
+        <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
+        <p>${story.abstract}</p>
+      </div>
+      `;
+    root.append(storyEl); // append or prepend - doesn't matter here
+  });
+}
 ```
 
 ## EXERCISE VIII - Sections
@@ -1101,29 +1128,29 @@ Replace `navItemsObject.js` with
 ```js
 const navItemsObject = [
   {
-    label: "arts",
-    link: "#arts"
+    label: 'arts',
+    link: '#arts',
   },
   {
-    label: "books",
-    link: "#books"
+    label: 'books',
+    link: '#books',
   },
   {
-    label: "fashion",
-    link: "#fashion"
+    label: 'fashion',
+    link: '#fashion',
   },
   {
-    label: "food",
-    link: "#food"
+    label: 'food',
+    link: '#food',
   },
   {
-    label: "movies",
-    link: "#movies"
+    label: 'movies',
+    link: '#movies',
   },
   {
-    label: "travel",
-    link: "#travel"
-  }
+    label: 'travel',
+    link: '#travel',
+  },
 ];
 ```
 
@@ -1131,9 +1158,9 @@ Note: Arts does not appear in the nav. Edit the logo related scripts:
 
 ```js
 // logo
-const logo = document.createElement("li");
-const navList = nav.querySelector("nav ul");
-logo.classList.add("logo");
+const logo = document.createElement('li');
+const navList = nav.querySelector('nav ul');
+logo.classList.add('logo');
 logo.innerHTML = '<a href="#"><img src="img/logo.svg" /></a>';
 navList.prepend(logo);
 ```
@@ -1142,24 +1169,16 @@ Add a categories and limit variable:
 
 ```js
 const limit = 6;
-const categories = ["arts", "books", "fashion", "food", "movies", "travel"];
-```
-
-Minimize the renderStories function:
-
-```js
-function renderStories(data) {
-  console.log(data);
-}
+const categories = ['arts', 'books', 'fashion', 'food', 'movies', 'travel'];
 ```
 
 Create a new `getArticlesByCategory` function and call it with the categories array:
 
 ```js
 function getArticlesByCategory(cat) {
- cat.forEach(function(category) {
-   fetchArticles(category);
- });
+  cat.forEach(function(category) {
+    fetchArticles(category);
+  });
 }
 
 getArticlesByCategory(categories);
@@ -1167,15 +1186,15 @@ getArticlesByCategory(categories);
 
 This function's sole purpose is to call a new function `fetchArticles` with each of the items in our categories array.
 
-Create a fetchArticles function that generate a url based on the section:
+Refactor our `fetch` call to a `fetchArticles` function that generates a url based on the section:
 
 ```js
 function fetchArticles(section) {
- fetch(
-   `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${nytapi}`
- )
-   .then(response => response.json())
-   .then(myJson => renderStories(myJson));
+  fetch(
+    `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${nytapi}`,
+  )
+    .then(response => response.json())
+    .then(myJson => renderStories(myJson));
 }
 ```
 
@@ -1186,15 +1205,15 @@ function renderStories(data) {
   var sectionHead = document.createElement('div');
   sectionHead.id = data.section;
   sectionHead.innerHTML = `<h3 class="section-head">${data.section}</h3>`;
-  elem.prepend(sectionHead);
+  root.prepend(sectionHead);
 }
 ```
 
-Now we use `forEach` to create our html fragments again and append them to the section heading div so we can have nice category headers:
+Prior to our `forEach` we will limit the number of stories with `stories = data.results.slice(0, limit);` and then append the sories to the sectionHead with `sectionHead.append(storyEl);`:
 
 ```js
 function renderStories(data) {
-  var sectionHead = document.createElement("div");
+  var sectionHead = document.createElement('div');
   sectionHead.id = data.section;
   sectionHead.innerHTML = `<h3 class="section-head">${data.section}</h3>`;
   root.prepend(sectionHead);
@@ -1202,10 +1221,12 @@ function renderStories(data) {
   stories = data.results.slice(0, limit);
 
   stories.forEach(story => {
-    storyEl = document.createElement("div");
-    storyEl.className = "entry";
+    storyEl = document.createElement('div');
+    storyEl.className = 'entry';
     storyEl.innerHTML = `
-    <img src="${ story.multimedia.length > 0 ? story.multimedia[0].url : 'img/no-image.png' }" />
+    <img src="${
+      story.multimedia.length > 0 ? story.multimedia[0].url : 'img/no-image.png'
+    }" />
     <div>
       <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
       <p>${story.abstract}</p>
@@ -1218,7 +1239,7 @@ function renderStories(data) {
 
 ### Array.slice()
 
-Note the use of the Array method [slice()]((https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)) and our limit variable to constrain the number of articles displayed.
+Note the use of the Array method [slice()](<(https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)>) and our limit variable to constrain the number of articles displayed.
 
 The `slice()` method returns a shallow copy of a portion of an array into a new array.
 
@@ -1242,10 +1263,10 @@ Style the new category headers:
 Since our caterories are stored in a variable:
 
 ```js
-const categories = ["arts", "books", "fashion", "food", "movies", "travel"];
+const categories = ['arts', 'books', 'fashion', 'food', 'movies', 'travel'];
 ```
 
-and are also available in  `navItemsObject`  we can simplify things a bit by changing making the category variable a product of `navItemsObject`:
+and are also available in `navItemsObject`, we can simplify things a bit by changing making the category variable a product of `navItemsObject`:
 
 ```js
 const categories = navItemsObject.map(item => item.label);
@@ -1321,9 +1342,7 @@ function renderStories(data) {
     storyEl.className = 'entry';
     storyEl.innerHTML = `
     <img src="${
-      story.multimedia.length > 0
-        ? story.multimedia[0].url
-        : 'img/no-image.png'
+      story.multimedia.length > 0 ? story.multimedia[0].url : 'img/no-image.png'
     }" />
     <div>
       <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
@@ -1337,7 +1356,6 @@ function renderStories(data) {
 renderNav();
 window.addEventListener('scroll', fixNav);
 getArticlesByCategory(categories);
-
 ```
 
 ## Notes
@@ -1346,12 +1364,13 @@ getArticlesByCategory(categories);
 
 Add [smooth scrolling](https://github.com/cferdinandi/smooth-scroll/)
 
-```js
+```html
 <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
 <script>
   var scroll = new SmoothScroll('a[href*="#"]', {
     speed: 500,
     easing: 'easeInOutQuad',
+    offset: 50,
   });
 </script>
 ```
@@ -1361,13 +1380,23 @@ Add [smooth scrolling](https://github.com/cferdinandi/smooth-scroll/)
 Move everything [out of](https://vanillajstoolkit.com/boilerplates/iife/) the global scope
 
 ```js
-;(function () {
+(function() {
+  'use strict';
 
-    'use strict';
-
-    // Code goes here...
+  // Code goes here...
 
 })();
+```
+
+'use strict': with strict mode you can not use undeclared variables.
+
+```js
+const stories = data.results.slice(0, limit);
+
+stories.forEach(story => {
+const storyEl = document.createElement('div');
+storyEl.className = 'entry';
+storyEl.innerHTML = `
 ```
 
 ### Local Storage
@@ -1382,12 +1411,14 @@ function renderStories(data) {
 }
 ```
 
+At tthe bottom of scripts:
+
 ```js
 let saved = localStorage.getItem('articles');
 if (saved) {
- elem.innerHTML = saved;
+  root.innerHTML = saved;
 } else {
- getArticlesByCategory(categories);
+  getArticlesByCategory(categories);
 }
 ```
 
@@ -1426,6 +1457,7 @@ In Chrome's inspector select Application and browser to Storage > Local Storage.
       var scroll = new SmoothScroll('a[href*="#"]', {
         speed: 500,
         easing: 'easeInOutQuad',
+        offset: 50,
       });
     </script>
   </body>
@@ -1564,9 +1596,8 @@ li.logo {
   font-size: 2.5rem;
   text-transform: capitalize;
   padding-bottom: 0.25rem;
-  padding-top: 4rem;
+  /* padding-top: 4rem; */
   margin-bottom: 1rem;
-  border-bottom: 1px solid #007eb6;
+  border-bottom: 1px dotted #007eb6;
 }
-
 ```
