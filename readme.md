@@ -54,7 +54,7 @@ Table of Contents
   - [EXERCISE VII - Adding Content](#exercise-vii---adding-content)
     - [The fetch() API](#the-fetch-api)
   - [EXERCISE VIII - Sections](#exercise-viii---sections)
-    - [Array.slice()](#arrayslice)
+    - [Array.slice(), Array.filter](#arrayslice-arrayfilter)
   - [Final Script](#final-script)
   - [Notes](#notes)
     - [Smooth Scrolling](#smooth-scrolling)
@@ -1263,13 +1263,26 @@ function renderStories(data) {
 }
 ```
 
-### Array.slice()
+---
+
+### Array.slice(), Array.filter
 
 Note the use of the Array method [slice()](<(https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)>) and our limit variable to constrain the number of articles displayed.
 
 The `slice()` method returns a shallow copy of a portion of an array into a new array.
 
 Note also that we are adding an id (`sectionHead.id = data.section;`) to the section heads so that our navigation works.
+
+Demo: Following up on our discussion of filtering arrays, here is a script that could be employed to return subsections within a section:
+
+```js
+const stories = data.results.filter(
+  // foo => console.log(foo.subsection),
+  story => story.subsection === 'Book Review',
+);
+```
+
+---
 
 Style the new category headers:
 
@@ -1437,7 +1450,7 @@ function renderStories(data) {
 }
 ```
 
-At tthe bottom of scripts:
+At the bottom of scripts:
 
 ```js
 let saved = localStorage.getItem('articles');
@@ -1449,6 +1462,38 @@ if (saved) {
 ```
 
 In Chrome's inspector select Application and browser to Storage > Local Storage.
+
+Time permitting:
+
+```js
+localStorage.setItem(
+  'stories',
+  JSON.stringify({
+    timestamp: new Date().getTime(),
+    data: stories,
+  }),
+);
+```
+
+```js
+let saved = localStorage.getItem('stories');
+let savedJson = JSON.parse(saved);
+console.log(savedJson);
+console.log(savedJson.timestamp);
+if (saved) {
+  var difference = new Date().getTime() - savedJson.timestamp;
+  console.log('difference ', difference);
+  if (difference > 1000 * 5) {
+    getArticlesByCategory(categories);
+    console.log('true');
+  } else {
+    getArticlesByCategory(categories);
+    console.log('false');
+  }
+}
+
+// getArticlesByCategory(categories);
+```
 
 ### Final HTML
 
