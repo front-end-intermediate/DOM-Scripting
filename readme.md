@@ -39,6 +39,7 @@ Table of Contents
     - [Aside - Template Literals](#aside---template-literals)
     - [Aside: React](#aside-react)
   - [EXERCISE II - Content Generation with an Array of Objects](#exercise-ii---content-generation-with-an-array-of-objects)
+    - [Aside: VSCode Extensions](#aside-vscode-extensions)
     - [Aside: Objects](#aside-objects)
     - [Array Methods](#array-methods)
       - [Array.prototype.filter()](#arrayprototypefilter)
@@ -73,17 +74,10 @@ Table of Contents
 
 Add a new category of New York Times articles using _your own_ api key.
 
-1. Download and unzip the files as completed by me at the end of the class. `cd` into the directory and run `npm install` and then `npm run start`
-
-2. Follow the instructions for getting a developer key [here](https://developer.nytimes.com/get-started)
-
-3. Use the [top stories API endpoint](https://developer.nytimes.com/docs/top-stories-product/1/overview)
-
-4. Request the top stories from a specific section of their publication and incorporate them into the layout
-
-```
-https://api.nytimes.com/svc/topstories/v2/<section_name>.json?api-key=<_your_api_key_>
-```
+1. Download and unzip the files as completed by me at the end of the class (or use the `FINAL` branch). `cd` into the directory and run `npm install` and then `npm run start`
+1. Follow the instructions for getting a developer key [here](https://developer.nytimes.com/get-started)
+1. Use the [top stories API endpoint](https://developer.nytimes.com/docs/top-stories-product/1/overview)
+1. Expand the layout - e.g. include different sections, the author's byline, the subsection, or a larger image.
 
 ### II - Practice fetch()
 
@@ -126,11 +120,11 @@ code .
 
 ## Node Package Manager
 
-[Node Package Manager](https://www.npmjs.com) (NPM) is an essential part of the web design and development ecosystem. [Node](https://nodejs.org/en/) includes NPM as part of its install.
+[Node Package Manager](https://www.npmjs.com) (NPM) is an essential part of the web design and development ecosystem. [Node](https://nodejs.org/en/) includes Node Package Manager (NPM) as part of its install.
 
-Open the integrated terminal in VSCode (`View > Terminal`) with `ctrl + ~`.
+Open the integrated terminal in VSCode (`View > Terminal`) with `ctrl ~`.
 
-For our first foray into NPM we will install and use [Browser Sync](https://www.browsersync.io) for hot reloarding.
+For our first foray into NPM we will install and use [Browser Sync](https://www.browsersync.io) for hot reloading.
 
 ```sh
 npm init -y
@@ -212,17 +206,19 @@ Returns an HTML element or Node.
 
 ### Aside - A Common Source of Errors
 
-If an element isn’t found, `querySelector()` returns null.
+If an element isn’t found, `querySelector()` returns `null`.
 
 ```js
 var elem = document.querySelector('.foo');
 ```
 
-If you try to do something with a nonexistant element you'll get an error (pretty common). You typically check that a matching element was found before using it:
+If you try to do something with a nonexistant element you'll get an error (pretty common). You typically check that a matching element was found before deciding what to do:
 
 ```js
-if (elem) {
-  // Do something...
+if (!elem) {
+  console.log("Can't find the link.");
+} else {
+  console.log('Found the link.');
 }
 ```
 
@@ -261,7 +257,9 @@ elems.forEach(function(item, index) {
 The `.forEach()` method works with arrays _and_ NodeLists. The `NodeList.forEach()` method has decent but not universal browser support at this time so it is common to convert NodeLists into Arrays with the `Array.from()` method and use `forEach()` on that:
 
 ```js
-Array.from(document.querySelectorAll('nav a')).forEach(function(item, index) {
+var elems = Array.from(document.querySelectorAll('nav a'));
+
+elems.forEach(function(item, index) {
   console.log(item);
   console.log(index);
 });
@@ -285,8 +283,6 @@ In the console:
 ```js
 navItemsArray;
 navItemsObject;
-typeof navItemsArray;
-Array.isArray(navItemsArray);
 ```
 
 In `myScripts.js`:
@@ -384,7 +380,7 @@ target.prepend(div);
 target.append(div);
 ```
 
-Let's empty the html content of our nav and append a new div.
+Let's append a new div to the (now empty) nav.
 
 Delete eveything in `myscripts` and add:
 
@@ -550,6 +546,18 @@ Navigate and inspect the code and note that we now have anchor tags with page fr
 
 ---
 
+### Aside: VSCode Extensions
+
+Install Prettier in VSCode and edit the project settings in the `.vscode` directory as per the instructions to enable format on save for JavaScript.
+
+Optional: install Bracket Pair Colorizer in VSCode. `({[({{{{{{{}}}}}}})]})`
+
+---
+
+<!-- end aside -->
+
+---
+
 ### Aside: Objects
 
 Open `other > javascript > Objects > objects.html` in a browser tab.
@@ -560,13 +568,17 @@ Examine the sample object in the browser console:
 last
 me
 me.links
-me.links.social.twitter
+var twitter = me.links.social.twitter
 ```
 
 Add to script block:
 
 ```js
 const { twitter, facebook } = me.links.social;
+```
+
+```js
+const { twitter: twit } = me.links.social;
 ```
 
 This is an example of [destructing](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) - a JavaScript expression that makes it possible to unpack values from arrays, or properties from objects, into distinct variables. We will be using it extensively in this class.
@@ -1029,17 +1041,31 @@ const nytUrl = `https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=${
 
 The [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) is a newer and easier to read alternative to XMLHttpRequest.
 
+`fetch()` returns a [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises).
+
+```js
+fetch(nytUrl).then(response => console.log(response));
+```
+
+That needs to be converted to JSON:
+
+```js
+fetch(nytUrl).then(response => console.log(response.json()));
+```
+
+We can then use the data in our app:
+
 ```js
 fetch(nytUrl)
   .then(function(response) {
     return response.json();
   })
   .then(function(myJson) {
-    console.log(myJson);
+    console.log(myJson.results);
   });
 ```
 
-`fetch()` returns a [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises).
+We will pass it to a function:
 
 ```js
 fetch(nytUrl)
@@ -1260,7 +1286,7 @@ Style the new category headers:
 }
 ```
 
-Since our caterories are stored in a variable:
+Since our categories are stored in a variable:
 
 ```js
 const categories = ['arts', 'books', 'fashion', 'food', 'movies', 'travel'];
