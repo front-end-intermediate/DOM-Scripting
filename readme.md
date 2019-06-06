@@ -1289,6 +1289,7 @@ Style the new category headers:
 ```css
 .section-head {
   font-family: Lobster;
+  font-weight: normal;
   color: #007eb6;
   font-size: 2.5rem;
   text-transform: capitalize;
