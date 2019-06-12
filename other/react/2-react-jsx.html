@@ -1,22 +1,18 @@
 <body>
+  <div id="root"></div>
 
-<div id="root"></div>
+  <script src="https://unpkg.com/react@16.3.0/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@16.3.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
 
-<script src="https://unpkg.com/react@16.3.0/umd/react.development.js"></script>
-<script src="https://unpkg.com/react-dom@16.3.0/umd/react-dom.development.js"></script>
-<script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+  <script type="text/babel">
+    const rootElement = document.getElementById('root');
 
-<script type="text/babel">
+    const content = 'Hello World';
+    const myClassName = 'container';
 
-const rootElement = document.getElementById('root')
+    const elem = <div className={myClassName}>{content}</div>;
 
-const content = 'Hello World'
-const myClassName = 'container'
-
-const elem = <div className={myClassName}>{content}</div>
-
-ReactDOM.render(elem, rootElement)
-
-</script>
-
+    ReactDOM.render(elem, rootElement);
+  </script>
 </body>
