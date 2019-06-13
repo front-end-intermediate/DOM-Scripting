@@ -1035,7 +1035,7 @@ Start by removing the existing HTML content from the site-wrap div in `index.htm
 ```html
 <div class="site-wrap"></div>
 ```
-
+ 
 Store the API key, a template string with the complete URL, and the element we want to manipulate (`.site-wrap`) in a variable:
 
 ```js
@@ -1096,6 +1096,34 @@ In `renderStories` we take the passed data (our JSON) and run a `forEach` on eve
 
 ```js
 function renderStories(data) {
+    console.log(data);
+}
+```
+
+```js
+function renderStories(data) {
+  data.results.forEach(function(story) {
+    console.log(story);
+  });
+}
+```
+
+```js
+function renderStories(data) {
+  data.results.forEach(function(story) {
+    var storyEl = document.createElement('div');
+    storyEl.className = 'entry';
+    storyEl.innerHTML = `
+    <h3>${story.title}</h3>
+    `;
+    console.log(storyEl);
+    root.prepend(storyEl);
+  });
+}
+```
+
+```js
+function renderStories(data) {
   data.results.forEach(function(story) {
     var storyEl = document.createElement('div');
     storyEl.className = 'entry';
@@ -1106,7 +1134,7 @@ function renderStories(data) {
       <p>${story.abstract}</p>
     </div>
     `;
-    root.prepend(storyEl); // NEW
+    root.prepend(storyEl);
   });
 }
 ```
@@ -1134,6 +1162,8 @@ Add some new css to support the new elements:
   text-decoration: none;
 }
 ```
+
+Try: incrementing the `[0]` in the ternary.
 
 Refactor using arrow functions amd `.map()`:
 
@@ -1259,9 +1289,9 @@ function renderStories(data) {
   sectionHead.innerHTML = `<h3 class="section-head">${data.section}</h3>`;
   root.prepend(sectionHead);
 
-  stories = data.results.slice(0, limit);
+  stories = data.results.slice(0, limit); // NEW
 
-  stories.forEach(story => {
+  stories.map(story => {
     storyEl = document.createElement('div');
     storyEl.className = 'entry';
     storyEl.innerHTML = `
@@ -1273,7 +1303,7 @@ function renderStories(data) {
       <p>${story.abstract}</p>
     </div>
     `;
-    sectionHead.append(storyEl);
+    sectionHead.append(storyEl); // NEW
   });
 }
 ```
@@ -1282,17 +1312,17 @@ function renderStories(data) {
 
 ### Array.slice(), Array.filter
 
-Note the use of the Array method [slice()](<(https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)>) and our limit variable to constrain the number of articles displayed.
+Note the use of the Array method [`slice()`](<(https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)>) and our limit variable to constrain the number of articles displayed.
 
-The `slice()` method returns a shallow copy of a portion of an array into a new array.
+The `slice()` method returns a _shallow_ copy of a portion of an array into a new array.
 
 Note also that we are adding an id (`sectionHead.id = data.section;`) to the section heads so that our navigation works.
 
 Demo: Following up on our discussion of filtering arrays, here is a script that could be employed to return subsections within a section:
 
 ```js
+// stories = data.results.slice(0, limit);
 const stories = data.results.filter(
-  // foo => console.log(foo.subsection),
   story => story.subsection === 'Book Review',
 );
 ```
@@ -1490,6 +1520,8 @@ localStorage.setItem(
   }),
 );
 ```
+
+Warning: not production code!
 
 ```js
 let saved = localStorage.getItem('stories');
