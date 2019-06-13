@@ -893,7 +893,7 @@ xhr.onreadystatechange = function() {
   // Process our return data
   if (xhr.status >= 200 && xhr.status < 300) {
     // This will run when the request is successful
-    console.log('success!', xhr);
+    console.log('success! ', xhr);
   } else {
     // This will run when it's not
     console.log('The request failed!');
@@ -975,12 +975,16 @@ xhr.send();
 
 ### `xhr.responseText` String to Object
 
-The JSON response you get back is sent as a string (`console.log(typeof(xhr.responseText))`) but, in order to work with the data, we need to convert it into an object. You do this with the `JSON.parse()` method.
+The JSON response you get back my look like on object but is in fact a string (`console.log(typeof(xhr.responseText))`). In order to work with the data we need to convert it into a JavaScript object. You do this with the `JSON.parse()` method.
 
 ```js
 // Convert data string to an object
 var data = JSON.parse(xhr.responseText);
+```
 
+Once the data is an object we can work with it.
+
+```js
 // Get the first item
 var firstPost = data[0];
 
@@ -1015,7 +1019,10 @@ xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts');
 xhr.send();
 ```
 
-Try: `console.log(typeof(JSON.parse(xhr.responseText)));`
+Try: 
+
+* `console.log(xhr.responseText);` - and compare this to `console.log(JSON.parse(xhr.responseText));`
+* `console.log(typeof(JSON.parse(xhr.responseText)));` - returns string
 
 ## EXERCISE VII - Adding Content
 
@@ -1044,10 +1051,18 @@ The [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using
 `fetch()` returns a [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises).
 
 ```js
+fetch('https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0').then(response => console.log(response));
+```
+
+```js
 fetch(nytUrl).then(response => console.log(response));
 ```
 
-That needs to be converted to JSON:
+That needs to be converted to JSON with `response.json()` (similar to `JSON.parse` above):
+
+```js
+fetch('https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0').then(response => console.log(response.json()));
+```
 
 ```js
 fetch(nytUrl).then(response => console.log(response.json()));
@@ -1065,7 +1080,7 @@ fetch(nytUrl)
   });
 ```
 
-We will pass it to a function:
+Instead of logging it we will pass it to a `renderStories` function:
 
 ```js
 fetch(nytUrl)
