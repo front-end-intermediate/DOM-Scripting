@@ -60,51 +60,6 @@ The following are used in today's class:
 - [Node.js](https://nodejs.org/en/)
 - [Google Chrome](https://www.google.com/chrome/)
 
-Table of Contents
-
-- [JavaScript, AJAX and DOM Manipulation](#javascript-ajax-and-dom-manipulation)
-  - [Homework](#homework)
-    - [I - New York Times API](#i---new-york-times-api)
-    - [II - Practice fetch()](#ii---practice-fetch)
-  - [VSCode](#vscode)
-  - [The Command Line](#the-command-line)
-  - [Node Package Manager](#node-package-manager)
-    - [NPM Scripts](#npm-scripts)
-  - [DOM Scripting](#dom-scripting)
-    - [.querySelectorAll()](#queryselectorall)
-    - [.querySelector()](#queryselector)
-    - [Aside - A Common Source of Errors](#aside---a-common-source-of-errors)
-  - [Looping - for and forEach()](#looping---for-and-foreach)
-  - [EXERCISE I - Generating Content From an Array](#exercise-i---generating-content-from-an-array)
-    - [Aside - Template Literals](#aside---template-literals)
-    - [Aside: React](#aside-react)
-  - [EXERCISE II - Content Generation with an Array of Objects](#exercise-ii---content-generation-with-an-array-of-objects)
-    - [Aside: VSCode Extensions](#aside-vscode-extensions)
-    - [Aside: Objects](#aside-objects)
-    - [Array Methods](#array-methods)
-      - [Array.prototype.filter()](#arrayprototypefilter)
-      - [Arrow Functions](#arrow-functions)
-      - [Array.prototype.map() and join()](#arrayprototypemap-and-join)
-  - [EXERCISE III - Using Array.prototype.map()](#exercise-iii---using-arrayprototypemap)
-  - [EXERCISE IV - Sticky Menu](#exercise-iv---sticky-menu)
-  - [EXERCISE V - Adding an SVG Image](#exercise-v---adding-an-svg-image)
-  - [EXERCISE VI - AJAX and APIs](#exercise-vi---ajax-and-apis)
-    - [XHR](#xhr)
-    - [`xhr.responseText` String to Object](#xhrresponsetext-string-to-object)
-  - [EXERCISE VII - Adding Content](#exercise-vii---adding-content)
-    - [The fetch() API](#the-fetch-api)
-  - [EXERCISE VIII - Sections](#exercise-viii---sections)
-    - [Array.slice(), Array.filter](#arrayslice-arrayfilter)
-  - [Final Script](#final-script)
-  - [Notes](#notes)
-    - [Smooth Scrolling](#smooth-scrolling)
-    - [Immediately Invoked Function Expression](#immediately-invoked-function-expression)
-    - [Local Storage](#local-storage)
-    - [Final HTML](#final-html)
-    - [Final CSS](#final-css)
-
----
-
 ## Homework
 
 - Install [Git](https://git-scm.com)
@@ -519,36 +474,36 @@ So far we have been working with a simple array. Most APIs consist of an array o
 const navItemsObject = [
   {
     label: 'LOGO',
-    link: '#',
+    link: '#'
   },
   {
     label: 'Watchlist',
-    link: '#watchlist',
+    link: '#watchlist'
   },
   {
     label: 'Research',
-    link: '#research',
+    link: '#research'
   },
   {
     label: 'Markets',
-    link: '#markets',
+    link: '#markets'
   },
   {
     label: 'Workbook',
-    link: '#workbook',
+    link: '#workbook'
   },
   {
     label: 'Connect',
-    link: '#connect',
+    link: '#connect'
   },
   {
     label: 'Desktop',
-    link: '#desktop',
+    link: '#desktop'
   },
   {
     label: 'FAQ',
-    link: '#faq',
-  },
+    link: '#faq'
+  }
 ];
 ```
 
@@ -659,7 +614,7 @@ const inventors = [
   { first: 'Marie', last: 'Curie', year: 1867, passed: 1934 },
   { first: 'Johannes', last: 'Kepler', year: 1571, passed: 1630 },
   { first: 'Nicolaus', last: 'Copernicus', year: 1473, passed: 1543 },
-  { first: 'Max', last: 'Planck', year: 1858, passed: 1947 },
+  { first: 'Max', last: 'Planck', year: 1858, passed: 1947 }
 ];
 ```
 
@@ -683,7 +638,7 @@ Refactor using an arrow function with implicit return:
 
 ```js
 const fifteen = inventors.filter(
-  inventor => inventor.year >= 1500 && inventor.year < 1600,
+  inventor => inventor.year >= 1500 && inventor.year < 1600
 );
 console.table(fifteen);
 ```
@@ -1059,10 +1014,10 @@ xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts');
 xhr.send();
 ```
 
-Try: 
+Try:
 
-* `console.log(xhr.responseText);` - and compare this to `console.log(JSON.parse(xhr.responseText));`
-* `console.log(typeof(JSON.parse(xhr.responseText)));` - returns string
+- `console.log(xhr.responseText);` - and compare this to `console.log(JSON.parse(xhr.responseText));`
+- `console.log(typeof(JSON.parse(xhr.responseText)));` - returns string
 
 ## EXERCISE VII - Adding Content
 
@@ -1075,7 +1030,7 @@ Start by removing the existing HTML content from the site-wrap div in `index.htm
 ```html
 <div class="site-wrap"></div>
 ```
- 
+
 Store the API key, a template string with the complete URL, and the element we want to manipulate (`.site-wrap`) in a variable:
 
 ```js
@@ -1091,7 +1046,9 @@ The [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using
 `fetch()` returns a [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises).
 
 ```js
-fetch('https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0').then(response => console.log(response));
+fetch(
+  'https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0'
+).then(response => console.log(response));
 ```
 
 ```js
@@ -1101,7 +1058,9 @@ fetch(nytUrl).then(response => console.log(response));
 That needs to be converted to JSON with `response.json()` (similar to `JSON.parse` above):
 
 ```js
-fetch('https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0').then(response => console.log(response.json()));
+fetch(
+  'https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0'
+).then(response => console.log(response.json()));
 ```
 
 ```js
@@ -1136,7 +1095,7 @@ In `renderStories` we take the passed data (our JSON) and run a `forEach` on eve
 
 ```js
 function renderStories(data) {
-    console.log(data);
+  console.log(data);
 }
 ```
 
@@ -1240,28 +1199,28 @@ Replace `navItemsObject.js` with
 const navItemsObject = [
   {
     label: 'arts',
-    link: '#arts',
+    link: '#arts'
   },
   {
     label: 'books',
-    link: '#books',
+    link: '#books'
   },
   {
     label: 'fashion',
-    link: '#fashion',
+    link: '#fashion'
   },
   {
     label: 'food',
-    link: '#food',
+    link: '#food'
   },
   {
     label: 'movies',
-    link: '#movies',
+    link: '#movies'
   },
   {
     label: 'travel',
-    link: '#travel',
-  },
+    link: '#travel'
+  }
 ];
 ```
 
@@ -1302,7 +1261,7 @@ Refactor our `fetch` call to a `fetchArticles` function that generates a url bas
 ```js
 function fetchArticles(section) {
   fetch(
-    `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${nytapi}`,
+    `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${nytapi}`
   )
     .then(response => response.json())
     .then(myJson => renderStories(myJson));
@@ -1363,7 +1322,7 @@ Demo: Following up on our discussion of filtering arrays, here is a script that 
 ```js
 // stories = data.results.slice(0, limit);
 const stories = data.results.filter(
-  story => story.subsection === 'Book Review',
+  story => story.subsection === 'Book Review'
 );
 ```
 
@@ -1414,7 +1373,7 @@ function renderNav() {
   <ul>
     ${navItemsObject
       .map(
-        item => `<li><a data-scroll href="${item.link}">${item.label}</a></li>`,
+        item => `<li><a data-scroll href="${item.link}">${item.label}</a></li>`
       )
       .join('')}
   </ul>
@@ -1448,7 +1407,7 @@ function getArticlesByCategory(cat) {
 
 function fetchArticles(section) {
   fetch(
-    `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${nytapi}`,
+    `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${nytapi}`
   )
     .then(response => response.json())
     .then(myJson => renderStories(myJson));
@@ -1495,7 +1454,7 @@ Add [smooth scrolling](https://github.com/cferdinandi/smooth-scroll/)
   var scroll = new SmoothScroll('a[href*="#"]', {
     speed: 500,
     easing: 'easeInOutQuad',
-    offset: 50,
+    offset: 50
   });
 </script>
 ```
@@ -1556,8 +1515,8 @@ localStorage.setItem(
   'stories',
   JSON.stringify({
     timestamp: new Date().getTime(),
-    data: stories,
-  }),
+    data: stories
+  })
 );
 ```
 
@@ -1616,7 +1575,7 @@ if (saved) {
       var scroll = new SmoothScroll('a[href*="#"]', {
         speed: 500,
         easing: 'easeInOutQuad',
-        offset: 50,
+        offset: 50
       });
     </script>
   </body>
