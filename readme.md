@@ -1,13 +1,54 @@
-# Web Front-End II: Intermediate (Full Stack Web Development)
+# JavaScript, AJAX and DOM Manipulation
+
+- [JavaScript, AJAX and DOM Manipulation](#javascript-ajax-and-dom-manipulation)
+  - [Homework](#homework)
+    - [I - New York Times API](#i---new-york-times-api)
+    - [II - Practice fetch()](#ii---practice-fetch)
+  - [VSCode](#vscode)
+  - [The Command Line](#the-command-line)
+  - [Node Package Manager](#node-package-manager)
+    - [NPM Scripts](#npm-scripts)
+  - [DOM Scripting](#dom-scripting)
+    - [.querySelectorAll()](#queryselectorall)
+    - [.querySelector()](#queryselector)
+    - [Aside - A Common Source of Errors](#aside---a-common-source-of-errors)
+  - [Looping - for and forEach()](#looping---for-and-foreach)
+  - [EXERCISE I - Generating Content From an Array](#exercise-i---generating-content-from-an-array)
+    - [Aside - Template Literals](#aside---template-literals)
+    - [Aside: React](#aside-react)
+  - [EXERCISE II - Content Generation with an Array of Objects](#exercise-ii---content-generation-with-an-array-of-objects)
+    - [Aside: VSCode Extensions](#aside-vscode-extensions)
+    - [Aside: Objects](#aside-objects)
+    - [Array Methods](#array-methods)
+      - [Array.prototype.filter()](#arrayprototypefilter)
+      - [Arrow Functions](#arrow-functions)
+      - [Array.prototype.map() and join()](#arrayprototypemap-and-join)
+  - [EXERCISE III - Using Array.prototype.map()](#exercise-iii---using-arrayprototypemap)
+  - [EXERCISE IV - Sticky Menu](#exercise-iv---sticky-menu)
+  - [EXERCISE V - Adding an SVG Image](#exercise-v---adding-an-svg-image)
+  - [EXERCISE VI - AJAX and APIs](#exercise-vi---ajax-and-apis)
+    - [XHR](#xhr)
+    - [`xhr.responseText` String to Object](#xhrresponsetext-string-to-object)
+  - [EXERCISE VII - Adding Content](#exercise-vii---adding-content)
+    - [The fetch() API](#the-fetch-api)
+  - [EXERCISE VIII - Sections](#exercise-viii---sections)
+    - [Array.slice(), Array.filter](#arrayslice-arrayfilter)
+  - [Final Script](#final-script)
+  - [Notes](#notes)
+    - [Smooth Scrolling](#smooth-scrolling)
+    - [Immediately Invoked Function Expression](#immediately-invoked-function-expression)
+    - [Local Storage](#local-storage)
+    - [Final HTML](#final-html)
+    - [Final CSS](#final-css)
+
+<!-- # Web Front-End II: Intermediate (Full Stack Web Development)
 
 - INFO1-CE 9040
 - 6/6/2019 - 8/15/2019
 - 6:30 PM - 9:30 PM
 - Location: 7 East 12th Street Room 225
 - Instructor: Daniel Deverell `daniel.deverell@nyu.edu`
-- [Syllabus](http://daniel.deverell.com/syllabii/_intermediate-syllabus.pdf)
-
-# I - JavaScript, AJAX and DOM Manipulation
+- [Syllabus](http://daniel.deverell.com/syllabii/_intermediate-syllabus.pdf) -->
 
 In today's class we will implement [this single page web site](http://oit2.scps.nyu.edu/~devereld/intermediate/session1/) with content is almost entirely generated using JavaScript (try selecting `view > developer > View Source` in Chrome).
 
@@ -21,8 +62,7 @@ The following are used in today's class:
 
 Table of Contents
 
-- [Web Front-End II: Intermediate (Full Stack Web Development)](#web-front-end-ii-intermediate-full-stack-web-development)
-- [I - JavaScript, AJAX and DOM Manipulation](#i---javascript-ajax-and-dom-manipulation)
+- [JavaScript, AJAX and DOM Manipulation](#javascript-ajax-and-dom-manipulation)
   - [Homework](#homework)
     - [I - New York Times API](#i---new-york-times-api)
     - [II - Practice fetch()](#ii---practice-fetch)
@@ -75,9 +115,9 @@ Table of Contents
 Add a new category of New York Times articles using _your own_ api key.
 
 1. Download and unzip the files as completed by me at the end of the class (or use the `FINAL` branch). `cd` into the directory and run `npm install` and then `npm run start`
-1. Follow the instructions for getting a developer key [here](https://developer.nytimes.com/get-started)
-1. Use the [top stories API endpoint](https://developer.nytimes.com/docs/top-stories-product/1/overview)
-1. Expand the layout - e.g. include different sections, the author's byline, the subsection, or a larger image.
+2. Follow the instructions for getting a developer key [here](https://developer.nytimes.com/get-started)
+3. Use the [top stories API endpoint](https://developer.nytimes.com/docs/top-stories-product/1/overview)
+4. Expand the layout - e.g. include different sections, the author's byline, the subsection, or a larger image.
 
 ### II - Practice fetch()
 
