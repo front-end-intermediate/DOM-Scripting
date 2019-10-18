@@ -1,7 +1,7 @@
 {
-  "name": "DOM-Scripting-master",
+  "name": "dom-scripting",
   "version": "1.0.0",
-  "description": "- INFO1-CE 9040 - 6/6/2019 - 8/15/2019 - 6:30 PM - 9:30 PM - Location: 7 East 12th Street Room 225 - Instructor: Daniel Deverell `daniel.deverell@nyu.edu` - [Syllabus](http://daniel.deverell.com/syllabii/_intermediate-syllabus.pdf)",
+  "description": "intro",
   "main": "index.js",
   "scripts": {
     "start": "browser-sync start --server 'app' --files 'app'"
@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "browser-sync": "^2.26.5"
+    "browser-sync": "^2.26.7"
   }
 }
