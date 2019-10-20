@@ -1,7 +1,7 @@
 # DOM Manipulation
 
 - [DOM Manipulation](#dom-manipulation)
-  - [Syllabus](#syllabus)
+  - [Class Info](#class-info)
   - [Homework](#homework)
     - [I - JavaScript Review](#i---javascript-review)
     - [II - New York Times API](#ii---new-york-times-api)
@@ -42,24 +42,12 @@
     - [Final HTML](#final-html)
     - [Final CSS](#final-css)
 
-## Syllabus
+## Class Info
 
 - 6/6/2019 - 8/15/2019
 - 6:30 PM - 9:30 PM
 - Instructor: Daniel Deverell `daniel.deverell@nyu.edu`
 - [Syllabus](https://docs.google.com/document/d/1UAXDYO9RkSi8WI3tXmvtm-6dWtkuBf8LypxTwHkpq8w)
-
-
-
-In today's class we will implement [this single page web site](http://oit2.scps.nyu.edu/~devereld/intermediate/session1/) with content is almost entirely generated using JavaScript (try selecting `view > developer > View Source` in Chrome).
-
-In creating this page we will focus on techniques that are critical, not just for working effectively with DOM manipulation, but for React and other JavaScript frameworks.
-
-The following are used in today's class:
-
-- [Visual Studio Code](https://code.visualstudio.com/)
-- [Node.js](https://nodejs.org/en/)
-- [Google Chrome](https://www.google.com/chrome/)
 
 ## Homework
 
@@ -68,7 +56,7 @@ The following are used in today's class:
 
 ### I - JavaScript Review
 
-Review the JavaScript Algorithms and Data Structures Certification at [Free Code Camp](https://www.freecodecamp.org/learn). Start with the Basic JavaScript lessons and then proceed to the ES6 section. YOu should try to complete these sections before the third class.
+Review the JavaScript Algorithms and Data Structures Certification at [Free Code Camp](https://www.freecodecamp.org/learn). Start with the Basic JavaScript lessons and then proceed to the ES6 section. You should try to complete these sections before the third class. If you want to get ahead, 
 
 ### II - New York Times API
 
@@ -82,6 +70,16 @@ Add a new category of New York Times articles using _your own_ api key.
 ---
 
 ## VSCode
+
+In today's class we will implement [this single page web site](http://oit2.scps.nyu.edu/~devereld/intermediate/session1/) with content almost entirely generated using JavaScript (try selecting `view > developer > View Source` in Chrome).
+
+In creating this page we will focus on techniques that are critical, not just for working effectively with DOM manipulation, but for React and other JavaScript frameworks.
+
+The following are used in today's class:
+
+- [Visual Studio Code](https://code.visualstudio.com/)
+- [Node.js](https://nodejs.org/en/)
+- [Google Chrome](https://www.google.com/chrome/)
 
 In this class we will be using [Visual Studio Code](https://code.visualstudio.com/) as our editor. We will discuss its features on an as-needed basis.
 
@@ -181,7 +179,7 @@ Use `document.querySelectorAll('selector')` to find all matching elements on a p
 In the browser's console:
 
 ```js
-> var elems = document.querySelectorAll('.main li');
+> var elems = document.querySelectorAll('.main-menu li');
 ```
 
 Returns a [NodeList](https://developer.mozilla.org/en-US/docs/Web/API/NodeList).
@@ -193,7 +191,7 @@ Use `document.querySelector()` (without the 'All') to find the first matching el
 In the browser's console:
 
 ```js
-> var elem = document.querySelector('.main a');
+> var elem = document.querySelector('.main-menu a');
 ```
 
 Returns an HTML element or Node.
@@ -227,7 +225,7 @@ if (!elem) {
 In JavaScript, you can use a `for` to loop through array and node list items.
 
 ```js
-var elems = document.querySelectorAll('nav a');
+var elems = document.querySelectorAll('.main-menu a');
 
 for (let i = 0; i < elems.length; i++) {
   console.log(i); // index
@@ -242,7 +240,7 @@ You pass a [callback function](https://developer.mozilla.org/en-US/docs/Glossary
 Unlike a for loop, you can’t terminate the `forEach()` function before it’s completed with `break`.
 
 ```js
-var elems = document.querySelectorAll('nav a');
+var elems = document.querySelectorAll('.main-menu a');
 
 elems.forEach(function(item, index) {
   console.log(index); // index
@@ -253,7 +251,7 @@ elems.forEach(function(item, index) {
 The `.forEach()` method works with arrays _and_ NodeLists. The `NodeList.forEach()` method has decent but not universal browser support at this time so it is common to convert NodeLists into Arrays with the `Array.from()` method and use `forEach()` on that:
 
 ```js
-var elems = Array.from(document.querySelectorAll('nav a'));
+var elems = Array.from(document.querySelectorAll('.main-menu a'));
 
 elems.forEach(function(item, index) {
   console.log(item);
@@ -283,7 +281,7 @@ In the console:
 
 In `myScripts.js`:
 
-Select the element with the class `main`:
+Select the element with the class `.main-menu`:
 
 ```js
 const nav = document.querySelector('.main-menu');
