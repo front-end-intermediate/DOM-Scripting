@@ -1,9 +1,10 @@
 # DOM Manipulation
 
 - [DOM Manipulation](#dom-manipulation)
+  - [Syllabus](#syllabus)
   - [Homework](#homework)
-    - [I - New York Times API](#i---new-york-times-api)
-    - [II - Practice fetch()](#ii---practice-fetch)
+    - [I - JavaScript Review](#i---javascript-review)
+    - [II - New York Times API](#ii---new-york-times-api)
   - [VSCode](#vscode)
   - [The Command Line](#the-command-line)
   - [Node Package Manager](#node-package-manager)
@@ -41,14 +42,14 @@
     - [Final HTML](#final-html)
     - [Final CSS](#final-css)
 
-<!-- # Web Front-End II: Intermediate (Full Stack Web Development)
+## Syllabus
 
-- INFO1-CE 9040
 - 6/6/2019 - 8/15/2019
 - 6:30 PM - 9:30 PM
-- Location: 7 East 12th Street Room 225
 - Instructor: Daniel Deverell `daniel.deverell@nyu.edu`
-- [Syllabus](http://daniel.deverell.com/syllabii/_intermediate-syllabus.pdf) -->
+- [Syllabus](https://docs.google.com/document/d/1UAXDYO9RkSi8WI3tXmvtm-6dWtkuBf8LypxTwHkpq8w)
+
+
 
 In today's class we will implement [this single page web site](http://oit2.scps.nyu.edu/~devereld/intermediate/session1/) with content is almost entirely generated using JavaScript (try selecting `view > developer > View Source` in Chrome).
 
@@ -65,7 +66,11 @@ The following are used in today's class:
 - Install [Git](https://git-scm.com)
 - Create a Github account
 
-### I - New York Times API
+### I - JavaScript Review
+
+Review the JavaScript Algorithms and Data Structures Certification at [Free Code Camp](https://www.freecodecamp.org/learn). Start with the Basic JavaScript lessons and then proceed to the ES6 section. YOu should try to complete these sections before the third class.
+
+### II - New York Times API
 
 Add a new category of New York Times articles using _your own_ api key.
 
@@ -73,10 +78,6 @@ Add a new category of New York Times articles using _your own_ api key.
 2. Follow the instructions for getting a developer key [here](https://developer.nytimes.com/get-started)
 3. Use the [top stories API endpoint](https://developer.nytimes.com/docs/top-stories-product/1/overview)
 4. Expand the layout - e.g. include different sections, the author's byline, the subsection, or a larger image.
-
-### II - Practice fetch()
-
-Using the starter HTML from `other/typeahead/template.html`, complete [this exercise](https://youtu.be/y4gZMJKAeWs).
 
 ---
 
@@ -180,7 +181,7 @@ Use `document.querySelectorAll('selector')` to find all matching elements on a p
 In the browser's console:
 
 ```js
-var elems = document.querySelectorAll('.main li');
+> var elems = document.querySelectorAll('.main li');
 ```
 
 Returns a [NodeList](https://developer.mozilla.org/en-US/docs/Web/API/NodeList).
@@ -192,7 +193,7 @@ Use `document.querySelector()` (without the 'All') to find the first matching el
 In the browser's console:
 
 ```js
-var elem = document.querySelector('.main a');
+> var elem = document.querySelector('.main a');
 ```
 
 Returns an HTML element or Node.
@@ -276,8 +277,8 @@ Note the difference between `navItemsObject` and `navItemsArray`. The latter is 
 In the console:
 
 ```js
-navItemsArray;
-navItemsObject;
+> navItemsArray;
+> navItemsObject;
 ```
 
 In `myScripts.js`:
@@ -285,7 +286,7 @@ In `myScripts.js`:
 Select the element with the class `main`:
 
 ```js
-const nav = document.querySelector('.main');
+const nav = document.querySelector('.main-menu');
 ```
 
 To select all the links in nav we could try:
@@ -297,7 +298,7 @@ const navList = document.querySelectorAll('#main li a');
 But here it is perhaps a bit more efficient to use `element.querySelector` (as opposed to `document.querySelector`):
 
 ```js
-const nav = document.querySelector('.main');
+const nav = document.querySelector('.main-menu');
 const navList = nav.querySelectorAll('li a');
 ```
 
@@ -315,7 +316,7 @@ Replace our placeholder nav items with content from an array
 - use a `for` loop and `innerHTML`:
 
 ```js
-const nav = document.querySelector('.main');
+const nav = document.querySelector('.main-menu');
 const navList = nav.querySelectorAll('li a');
 
 for (let i = 0; i < navList.length; i++) {
@@ -360,7 +361,7 @@ var div = document.createElement('div');
 div.textContent = 'Hello world';
 
 // Get the element to add your new HTML element before, after, or within
-const target = document.querySelector('.main');
+const target = document.querySelector('.main-menu');
 
 // Inject the `div` element before the `#app` element
 target.before(div);
@@ -380,7 +381,7 @@ Let's append a new div to the (now empty) nav.
 Delete eveything in `myscripts` and add:
 
 ```js
-const nav = document.querySelector('.main');
+const nav = document.querySelector('.main-menu');
 
 const navList = document.createElement('ul');
 nav.append(navList);
@@ -391,7 +392,7 @@ Note the `<ul>` in the header.
 Dynamically create the nav based on the number of items in the array using a for loop:
 
 ```js
-const nav = document.querySelector('.main');
+const nav = document.querySelector('.main-menu');
 
 const navList = document.createElement('ul');
 
@@ -512,7 +513,7 @@ Add the links using `navItemsObject` instead of `navItemsArray`.
 Note the the 'dot' accessor notation for dealing with an object and the addition of the anchor tags:
 
 ```js
-const nav = document.querySelector('.main');
+const nav = document.querySelector('.main-menu');
 
 const navList = document.createElement('ul');
 
@@ -676,7 +677,7 @@ console.log('Full names: ' + fullNames);
 Let's try creating the list items using `map()` and template strings:
 
 ```js
-const nav = document.querySelector('.main');
+const nav = document.querySelector('.main-menu');
 
 const markup = `
     <ul>

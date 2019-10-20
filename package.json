@@ -1,0 +1,24 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "# Web Front-End II: Intermediate (Full Stack Web Development)",
+  "main": "students.js",
+  "dependencies": {},
+  "devDependencies": {
+    "browser-sync": "^2.26.7"
+  },
+  "scripts": {
+    "start": "browser-sync start --server 'app' --files 'app'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/front-end-intermediate/DOM-Scripting.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/front-end-intermediate/DOM-Scripting/issues"
+  },
+  "homepage": "https://github.com/front-end-intermediate/DOM-Scripting#readme"
+}
