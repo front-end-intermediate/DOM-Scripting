@@ -1,6 +1,6 @@
-# JavaScript, AJAX and DOM Manipulation
+# DOM Manipulation
 
-- [JavaScript, AJAX and DOM Manipulation](#javascript-ajax-and-dom-manipulation)
+- [DOM Manipulation](#dom-manipulation)
   - [Homework](#homework)
     - [I - New York Times API](#i---new-york-times-api)
     - [II - Practice fetch()](#ii---practice-fetch)
