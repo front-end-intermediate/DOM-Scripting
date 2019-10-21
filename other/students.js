@@ -47,7 +47,7 @@ function differentStudents(a1, a2) {
   return diff;
 }
 
-console.log(differentStudents(intro, intermediate));
+// console.log(differentStudents(intro, intermediate));
 
 // let continuingStudents = intro.filter( function(student){
 //   return intermediate.includes(student)

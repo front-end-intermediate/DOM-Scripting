@@ -71,6 +71,22 @@ Start VSCode, press `cmd + shift + p` and type in the word `shell`. Select `Inst
 
 ![Image of layout](other/images/vscode.png)
 
+---
+
+### Aside: VSCode Extensions
+
+Install Prettier in VSCode and edit the project settings in the `.vscode` directory as per the instructions to enable format on save for JavaScript.
+
+Install Quokka and Live Server in VS Studio code
+
+Optional: install Bracket Pair Colorizer in VSCode. `({[({{{{{{{}}}}}}})]})`
+
+---
+
+<!-- end aside -->
+
+---
+
 ## The Command Line
 
 You are going to need to have a minimal set of terminal commands at your disposal.
@@ -187,7 +203,7 @@ Returns an HTML element or Node.
 If an element isn’t found, `querySelector()` returns `null`.
 
 ```js
-var elem = document.querySelector('.foo');
+> var elem = document.querySelector('.foo');
 ```
 
 If you try to do something with a nonexistent element you'll get an error (pretty common). You typically check that a matching element was found before deciding what to do:
@@ -232,6 +248,8 @@ elems.forEach(function(item, index) {
 });
 ```
 
+### Array.from()
+
 The `.forEach()` method works with arrays _and_ NodeLists. The `NodeList.forEach()` method has decent but not universal browser support at this time so it is common to convert NodeLists into Arrays with the `Array.from()` method and use `forEach()` on that:
 
 ```js
@@ -243,16 +261,22 @@ elems.forEach(function(item, index) {
 });
 ```
 
+Note: greater backwards compatibility can be acheived with:
+
+`Array.prototype.slice.call(document.querySelectorAll('.main-menu a'));`
+
 ## EXERCISE I - Generating Content From an Array
 
 We will begin by replacing the existing nav with items from an array using a `for loop`.
 
-Examine the two provided JS files. Note that they are made available to `index.html` via the script tag at the bottom of that document:
+Note the two script tags at the bottom of `index.html`:
 
 ```html
 <script src="js/navitems.js"></script>
 <script src="js/myscripts.js"></script>
 ```
+
+Examine `navitems.js`.
 
 Note the difference between `navItemsObject` and `navItemsArray`. The latter is an array of values while the former offers an array of objects consisting of key/value pairs.
 
@@ -263,9 +287,7 @@ In the console:
 > navItemsObject;
 ```
 
-In `myScripts.js`:
-
-Select the element with the class `.main-menu`:
+Select the element with the class `.main-menu` In `myScripts.js`:
 
 ```js
 const nav = document.querySelector('.main-menu');
@@ -274,7 +296,7 @@ const nav = document.querySelector('.main-menu');
 To select all the links in nav we could try:
 
 ```js
-const navList = document.querySelectorAll('#main li a');
+const navList = document.querySelectorAll('#main-menu li a');
 ```
 
 But here it is perhaps a bit more efficient to use `element.querySelector` (as opposed to `document.querySelector`):
@@ -309,6 +331,8 @@ for (let i = 0; i < navList.length; i++) {
 
 The `innerHTML` property can be used to both get and set HTML content in an element.
 
+In the console:
+
 ```js
 var elem = document.querySelector('.site-wrap');
 
@@ -327,8 +351,21 @@ We need to dynamically generate the nav from items in the array.
 Edit the HTML:
 
 ```html
-<nav class="main"></nav>
+<nav id="main-menu" class="main-menu" aria-label="Main menu">
+  <a
+    href="#main-menu-toggle"
+    id="main-menu-close"
+    class="menu-close"
+    aria-label="Close main menu"
+  >
+    <span class="sr-only">Close main menu</span>
+    <span class="fa fa-close" aria-hidden="true"></span>
+  </a>
+  <ul></ul>
+</nav>
 ```
+
+Note: the [responsive hamburger menu technique](https://medium.com/@heyoka/responsive-pure-css-off-canvas-hamburger-menu-aebc8d11d793) used in today's sample required that we leave the first link in place. See the article and `nav.css` for more information.
 
 Append a `<ul>` tag to nav using:
 
@@ -345,16 +382,16 @@ div.textContent = 'Hello world';
 // Get the element to add your new HTML element before, after, or within
 const target = document.querySelector('.main-menu');
 
-// Inject the `div` element before the `#app` element
+// Inject the `div` element before the element
 target.before(div);
 
-// Inject the `div` element after the `#app` element
+// Inject the `div` element after the element
 target.after(div);
 
-// Inject the `div` element before the first item *inside* the `#app` element
+// Inject the `div` element before the first item *inside* the element
 target.prepend(div);
 
-// Inject the `div` element after the first item *inside* the `#app` element
+// Inject the `div` element after the first item *inside* the element
 target.append(div);
 ```
 
@@ -366,6 +403,7 @@ Delete eveything in `myscripts` and add:
 const nav = document.querySelector('.main-menu');
 
 const navList = document.createElement('ul');
+navList.textContent = 'Hello world';
 nav.append(navList);
 ```
 
@@ -388,13 +426,15 @@ for (let i = 0; i < navItemsArray.length; i++) {
 nav.append(navList);
 ```
 
-Our nav bar now displays all the items in our array but the code is fugly. This is a good example of [imperative programming](https://tylermcginnis.com/imperative-vs-declarative-programming/). We will need to progress beyond this to a more declarative style. We will use many [Functional Progamming](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0) techniques. (see `students.js` in today's `other` folder.)
+Our nav bar now displays all the items in our array but the code is ugly. This is an example of [imperative programming](https://tylermcginnis.com/imperative-vs-declarative-programming/). In order to prepare for React we need to adopt a more declarative style.
+
+We will use [Functional Programming](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0) techniques. (See the `filter` examples `students.js` in today's `other` folder.)
 
 ---
 
 ### Aside - Template Literals
 
-Note that we used single quotes in the construction of our innerHTML: `listItem.innerHTML = '<a href="#">' + linkText + '</a>'`. Compare old school concatenation and the variable 'sentence' below:
+Note that we used single quotes in the construction of our innerHTML: `listItem.innerHTML = '<a href="#">' + linkText + '</a>'`. Compare old school concatenation and the variable 'sentence' bu running the following in the console:
 
 ```js
 const name = 'Yorik';
@@ -421,7 +461,7 @@ for (let i = 0; i < navItemsArray.length; i++) {
 }
 ```
 
-Finally, use `forEach()` instead of a for loop:
+Use `forEach()` instead of a for loop:
 
 ```js
 navItemsArray.forEach(function(item) {
@@ -431,13 +471,29 @@ navItemsArray.forEach(function(item) {
 });
 ```
 
+Use an arrow function in the final script:
+
+```js
+const nav = document.querySelector('.main-menu');
+
+const navList = document.createElement('ul');
+
+navItemsArray.forEach(item => {
+  let listItem = document.createElement('li');
+  listItem.innerHTML = `<a href="#">${item}</a>`;
+  navList.appendChild(listItem);
+});
+
+nav.append(navList);
+```
+
 ---
 
 ### Aside: React
 
-Open for reference `other > React > 1-react.html`
+Open for reference `other > React > 1-react.html` in a browser using [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer).
 
-Since we will be spending much of our time this semester in React, it is worthwhile to point out at this time that React, at a very fundamental level, offers an alternate way to create DOM elements.
+Since we will be spending much of our time this semester in React, it is worthwhile to point out at this time that React is an alternate way to create DOM elements.
 
 The second file, `2-react-jsx.html`, uses [Babel](https://babeljs.io) to help create a DOM element.
 
@@ -447,11 +503,12 @@ The second file, `2-react-jsx.html`, uses [Babel](https://babeljs.io) to help cr
 
 ## EXERCISE II - Content Generation with an Array of Objects
 
-So far we have been working with a simple array. Most APIs consist of an array of objects:
+So far we have been working with a simple array. However most of the data you will encounter will consist of an array of objects:
 
 - [JSON Placeholder](https://jsonplaceholder.typicode.com/posts)
 - [City Growth](https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json)
-- navItemsObject:
+- The [New York Times API](https://api.nytimes.com/svc/topstories/v2/nyregion.json?api-key=uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0)
+- and our navItemsObject:
 
 ```js
 const navItemsObject = [
@@ -495,22 +552,6 @@ Add the links using `navItemsObject` instead of `navItemsArray`.
 Note the the 'dot' accessor notation for dealing with an object and the addition of the anchor tags:
 
 ```js
-const nav = document.querySelector('.main-menu');
-
-const navList = document.createElement('ul');
-
-for (let i = 0; i < navItemsObject.length; i++) {
-  const listItem = document.createElement('li');
-  listItem.innerHTML = `<a href="${navItemsObject[i].link}">${navItemsObject[i].label}</a>`;
-  navList.appendChild(listItem);
-}
-
-nav.append(navList);
-```
-
-Refactor to use `forEach()`:
-
-```js
 navItemsObject.forEach(function(item) {
   let listItem = document.createElement('li');
   listItem.innerHTML = `<a href="${item.link}">${item.label}</a>`;
@@ -520,19 +561,13 @@ navItemsObject.forEach(function(item) {
 
 Navigate and inspect the code and note that we now have anchor tags with page fragment links in our html and are able to navigate within our page.
 
----
+Add page fragment links:
 
-### Aside: VSCode Extensions
-
-Install Prettier in VSCode and edit the project settings in the `.vscode` directory as per the instructions to enable format on save for JavaScript.
-
-Optional: install Bracket Pair Colorizer in VSCode. `({[({{{{{{{}}}}}}})]})`
-
----
-
-<!-- end aside -->
-
----
+```html
+<body id="top">
+  <a href="#top">Back to top</a>
+</body>
+```
 
 ### Aside: Objects
 
@@ -599,7 +634,9 @@ const inventors = [
 ];
 ```
 
-Filter the list of inventors for those who were born in the 1500's
+Filter the list of inventors for those who were born in the 1500's.
+
+In the console:
 
 ```js
 const fifteen = inventors.filter(function(inventor) {
@@ -702,106 +739,55 @@ Note the use of nested template strings here.
 
 These methods, `.map`, `.filter`, and others we have yet to look at such as `.reduce`, are _the prefered_ means of manipulating data today.
 
-## EXERCISE IV - Sticky Menu
+The close button which is an integral part of the responsive navigate has been lost due to the use of `nav.innerHTML = markup;`. There are a number of simple ways to resolve this. For today we'll just cut the code from `index.html` and paste the code into our JavaScript:
+
+```js
+const markup = `
+<ul>
+  <a
+  href="#main-menu-toggle"
+  id="main-menu-close"
+  class="menu-close"
+  aria-label="Close main menu"
+  >
+  <span class="sr-only">Close main menu</span>
+  <span class="fa fa-close" aria-hidden="true"></span>
+  </a>
+  ${navItemsObject
+    .map(item => `<li><a href="${item.link}">${item.label}</a></li>`)
+    .join('')}
+</ul>
+`;
+```
+
+## EXERCISE - Sticky Menu
 
 Problem: the menu scrolls off the screen and we want to to be available at all times.
 
-Solution: we will anchor the menu to the top of the screen once the user has scrolled to the point where the menu would normally be out of sight.
+Solution: we will anchor the menu to the top of the screen once the user has scrolled to the point where the menu would normally be out of sight using the css position property.
 
-Note: this behavior can be managed without JavaScript using the css position property:
+Edit the CSS in `nav.css` (inside the media query).
 
 ```css
-.main {
+.main-menu {
+  display: block;
+  position: static;
+  background: #007eb6;
+  width: 100%;
   position: sticky;
   top: 0px;
 }
 ```
 
-I have elected not to do so because not only is it useful to understand position in JavaScript, but also because it is common to make other changes to the DOM contingent on another. Below we will add a static nav which shows a logo only when it is fixed to the top of the window.
+Note: this would be considered a progressive enhancement as it does not work in all the browsers. Support migh be extended by following the instructions on [Can I Use](https://caniuse.com/#feat=css-sticky).
 
-The DOM method [`offSetTop`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop) allows us to get information about the position of an element relative to the top of the browser's window.
-
-```js
-// sticky nav
-let topOfNav = nav.offsetTop;
-window.addEventListener('scroll', function() {
-  console.log(topOfNav);
-  console.log(window.scrollY);
-});
-```
-
-The DOM method - [addEventListener('event', function)](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener), see also [event types](https://developer.mozilla.org/en-US/docs/Web/Events) allows us to listen for an event in the browser and run a function when it occurs.
-
-Note [window.scrollY](https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollY) to get the number of pixels that the document is currently scrolled vertically:
-
-When `topOfNav` is equal to or greater than `window.scrollY` we use CSS to make the menu stay at the top of the screen.
-
-To do so we'll employ [classList](https://plainjs.com/javascript/attributes/adding-removing-and-testing-for-classes-9/):
-
-```js
-// sticky nav
-let topOfNav = nav.offsetTop;
-window.addEventListener('scroll', fixNav);
-
-function fixNav() {
-  if (window.scrollY >= topOfNav) {
-    document.body.classList.add('fixed-nav');
-  }
-}
-```
-
-And add the css for the `fixed-nav` class:
-
-```css
-body.fixed-nav nav {
-  position: fixed;
-  top: 0;
-  box-shadow: 0 5px 3px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  z-index: 1;
-}
-```
-
-And test in the browser.
-
-Add an `else` to our `if` statement to remove the sticky behavior when the banner image is showing.
-
-```js
-function fixNav() {
-  if (window.scrollY >= topOfNav) {
-    document.body.classList.add('fixed-nav');
-  } else {
-    document.body.classList.remove('fixed-nav');
-  }
-}
-```
-
-When the nav gets position fixed it no longer takes up space in the window so the content beneath it jumps upward (reflows).
-
-Take care of this jump using `nav.offsetHeight` to add an amount of padding equal to the height of the nav to the body element.
-
-```js
-function fixNav() {
-  if (window.scrollY >= topOfNav) {
-    document.body.style.paddingTop = nav.offsetHeight + 'px';
-    document.body.classList.add('fixed-nav');
-  } else {
-    document.body.classList.remove('fixed-nav');
-    document.body.style.paddingTop = 0;
-  }
-}
-```
-
-Note `paddingTop` (camel case) - I used Javascript for this because the height of the nav bar (`offSetHeight`) could vary. Otherwise I would have used CSS. As a genral rule, try to use CSS instead of Javascript wherever possible.
-
-## EXERCISE V - Adding an SVG Image
-
-We added the class `fixed-nav` to the html body tag (as opposed to, say, the nav itself) so that we can use it to target other elements on the page which are not children of the nav. We will take advatage of this now.
+## EXERCISE - Adding an SVG Image
 
 Select the first list item on the nav, add a class and set the innerHTML so that we get a link which will return us to the top of the page:
 
 ```js
-const logo = nav.querySelector('.main ul li');
+// logo
+const logo = nav.querySelector('.main-menu ul li');
 logo.classList.add('logo');
 logo.innerHTML = '<a href="#"><img src="img/logo.svg" /></a>';
 ```
@@ -813,21 +799,12 @@ Some interesting applications of SVG:
 - [Responsive logos](http://responsivelogos.co.uk)
 - [Background generator](http://www.svgeneration.com/recipes/Beam-Center/)
 
-Format the logo and create the sliding logo behavior. Note: CSS only, no JavaScript:
+Format the logo for both mobile and wide screen:
 
 ```css
-li.logo {
-  max-width: 0;
-  overflow: hidden;
-  background: white;
-  transition: all 0.5s;
-}
 li.logo img {
   padding-top: 0.25rem;
   width: 2.5rem;
-}
-.fixed-nav li.logo {
-  max-width: 500px;
 }
 ```
 
@@ -912,7 +889,7 @@ xhr.send();
 
 Try: `console.log('success!', xhr.response);`
 
-We used a GET request to get a list of posts from JSON Placeholder, but, there are a handful of possible request types you can make. HTTP methods are typically verbs that describe what the request you're making does.
+We used a GET request to get a list of posts from JSON Placeholder, but there are a handful of possible request types you can make. HTTP methods are typically verbs that describe what the request you're making does.
 
 The four most common are GET, POST, PUT, and DELETE. You can see a list at the [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods).
 
@@ -951,7 +928,7 @@ xhr.send();
 
 ### `xhr.responseText` String to Object
 
-The JSON response you get back my look like on object but is in fact a string (`console.log(typeof(xhr.responseText))`). In order to work with the data we need to convert it into a JavaScript object. You do this with the `JSON.parse()` method.
+The JSON response you get back may look like an object but is in fact a string (`console.log(typeof(xhr.responseText))`). In order to work with the data we need to convert it into a JavaScript object. You do this with the `JSON.parse()` method.
 
 ```js
 // Convert data string to an object
@@ -1000,7 +977,7 @@ Try:
 - `console.log(xhr.responseText);` - and compare this to `console.log(JSON.parse(xhr.responseText));`
 - `console.log(typeof(JSON.parse(xhr.responseText)));` - returns string
 
-## EXERCISE VII - Adding Content
+## EXERCISE - Adding Content
 
 We will use the [NY Times developer](https://developer.nytimes.com) API for getting a data using my API key.
 
@@ -1104,16 +1081,16 @@ function renderStories(data) {
 
 ```js
 function renderStories(data) {
-  data.results.forEach(function(story) {
+  data.results.forEach(story => {
     var storyEl = document.createElement('div');
     storyEl.className = 'entry';
     storyEl.innerHTML = `
-    <img src="${story.multimedia[0].url}" />
-    <div>
-      <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
-      <p>${story.abstract}</p>
-    </div>
-    `;
+    <img src="${story.multimedia[0].url}" alt="${story.title}" />
+      <div>
+        <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
+        <p>${story.abstract}</p>
+      </div>
+      `;
     root.prepend(storyEl);
   });
 }
@@ -1122,10 +1099,15 @@ function renderStories(data) {
 Note: not all NYTimes stories include images and, depending on the day, our script could error if `story.multimedia[0]` was undefined. For this we will use a [Conditional (ternary) operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator)
 
 ```js
-<img src="${ story.multimedia.length > 0 ? story.multimedia[0].url : 'img/no-image.png' }" />
+<img
+  src="${
+      story.multimedia.length > 0 ? story.multimedia[0].url : 'img/no-image.png'
+    }"
+  alt='${story.title}'
+/>
 ```
 
-Ternaries are popular in cases like this. (Imagine trying to write an `if(){} else(){}` statement inside a string literal.) In React they are essential.
+Ternaries are popular in cases like this - in fact they are essential. Imagine trying to write an `if(){} else(){}` statement inside a string literal. It wouldn't work because template literals only support expressions.
 
 Add some new css to support the new elements:
 
@@ -1145,7 +1127,7 @@ Add some new css to support the new elements:
 
 Try: incrementing the `[0]` in the ternary.
 
-Refactor using arrow functions amd `.map()`:
+Refactor using arrow functions and `.map()`:
 
 ```js
 fetch(nytUrl)
@@ -1158,19 +1140,21 @@ function renderStories(data) {
     storyEl.className = 'entry';
     storyEl.innerHTML = `
     <img src="${
-      story.multimedia.length > 0 ? story.multimedia[0].url : 'img/no-image.png'
-    }" />
+      story.multimedia.length > 0 ? story.multimedia[2].url : 'img/no-image.png'
+    }" alt="${story.title}" />
       <div>
         <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
         <p>${story.abstract}</p>
       </div>
       `;
-    root.append(storyEl); // append or prepend - doesn't matter here
+    root.prepend(storyEl);
   });
 }
 ```
 
-## EXERCISE VIII - Sections
+## EXERCISE - Sections
+
+_Warning_ - intense code ahead. Be sure to review this section.
 
 Let's add additional Sections to our page.
 
@@ -1221,6 +1205,13 @@ Add a categories and limit variable:
 ```js
 const limit = 6;
 const categories = ['arts', 'books', 'fashion', 'food', 'movies', 'travel'];
+```
+
+Since our categories are available in `navItemsObject`, we can simplify things by making the categories variable a product of `navItemsObject`:
+
+```js
+const limit = 6;
+const categories = navItemsObject.map(item => item.label);
 ```
 
 Create a new `getArticlesByCategory` function and call it with the categories array:
@@ -1325,18 +1316,6 @@ Style the new category headers:
 }
 ```
 
-Since our categories are stored in a variable:
-
-```js
-const categories = ['arts', 'books', 'fashion', 'food', 'movies', 'travel'];
-```
-
-and are also available in `navItemsObject`, we can simplify things a bit by changing making the category variable a product of `navItemsObject`:
-
-```js
-const categories = navItemsObject.map(item => item.label);
-```
-
 ## Final Script
 
 ```js
@@ -1345,8 +1324,7 @@ var root = document.querySelector('.site-wrap');
 const nytapi = 'uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0';
 const limit = 6;
 const categories = navItemsObject.map(item => item.label);
-const nav = document.querySelector('nav');
-let topOfNav = nav.offsetTop;
+const nav = document.querySelector('.main-menu');
 
 // navigation
 function renderNav() {
@@ -1366,17 +1344,6 @@ function renderNav() {
   logo.classList.add('logo');
   logo.innerHTML = '<a href="#"><img src="img/logo.svg" /></a>';
   navList.prepend(logo);
-}
-
-// fixed nav
-function fixNav() {
-  if (window.scrollY >= topOfNav) {
-    document.body.style.paddingTop = nav.offsetHeight + 'px';
-    document.body.classList.add('fixed-nav');
-  } else {
-    document.body.classList.remove('fixed-nav');
-    document.body.style.paddingTop = 0;
-  }
 }
 
 // articles
@@ -1418,27 +1385,19 @@ function renderStories(data) {
   });
 }
 
-renderNav();
-window.addEventListener('scroll', fixNav);
 getArticlesByCategory(categories);
+renderNav();
+```
+
+## Smooth Scrolling
+
+```css
+html {
+  scroll-behavior: smooth;
+}
 ```
 
 ## Notes
-
-### Smooth Scrolling
-
-Add [smooth scrolling](https://github.com/cferdinandi/smooth-scroll/)
-
-```html
-<script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
-<script>
-  var scroll = new SmoothScroll('a[href*="#"]', {
-    speed: 500,
-    easing: 'easeInOutQuad',
-    offset: 50
-  });
-</script>
-```
 
 ### Immediately Invoked Function Expression
 

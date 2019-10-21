@@ -8,19 +8,19 @@
     const rootElement = document.getElementById('root');
 
     /*/ vanilla js /*/
-    // const element = document.createElement('div');
-    // element.textContent = 'Hello World';
-    // element.className = 'container';
-    // rootElement.appendChild(element);
+    const element = document.createElement('div');
+    element.textContent = 'Hello World';
+    element.className = 'container';
+    rootElement.appendChild(element);
 
     /*/ react js /*/
-    const element = React.createElement('div', {
-      className: 'container',
-      children: 'Hello World',
-    });
+    // const element = React.createElement('div', {
+    //   className: 'container',
+    //   children: 'Hello World',
+    // });
 
     console.log(element);
 
-    ReactDOM.render(element, rootElement);
+    // ReactDOM.render(element, rootElement);
   </script>
 </body>

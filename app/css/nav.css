@@ -97,6 +97,11 @@ The backdrop is the link on line 42, with no content and hidden. Here we display
   cursor: default;
 }
 
+li.logo img {
+  padding-top: 0.25rem;
+  width: 2.5rem;
+}
+
 /*
    Now set desktop behavior -- MQ value is set to where the navigation starts to wrap
   */
@@ -112,6 +117,8 @@ The backdrop is the link on line 42, with no content and hidden. Here we display
     position: static;
     background: #007eb6;
     width: 100%;
+    position: sticky;
+    top: 0px;
   }
 
   .main-menu ul {
