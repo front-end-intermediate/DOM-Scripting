@@ -55,7 +55,9 @@ A listing of applications and technologies you will be introduced to in the clas
 
 ## VSCode
 
-In today's class we will implement [this single page web site](http://oit2.scps.nyu.edu/~devereld/intermediate/session1/) with content almost entirely generated using JavaScript (try selecting `view > developer > View Source` in Chrome).
+In today's class we will implement [this single page web site](http://oit2.scps.nyu.edu/~devereld/intermediate/session1-new/) with content almost entirely generated using JavaScript (try selecting `view > developer > View Source` in Chrome).
+
+Note the navigation on small screen.
 
 In creating this page we will focus on techniques that are critical, not just for working effectively with DOM manipulation, but for React and other JavaScript frameworks.
 
@@ -112,7 +114,9 @@ pwd  // print working directory
 code .
 ```
 
-## Node Package Manager
+Open index.html, right click on it and choose 'Open with Live Server.'
+
+<!-- ## Node Package Manager
 
 [Node Package Manager](https://www.npmjs.com) (NPM) is an essential part of the web design and development ecosystem. [Node](https://nodejs.org/en/) includes Node Package Manager (NPM) as part of its install.
 
@@ -133,7 +137,7 @@ $ npm install browser-sync --save-dev
 - `npm install browser-sync --save-dev` installs [Browser Sync](https://www.browsersync.io) into a newly created `node_modules` folder
 - `--save-dev` adds browser-sync to a list of development dependencies in `package.json`
 
-### NPM Scripts
+NPM Scripts
 
 `package.json` contains a single script by default. NPM scripts are very powerful but can be difficult to write - primarily because the documentation is hard to find or cryptic.
 
@@ -160,7 +164,7 @@ npm run start
 
 ![Image of layout](other/images/layout.png)
 
-This will open `index.html` in your browser. If it opens in a browser other than Chrome, start Chrome and copy and paste the URL into a new tab in Chrome.
+This will open `index.html` in your browser. If it opens in a browser other than Chrome, start Chrome and copy and paste the URL into a new tab in Chrome. -->
 
 ## DOM Scripting
 
@@ -810,7 +814,7 @@ li.logo img {
 
 Note the use of max-width above. We are using this because transitions do not animate width.
 
-## EXERCISE VI - AJAX and APIs
+## EXERCISE - AJAX and APIs
 
 _AJAX stands for Asynchronous JavaScript And XML. In a nutshell, it is the use of the XMLHttpRequest object to communicate with servers. It can send and receive information in various formats, including JSON, XML, HTML, and text files. AJAX’s most appealing characteristic is its “asynchronous” nature, which means it can communicate with the server, exchange data, and update the page without having to refresh the page._ - [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/Guide/AJAX/Getting_Started)
 
@@ -1337,11 +1341,19 @@ const nav = document.querySelector('.main-menu');
 // navigation
 function renderNav() {
   const markup = `
+    <a
+      href="#main-menu-toggle"
+      id="main-menu-close"
+      class="menu-close"
+      aria-label="Close main menu"
+    >
+      <span class="sr-only">Close main menu</span>
+      <span class="fa fa-close" aria-hidden="true"></span>
+    </a>
+
   <ul>
     ${navItemsObject
-      .map(
-        item => `<li><a data-scroll href="${item.link}">${item.label}</a></li>`
-      )
+      .map(item => `<li><a href="${item.link}">${item.label}</a></li>`)
       .join('')}
   </ul>
   `;
@@ -1480,182 +1492,4 @@ if (saved) {
 }
 
 // getArticlesByCategory(categories);
-```
-
-### Final HTML
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>All the News</title>
-    <link
-      href="https://fonts.googleapis.com/css?family=Lobster&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="css/styles.css" />
-  </head>
-
-  <body>
-    <header>
-      <h1>All the News That Fits We Print!</h1>
-    </header>
-
-    <nav class="main"></nav>
-
-    <div class="site-wrap"></div>
-
-    <script src="js/navitems.js"></script>
-
-    <script src="js/myscripts.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
-    <script>
-      var scroll = new SmoothScroll('a[href*="#"]', {
-        speed: 500,
-        easing: 'easeInOutQuad',
-        offset: 50
-      });
-    </script>
-  </body>
-</html>
-```
-
-### Final CSS
-
-```css
-* {
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
-    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-  line-height: 1.4;
-}
-
-html {
-  box-sizing: border-box;
-  background: #eee;
-}
-
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-}
-
-.site-wrap {
-  max-width: 90vw;
-  margin: 40px auto;
-  background: white;
-  padding: 1rem;
-  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.05);
-}
-
-header {
-  height: 320px;
-  background: url(../img/img.jpg) center no-repeat;
-  background-size: cover;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-h1 {
-  font-family: 'Lobster', cursive;
-  font-weight: normal;
-}
-
-@media (max-width: 640px) {
-  header {
-    height: 120px;
-  }
-}
-
-p {
-  margin: 1rem 0;
-}
-
-h1 {
-  color: white;
-  font-size: 7vw;
-  font-weight: 400;
-  text-shadow: 3px 4px 0 rgba(0, 0, 0, 0.2);
-}
-
-nav {
-  background: #007eb6;
-  width: 100%;
-  transition: all 0.5s;
-  z-index: 1;
-}
-
-nav ul {
-  list-style: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 2.5rem;
-}
-
-nav li {
-  flex: 1;
-  text-align: center;
-}
-
-nav a {
-  text-decoration: none;
-  display: inline-block;
-  color: white;
-  text-transform: capitalize;
-  font-weight: 700;
-}
-
-img {
-  width: 100%;
-}
-body.fixed-nav nav {
-  position: fixed;
-  top: 0;
-  box-shadow: 0 5px 3px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  z-index: 1;
-}
-li.logo img {
-  padding-top: 0.25rem;
-  width: 2.5rem;
-}
-li.logo {
-  max-width: 0;
-  overflow: hidden;
-  background: white;
-  transition: all 0.5s;
-}
-.fixed-nav li.logo {
-  max-width: 500px;
-}
-.entry {
-  display: grid;
-  grid-template-columns: 1fr 7fr;
-  grid-column-gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.entry a {
-  color: #007eb6;
-  text-decoration: none;
-}
-.section-head {
-  font-family: Lobster;
-  color: #007eb6;
-  font-size: 2.5rem;
-  text-transform: capitalize;
-  padding-bottom: 0.25rem;
-  /* padding-top: 4rem; */
-  margin-bottom: 1rem;
-  border-bottom: 1px dotted #007eb6;
-}
 ```
