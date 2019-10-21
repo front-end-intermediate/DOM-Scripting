@@ -8,11 +8,18 @@ const nav = document.querySelector('.main-menu');
 // navigation
 function renderNav() {
   const markup = `
+  <a
+  href="#main-menu-toggle"
+  id="main-menu-close"
+  class="menu-close"
+  aria-label="Close main menu"
+>
+  <span class="sr-only">Close main menu</span>
+  <span class="fa fa-close" aria-hidden="true"></span>
+</a>
   <ul>
     ${navItemsObject
-      .map(
-        item => `<li><a data-scroll href="${item.link}">${item.label}</a></li>`
-      )
+      .map(item => `<li><a href="${item.link}">${item.label}</a></li>`)
       .join('')}
   </ul>
   `;
@@ -41,6 +48,7 @@ function fetchArticles(section) {
 }
 
 function renderStories(data) {
+  localStorage.setItem('articles', root.innerHTML);
   var sectionHead = document.createElement('div');
   sectionHead.id = data.section;
   sectionHead.innerHTML = `<h3 class="section-head">${data.section}</h3>`;
@@ -53,7 +61,7 @@ function renderStories(data) {
     storyEl.className = 'entry';
     storyEl.innerHTML = `
     <img src="${
-      story.multimedia.length > 0 ? story.multimedia[0].url : 'img/no-image.png'
+      story.multimedia.length > 0 ? story.multimedia[1].url : 'img/no-image.png'
     }" />
     <div>
       <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
@@ -64,5 +72,13 @@ function renderStories(data) {
   });
 }
 
-getArticlesByCategory(categories);
+// getArticlesByCategory(categories);
+
+let saved = localStorage.getItem('articles');
+if (saved) {
+  root.innerHTML = saved;
+} else {
+  getArticlesByCategory(categories);
+}
+
 renderNav();

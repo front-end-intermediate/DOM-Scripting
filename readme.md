@@ -55,7 +55,9 @@ A listing of applications and technologies you will be introduced to in the clas
 
 ## VSCode
 
-In today's class we will implement [this single page web site](http://oit2.scps.nyu.edu/~devereld/intermediate/session1/) with content almost entirely generated using JavaScript (try selecting `view > developer > View Source` in Chrome).
+In today's class we will implement [this single page web site](http://oit2.scps.nyu.edu/~devereld/intermediate/session1-new/) with content almost entirely generated using JavaScript (try selecting `view > developer > View Source` in Chrome).
+
+Note the navigation on small screen.
 
 In creating this page we will focus on techniques that are critical, not just for working effectively with DOM manipulation, but for React and other JavaScript frameworks.
 
@@ -112,7 +114,7 @@ pwd  // print working directory
 code .
 ```
 
-## Node Package Manager
+<!-- ## Node Package Manager
 
 [Node Package Manager](https://www.npmjs.com) (NPM) is an essential part of the web design and development ecosystem. [Node](https://nodejs.org/en/) includes Node Package Manager (NPM) as part of its install.
 
@@ -133,7 +135,7 @@ $ npm install browser-sync --save-dev
 - `npm install browser-sync --save-dev` installs [Browser Sync](https://www.browsersync.io) into a newly created `node_modules` folder
 - `--save-dev` adds browser-sync to a list of development dependencies in `package.json`
 
-### NPM Scripts
+NPM Scripts
 
 `package.json` contains a single script by default. NPM scripts are very powerful but can be difficult to write - primarily because the documentation is hard to find or cryptic.
 
@@ -160,7 +162,7 @@ npm run start
 
 ![Image of layout](other/images/layout.png)
 
-This will open `index.html` in your browser. If it opens in a browser other than Chrome, start Chrome and copy and paste the URL into a new tab in Chrome.
+This will open `index.html` in your browser. If it opens in a browser other than Chrome, start Chrome and copy and paste the URL into a new tab in Chrome. -->
 
 ## DOM Scripting
 
@@ -810,7 +812,7 @@ li.logo img {
 
 Note the use of max-width above. We are using this because transitions do not animate width.
 
-## EXERCISE VI - AJAX and APIs
+## EXERCISE - AJAX and APIs
 
 _AJAX stands for Asynchronous JavaScript And XML. In a nutshell, it is the use of the XMLHttpRequest object to communicate with servers. It can send and receive information in various formats, including JSON, XML, HTML, and text files. AJAX’s most appealing characteristic is its “asynchronous” nature, which means it can communicate with the server, exchange data, and update the page without having to refresh the page._ - [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/Guide/AJAX/Getting_Started)
 
@@ -1316,6 +1318,14 @@ Style the new category headers:
 }
 ```
 
+## Smooth Scrolling
+
+```css
+html {
+  scroll-behavior: smooth;
+}
+```
+
 ## Final Script
 
 ```js
@@ -1329,11 +1339,19 @@ const nav = document.querySelector('.main-menu');
 // navigation
 function renderNav() {
   const markup = `
+    <a
+      href="#main-menu-toggle"
+      id="main-menu-close"
+      class="menu-close"
+      aria-label="Close main menu"
+    >
+      <span class="sr-only">Close main menu</span>
+      <span class="fa fa-close" aria-hidden="true"></span>
+    </a>
+
   <ul>
     ${navItemsObject
-      .map(
-        item => `<li><a data-scroll href="${item.link}">${item.label}</a></li>`
-      )
+      .map(item => `<li><a href="${item.link}">${item.label}</a></li>`)
       .join('')}
   </ul>
   `;
@@ -1387,14 +1405,6 @@ function renderStories(data) {
 
 getArticlesByCategory(categories);
 renderNav();
-```
-
-## Smooth Scrolling
-
-```css
-html {
-  scroll-behavior: smooth;
-}
 ```
 
 ## Notes
