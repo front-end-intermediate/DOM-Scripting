@@ -34,6 +34,15 @@ Online reading and videos will be assigned.
 
 Homework should be handed in by uploading the files to the NYU server and alerting me via email - daniel.deverell@nyu.edu.
 
+## Today's Homework
+
+- Install [Git](https://git-scm.com)
+- Install [NodeJS](https://nodejs.org)
+- Create a Github account
+- Review the JavaScript Algorithms and Data Structures Certification at [Free Code Camp](https://www.freecodecamp.org/learn). Start with the Basic JavaScript lessons and then proceed to the ES6 section. You should try to complete these sections before the third class. If you want to get ahead - or if the intro exercises are too easy - do the Object Oriented and Function Programming sections.
+
+---
+
 ## Summary of Tools and Technology
 
 A listing of applications and technologies you will be introduced to in the class include:
@@ -43,21 +52,6 @@ A listing of applications and technologies you will be introduced to in the clas
 - Visual Studio Code and the Terminal
 - Git and Github
 - SASS and Styled Components - for CSS
-
-## Today's Homework
-
-- Install [Git](https://git-scm.com)
-- Install [NodeJS](https://nodejs.org)
-- Create a Github account
-- Review the JavaScript Algorithms and Data Structures Certification at [Free Code Camp](https://www.freecodecamp.org/learn). Start with the Basic JavaScript lessons and then proceed to the ES6 section. You should try to complete these sections before the third class. If you want to get ahead
-- Add a new category of New York Times articles using _your own_ api key.
-
-1. Download and unzip the files as completed by me at the end of the class (or use the `FINAL` branch). `cd` into the directory and run `npm install` and then `npm run start`
-2. Follow the instructions for getting a developer key [here](https://developer.nytimes.com/get-started)
-3. Use the [top stories API endpoint](https://developer.nytimes.com/docs/top-stories-product/1/overview)
-4. Expand the layout - e.g. include different sections, the author's byline, the subsection, or a larger image.
-
----
 
 ## VSCode
 
