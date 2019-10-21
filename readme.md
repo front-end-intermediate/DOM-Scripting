@@ -14,7 +14,7 @@ Your instructor - Daniel Deverell (he, him): Front & Back end developer at Barcl
 - 6:30 PM - 9:30 PM
 - Instructor: Daniel Deverell, [Email](mailto:daniel.deverell@nyu.edu) - `daniel.deverell@nyu.edu`
 - [Syllabus](https://docs.google.com/document/d/1UAXDYO9RkSi8WI3tXmvtm-6dWtkuBf8LypxTwHkpq8w)
-- [LinkedIn](https://www.linkedin.com/in/danieldeverell/) - https://www.linkedin.com/in/danieldeverell/
+- [LinkedIn](https://www.linkedin.com/in/danieldeverell/) - `https://www.linkedin.com/in/danieldeverell/`
 
 ### Github
 
