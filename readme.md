@@ -1316,6 +1316,14 @@ Style the new category headers:
 }
 ```
 
+## Smooth Scrolling
+
+```css
+html {
+  scroll-behavior: smooth;
+}
+```
+
 ## Final Script
 
 ```js
@@ -1387,14 +1395,6 @@ function renderStories(data) {
 
 getArticlesByCategory(categories);
 renderNav();
-```
-
-## Smooth Scrolling
-
-```css
-html {
-  scroll-behavior: smooth;
-}
 ```
 
 ## Notes
