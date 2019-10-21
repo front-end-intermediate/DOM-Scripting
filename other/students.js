@@ -61,12 +61,12 @@ console.log(differentStudents(intro, intermediate));
 
 // let nonContinuingStudents = intro.filter(student => !intermediate.includes(student));
 
-let uniqueStudents = intro.filter(function(student) {
-  return intermediate.includes(student);
-});
+// let uniqueStudents = intro.filter(function(student) {
+//   return intermediate.includes(student);
+// });
 
 // let uniqueStudents = intro.filter(student => intermediate.includes(student));
 
 // console.log(continuingStudents);
 // console.log(nonContinuingStudents);
-console.log(uniqueStudents);
+// console.log(uniqueStudents);

@@ -1,66 +1,56 @@
-# DOM Manipulation
+# Introduction
 
-- [DOM Manipulation](#dom-manipulation)
-  - [Class Info](#class-info)
-  - [Homework](#homework)
-    - [I - JavaScript Review](#i---javascript-review)
-    - [II - New York Times API](#ii---new-york-times-api)
-  - [VSCode](#vscode)
-  - [The Command Line](#the-command-line)
-  - [Node Package Manager](#node-package-manager)
-    - [NPM Scripts](#npm-scripts)
-  - [DOM Scripting](#dom-scripting)
-    - [.querySelectorAll()](#queryselectorall)
-    - [.querySelector()](#queryselector)
-    - [Aside - A Common Source of Errors](#aside---a-common-source-of-errors)
-  - [Looping - for and forEach()](#looping---for-and-foreach)
-  - [EXERCISE I - Generating Content From an Array](#exercise-i---generating-content-from-an-array)
-    - [Aside - Template Literals](#aside---template-literals)
-    - [Aside: React](#aside-react)
-  - [EXERCISE II - Content Generation with an Array of Objects](#exercise-ii---content-generation-with-an-array-of-objects)
-    - [Aside: VSCode Extensions](#aside-vscode-extensions)
-    - [Aside: Objects](#aside-objects)
-    - [Array Methods](#array-methods)
-      - [Array.prototype.filter()](#arrayprototypefilter)
-      - [Arrow Functions](#arrow-functions)
-      - [Array.prototype.map() and join()](#arrayprototypemap-and-join)
-  - [EXERCISE III - Using Array.prototype.map()](#exercise-iii---using-arrayprototypemap)
-  - [EXERCISE IV - Sticky Menu](#exercise-iv---sticky-menu)
-  - [EXERCISE V - Adding an SVG Image](#exercise-v---adding-an-svg-image)
-  - [EXERCISE VI - AJAX and APIs](#exercise-vi---ajax-and-apis)
-    - [XHR](#xhr)
-    - [`xhr.responseText` String to Object](#xhrresponsetext-string-to-object)
-  - [EXERCISE VII - Adding Content](#exercise-vii---adding-content)
-    - [The fetch() API](#the-fetch-api)
-  - [EXERCISE VIII - Sections](#exercise-viii---sections)
-    - [Array.slice(), Array.filter](#arrayslice-arrayfilter)
-  - [Final Script](#final-script)
-  - [Notes](#notes)
-    - [Smooth Scrolling](#smooth-scrolling)
-    - [Immediately Invoked Function Expression](#immediately-invoked-function-expression)
-    - [Local Storage](#local-storage)
-    - [Final HTML](#final-html)
-    - [Final CSS](#final-css)
+1. There is no such thing as a silly question, you are encouraged to speak up anytime something is not clear to you
+2. There is no such thing as a silly mistake, they are a gateway to learning
+3. Do not dismiss someone because they have a different level of experience - be kind to others
+4. During class exercises you promise to alert me the second something goes awry with your project
+5. I will make myself available after class to clarify or expand on topics (or we can set an alternate time via email)
 
-## Class Info
+## Resources
+
+Your instructor - Daniel Deverell (he, him): Front & Back end developer at Barclays specializing in CSS, JavaScript, React and Node
 
 - 6/6/2019 - 8/15/2019
 - 6:30 PM - 9:30 PM
-- Instructor: Daniel Deverell `daniel.deverell@nyu.edu`
+- Instructor: Daniel Deverell, [Email](mailto:daniel.deverell@nyu.edu) - `daniel.deverell@nyu.edu`
 - [Syllabus](https://docs.google.com/document/d/1UAXDYO9RkSi8WI3tXmvtm-6dWtkuBf8LypxTwHkpq8w)
+- [LinkedIn](https://www.linkedin.com/in/danieldeverell/) - https://www.linkedin.com/in/danieldeverell/
+
+### Github
+
+[Github](https://github.com/front-end-intermediate) - `https://github.com/front-end-intermediate`, is the source for _all files_ used in this class. Each class's activities will be documented in a readme file.
+
+You can download a zip file from Github using the green "Clone or Download" menu and selecting "Download ZIP."
+
+Please keep the page open in a tab during class for reference and in order to copy and paste code.
+
+The edited files as they existed at the end of class can be downloaded from the `*-done` branch of this and all subsequent Github repositories. Be sure to select the branch on Github _before_ downloading the zip. I will demonstrate this in class.
+
+### Reading
+
+Online reading and videos will be assigned.
 
 ## Homework
 
+Homework should be handed in by uploading the files to the NYU server and alerting me via email - daniel.deverell@nyu.edu.
+
+## Summary of Tools and Technology
+
+A listing of applications and technologies you will be introduced to in the class include:
+
+- HTML, CSS and JavaScript
+- React, NODE, MongoDB, ExpressJS
+- Visual Studio Code and the Terminal
+- Git and Github
+- SASS and Styled Components - for CSS
+
+## Today's Homework
+
 - Install [Git](https://git-scm.com)
+- Install [NodeJS](https://nodejs.org)
 - Create a Github account
-
-### I - JavaScript Review
-
-Review the JavaScript Algorithms and Data Structures Certification at [Free Code Camp](https://www.freecodecamp.org/learn). Start with the Basic JavaScript lessons and then proceed to the ES6 section. You should try to complete these sections before the third class. If you want to get ahead, 
-
-### II - New York Times API
-
-Add a new category of New York Times articles using _your own_ api key.
+- Review the JavaScript Algorithms and Data Structures Certification at [Free Code Camp](https://www.freecodecamp.org/learn). Start with the Basic JavaScript lessons and then proceed to the ES6 section. You should try to complete these sections before the third class. If you want to get ahead
+- Add a new category of New York Times articles using _your own_ api key.
 
 1. Download and unzip the files as completed by me at the end of the class (or use the `FINAL` branch). `cd` into the directory and run `npm install` and then `npm run start`
 2. Follow the instructions for getting a developer key [here](https://developer.nytimes.com/get-started)
@@ -206,7 +196,7 @@ If an element isn’t found, `querySelector()` returns `null`.
 var elem = document.querySelector('.foo');
 ```
 
-If you try to do something with a nonexistant element you'll get an error (pretty common). You typically check that a matching element was found before deciding what to do:
+If you try to do something with a nonexistent element you'll get an error (pretty common). You typically check that a matching element was found before deciding what to do:
 
 ```js
 if (!elem) {
@@ -404,7 +394,7 @@ for (let i = 0; i < navItemsArray.length; i++) {
 nav.append(navList);
 ```
 
-Our nav bar now displays all the items in our array but the code is fugly. This is a good example of [imperative programming](https://tylermcginnis.com/imperative-vs-declarative-programming/). We will need to progress beyond this to a more declarative style.
+Our nav bar now displays all the items in our array but the code is fugly. This is a good example of [imperative programming](https://tylermcginnis.com/imperative-vs-declarative-programming/). We will need to progress beyond this to a more declarative style. We will use many [Functional Progamming](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0) techniques. (see `students.js` in today's `other` folder.)
 
 ---
 
@@ -517,9 +507,7 @@ const navList = document.createElement('ul');
 
 for (let i = 0; i < navItemsObject.length; i++) {
   const listItem = document.createElement('li');
-  listItem.innerHTML = `<a href="${navItemsObject[i].link}">${
-    navItemsObject[i].label
-  }</a>`;
+  listItem.innerHTML = `<a href="${navItemsObject[i].link}">${navItemsObject[i].label}</a>`;
   navList.appendChild(listItem);
 }
 
