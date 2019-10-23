@@ -814,6 +814,8 @@ li.logo img {
 
 Note the use of max-width above. We are using this because transitions do not animate width.
 
+# Fall 2019 start here
+
 ## EXERCISE - AJAX and APIs
 
 _AJAX stands for Asynchronous JavaScript And XML. In a nutshell, it is the use of the XMLHttpRequest object to communicate with servers. It can send and receive information in various formats, including JSON, XML, HTML, and text files. AJAX’s most appealing characteristic is its “asynchronous” nature, which means it can communicate with the server, exchange data, and update the page without having to refresh the page._ - [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/Guide/AJAX/Getting_Started)
@@ -979,7 +981,8 @@ xhr.send();
 Try:
 
 - `console.log(xhr.responseText);` - and compare this to `console.log(JSON.parse(xhr.responseText));`
-- `console.log(typeof(JSON.parse(xhr.responseText)));` - returns string
+- `console.log(typeof(xhr.responseText));` - returns string
+- `console.log(typeof(JSON.parse(xhr.responseText)));` - returns object
 
 ## EXERCISE - Adding Content
 
@@ -996,34 +999,22 @@ Start by removing the existing HTML content from the site-wrap div in `index.htm
 Store the API key, a template string with the complete URL, and the element we want to manipulate (`.site-wrap`) in a variable:
 
 ```js
-var root = document.querySelector('.site-wrap');
+const root = document.querySelector('.site-wrap');
 const nytapi = 'uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0';
 const nytUrl = `https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=${nytapi}`;
 ```
 
 ### The fetch() API
 
-The [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) is a newer and easier to read alternative to XMLHttpRequest.
+The [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) is a newer and simpler alternative to XMLHttpRequest.
 
 `fetch()` returns a [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises).
-
-```js
-fetch(
-  'https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0'
-).then(response => console.log(response));
-```
 
 ```js
 fetch(nytUrl).then(response => console.log(response));
 ```
 
-That needs to be converted to JSON with `response.json()` (similar to `JSON.parse` above):
-
-```js
-fetch(
-  'https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0'
-).then(response => console.log(response.json()));
-```
+The response needs to be converted to JSON with `response.json()` (similar to `JSON.parse` above):
 
 ```js
 fetch(nytUrl).then(response => console.log(response.json()));
@@ -1061,6 +1052,10 @@ function renderStories(data) {
 }
 ```
 
+Examine the data and you'll see that the information we are interested in is located in `results`.
+
+We will use a forEach loop to log each of the results:
+
 ```js
 function renderStories(data) {
   data.results.forEach(function(story) {
@@ -1068,6 +1063,8 @@ function renderStories(data) {
   });
 }
 ```
+
+Let's use the techniques covered above to create a DOM element for each of the stories:
 
 ```js
 function renderStories(data) {
@@ -1082,6 +1079,8 @@ function renderStories(data) {
   });
 }
 ```
+
+Expand it to include images and abstracts:
 
 ```js
 function renderStories(data) {
@@ -1100,7 +1099,7 @@ function renderStories(data) {
 }
 ```
 
-Note: not all NYTimes stories include images and, depending on the day, our script could error if `story.multimedia[0]` was undefined. For this we will use a [Conditional (ternary) operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator)
+Note: not all NYTimes stories include images and our script could error if `story.multimedia[0]` was undefined. For this we will use a [Conditional (ternary) operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator) for the image element:
 
 ```js
 <img
@@ -1111,7 +1110,7 @@ Note: not all NYTimes stories include images and, depending on the day, our scri
 />
 ```
 
-Ternaries are popular in cases like this - in fact they are essential. Imagine trying to write an `if(){} else(){}` statement inside a string literal. It wouldn't work because template literals only support expressions.
+Ternaries are popular in cases like this - in fact they are essential. You cannot write an `if(){} else(){}` statement inside a string literal. Template literals only support expressions.
 
 Add some new css to support the new elements:
 
@@ -1129,7 +1128,7 @@ Add some new css to support the new elements:
 }
 ```
 
-Try: incrementing the `[0]` in the ternary.
+Try: incrementing the `[0]` in the ternary to get a better image.
 
 Refactor using arrow functions and `.map()`:
 
@@ -1156,9 +1155,7 @@ function renderStories(data) {
 }
 ```
 
-## EXERCISE - Sections
-
-_Warning_ - intense code ahead. Be sure to review this section.
+## EXERCISE - News Sections
 
 Let's add additional Sections to our page.
 
@@ -1193,7 +1190,7 @@ const navItemsObject = [
 ];
 ```
 
-Note: Arts does not appear in the nav. Edit the logo related scripts:
+Note: Arts does not appear in the nav because we are using the first li for our logo. Edit the logo related scripts:
 
 ```js
 // logo
@@ -1244,7 +1241,11 @@ function fetchArticles(section) {
 }
 ```
 
-In the `renderStories()` function we begin by adding the title to a new div:
+Examine the results in the browser.
+
+Refactor the `renderStories()` function. 
+
+Begin by adding the title to a new div:
 
 ```js
 function renderStories(data) {
@@ -1291,7 +1292,7 @@ Note the use of the Array method [`slice()`](<(https://developer.mozilla.org/en-
 
 The `slice()` method returns a _shallow_ copy of a portion of an array into a new array.
 
-Note also that we are adding an id (`sectionHead.id = data.section;`) to the section heads so that our navigation works.
+Note also that we are adding an id (`sectionHead.id = data.section;`) to the section heads so that our page fragment navigation will work.
 
 Demo: Following up on our discussion of filtering arrays, here is a script that could be employed to return subsections within a section:
 
@@ -1317,14 +1318,6 @@ Style the new category headers:
   padding-top: 4rem;
   margin-bottom: 1rem;
   border-bottom: 1px solid #007eb6;
-}
-```
-
-## Smooth Scrolling
-
-```css
-html {
-  scroll-behavior: smooth;
 }
 ```
 
@@ -1424,7 +1417,9 @@ Move everything [out of](https://vanillajstoolkit.com/boilerplates/iife/) the gl
 })();
 ```
 
-'use strict': with strict mode you can not use undeclared variables.
+'use strict': with strict mode you cannot use undeclared variables.
+
+e.g.:
 
 ```js
 const stories = data.results.slice(0, limit);
