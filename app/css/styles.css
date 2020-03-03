@@ -89,6 +89,8 @@ img {
   margin-bottom: 1rem;
   border-bottom: 1px solid #007eb6;
 }
-.try-scroll {
-  scroll-margin-top: 4rem;
+@media (min-width: 800px) {
+  .scroll-margin {
+    scroll-margin-top: 4rem;
+  }
 }

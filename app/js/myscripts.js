@@ -51,8 +51,7 @@ function renderStories(data) {
   localStorage.setItem('articles', root.innerHTML);
   var sectionHead = document.createElement('div');
   sectionHead.id = data.section.toLowerCase();
-  sectionHead.classList.add('try-scroll');
-  // = 'try-scroll-margin-top';
+  sectionHead.classList.add('scroll-margin');
   sectionHead.innerHTML = `<h3 class="section-head">${data.section}</h3>`;
   root.prepend(sectionHead);
 
