@@ -85,7 +85,10 @@ img {
   font-size: 2.5rem;
   text-transform: capitalize;
   padding-bottom: 0.25rem;
-  padding-top: 4rem;
+  padding-top: 1rem;
   margin-bottom: 1rem;
   border-bottom: 1px solid #007eb6;
+}
+.try-scroll {
+  scroll-margin-top: 4rem;
 }

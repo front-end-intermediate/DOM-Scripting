@@ -49,6 +49,8 @@
   padding: 0.75rem;
   color: #fff;
   text-decoration: none;
+  text-transform: capitalize;
+  font-size: 1.25rem;
 }
 
 /* "close" button is positioned in the upper right corner. Button is the X / fa-close button from FontAwesome. If you want it bigger, do it here */

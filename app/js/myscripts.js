@@ -41,7 +41,7 @@ function getArticlesByCategory(cat) {
 
 function fetchArticles(section) {
   fetch(
-    `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${nytapi}`
+    `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${nytapi}`,
   )
     .then(response => response.json())
     .then(myJson => renderStories(myJson));
@@ -50,13 +50,16 @@ function fetchArticles(section) {
 function renderStories(data) {
   localStorage.setItem('articles', root.innerHTML);
   var sectionHead = document.createElement('div');
-  sectionHead.id = data.section;
+  sectionHead.id = data.section.toLowerCase();
+  sectionHead.classList.add('try-scroll');
+  // = 'try-scroll-margin-top';
   sectionHead.innerHTML = `<h3 class="section-head">${data.section}</h3>`;
   root.prepend(sectionHead);
 
   stories = data.results.slice(0, limit);
 
   stories.forEach(story => {
+    console.log(story);
     storyEl = document.createElement('div');
     storyEl.className = 'entry';
     storyEl.innerHTML = `
@@ -74,11 +77,11 @@ function renderStories(data) {
 
 // getArticlesByCategory(categories);
 
-let saved = localStorage.getItem('articles');
-if (saved) {
-  root.innerHTML = saved;
-} else {
-  getArticlesByCategory(categories);
-}
+// let saved = localStorage.getItem('articles');
+// if (saved) {
+//   root.innerHTML = saved;
+// } else {
+getArticlesByCategory(categories);
+// }
 
 renderNav();
