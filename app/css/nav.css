@@ -112,6 +112,8 @@ The backdrop is the link on line 42, with no content and hidden. Here we display
     position: static;
     background: #007eb6;
     width: 100%;
+    position: sticky;
+    top: 0px;
   }
 
   .main-menu ul {
