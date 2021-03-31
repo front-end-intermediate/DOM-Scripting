@@ -1,7 +1,5 @@
 # Introduction
 
-IBOst14SeT5OXhGNk8ZQOPhVBhj9ED0h
-
 1. There is no such thing as a silly question, you are encouraged to speak up anytime something is not clear to you
 2. There is no such thing as a silly mistake, they are a gateway to learning
 3. Do not dismiss someone because they have a different level of experience - be kind to others
@@ -218,7 +216,7 @@ If you try to do something with a nonexistent element you'll get an error (prett
 if (!elem) {
   console.log("Can't find the link.");
 } else {
-  console.log('Found the link.');
+  console.log("Found the link.");
 }
 ```
 
@@ -231,7 +229,7 @@ if (!elem) {
 In JavaScript, you can use a `for` to loop through array and node list items.
 
 ```js
-var elems = document.querySelectorAll('.main-menu a');
+var elems = document.querySelectorAll(".main-menu a");
 
 for (let i = 0; i < elems.length; i++) {
   console.log(i); // index
@@ -246,9 +244,9 @@ You pass a [callback function](https://developer.mozilla.org/en-US/docs/Glossary
 Unlike a for loop, you can’t terminate the `forEach()` function before it’s completed with `break`.
 
 ```js
-var elems = document.querySelectorAll('.main-menu a');
+var elems = document.querySelectorAll(".main-menu a");
 
-elems.forEach(function(item, index) {
+elems.forEach(function (item, index) {
   console.log(index); // index
   console.log(item); // value
 });
@@ -259,9 +257,9 @@ elems.forEach(function(item, index) {
 The `.forEach()` method works with arrays _and_ NodeLists. The `NodeList.forEach()` method has decent but not universal browser support at this time so it is common to convert NodeLists into Arrays with the `Array.from()` method and use `forEach()` on that:
 
 ```js
-var elems = Array.from(document.querySelectorAll('.main-menu a'));
+var elems = Array.from(document.querySelectorAll(".main-menu a"));
 
-elems.forEach(function(item, index) {
+elems.forEach(function (item, index) {
   console.log(item);
   console.log(index);
 });
@@ -296,20 +294,20 @@ In the console:
 Select the element with the class `.main-menu` In `myScripts.js`:
 
 ```js
-const nav = document.querySelector('.main-menu');
+const nav = document.querySelector(".main-menu");
 ```
 
 To select all the links in nav we could try:
 
 ```js
-const navList = document.querySelectorAll('#main-menu li a');
+const navList = document.querySelectorAll("#main-menu li a");
 ```
 
 But here it is perhaps a bit more efficient to use `element.querySelector` (as opposed to `document.querySelector`):
 
 ```js
-const nav = document.querySelector('.main-menu');
-const navList = nav.querySelectorAll('li a');
+const nav = document.querySelector(".main-menu");
+const navList = nav.querySelectorAll("li a");
 ```
 
 Compare `navList` and `navItemsArray` in the console and note the `prototypes` in the inspector.
@@ -326,8 +324,8 @@ Replace our placeholder nav items with content from an array
 - use a `for` loop and `innerHTML`:
 
 ```js
-const nav = document.querySelector('.main-menu');
-const navList = nav.querySelectorAll('li a');
+const nav = document.querySelector(".main-menu");
+const navList = nav.querySelectorAll("li a");
 
 for (let i = 0; i < navList.length; i++) {
   console.log(i);
@@ -340,7 +338,7 @@ The `innerHTML` property can be used to both get and set HTML content in an elem
 In the console:
 
 ```js
-var elem = document.querySelector('.site-wrap');
+var elem = document.querySelector(".site-wrap");
 
 // Get HTML content
 var html = elem.innerHTML;
@@ -382,11 +380,11 @@ JavaScript offers a number of methods to determine the insertion point.
 
 ```js
 // Create a new HTML element and add some text
-var div = document.createElement('div');
-div.textContent = 'Hello world';
+var div = document.createElement("div");
+div.textContent = "Hello world";
 
 // Get the element to add your new HTML element before, after, or within
-const target = document.querySelector('.main-menu');
+const target = document.querySelector(".main-menu");
 
 // Inject the `div` element before the element
 target.before(div);
@@ -406,10 +404,10 @@ Let's append a new div to the (now empty) nav.
 Delete eveything in `myscripts` and add:
 
 ```js
-const nav = document.querySelector('.main-menu');
+const nav = document.querySelector(".main-menu");
 
-const navList = document.createElement('ul');
-navList.textContent = 'Hello world';
+const navList = document.createElement("ul");
+navList.textContent = "Hello world";
 nav.append(navList);
 ```
 
@@ -418,14 +416,14 @@ Note the `<ul>` in the header.
 Dynamically create the nav based on the number of items in the array using a for loop:
 
 ```js
-const nav = document.querySelector('.main-menu');
+const nav = document.querySelector(".main-menu");
 
-const navList = document.createElement('ul');
+const navList = document.createElement("ul");
 
 for (let i = 0; i < navItemsArray.length; i++) {
-  let listItem = document.createElement('li');
+  let listItem = document.createElement("li");
   let linkText = navItemsArray[i];
-  listItem.innerHTML = '<a href="#">' + linkText + '</a>';
+  listItem.innerHTML = '<a href="#">' + linkText + "</a>";
   navList.append(listItem);
 }
 
@@ -443,12 +441,12 @@ We will use [Functional Programming](https://medium.com/javascript-scene/master-
 Note that we used single quotes in the construction of our innerHTML: `listItem.innerHTML = '<a href="#">' + linkText + '</a>'`. Compare old school concatenation and the variable 'sentence' bu running the following in the console:
 
 ```js
-const name = 'Yorik';
+const name = "Yorik";
 const age = 2;
-const oldschool = 'My dog ' + name + ' is ' + age * 7 + 'years old.';
+const oldschool = "My dog " + name + " is " + age * 7 + "years old.";
 const newschool = `My dog ${name} is ${age * 7} years old.`;
-console.log('oldschool ', oldschool);
-console.log('newschool ', newschool);
+console.log("oldschool ", oldschool);
+console.log("newschool ", newschool);
 ```
 
 [Template Strings](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) use back ticks instead of quotes and have access to JS expressions inside plaeholders - `${ ... }`.
@@ -461,7 +459,7 @@ Switch out the concatenation for a _template string_:
 
 ```js
 for (let i = 0; i < navItemsArray.length; i++) {
-  let listItem = document.createElement('li');
+  let listItem = document.createElement("li");
   listItem.innerHTML = `<a href="#">${navItemsArray[i]}</a>`;
   navList.appendChild(listItem);
 }
@@ -470,8 +468,8 @@ for (let i = 0; i < navItemsArray.length; i++) {
 Use `forEach()` instead of a for loop:
 
 ```js
-navItemsArray.forEach(function(item) {
-  let listItem = document.createElement('li');
+navItemsArray.forEach(function (item) {
+  let listItem = document.createElement("li");
   listItem.innerHTML = `<a href="#">${item}</a>`;
   navList.appendChild(listItem);
 });
@@ -480,12 +478,12 @@ navItemsArray.forEach(function(item) {
 Use an arrow function in the final script:
 
 ```js
-const nav = document.querySelector('.main-menu');
+const nav = document.querySelector(".main-menu");
 
-const navList = document.createElement('ul');
+const navList = document.createElement("ul");
 
-navItemsArray.forEach(item => {
-  let listItem = document.createElement('li');
+navItemsArray.forEach((item) => {
+  let listItem = document.createElement("li");
   listItem.innerHTML = `<a href="#">${item}</a>`;
   navList.appendChild(listItem);
 });
@@ -519,37 +517,37 @@ So far we have been working with a simple array. However most of the data you wi
 ```js
 const navItemsObject = [
   {
-    label: 'LOGO',
-    link: '#'
+    label: "LOGO",
+    link: "#",
   },
   {
-    label: 'Watchlist',
-    link: '#watchlist'
+    label: "Watchlist",
+    link: "#watchlist",
   },
   {
-    label: 'Research',
-    link: '#research'
+    label: "Research",
+    link: "#research",
   },
   {
-    label: 'Markets',
-    link: '#markets'
+    label: "Markets",
+    link: "#markets",
   },
   {
-    label: 'Workbook',
-    link: '#workbook'
+    label: "Workbook",
+    link: "#workbook",
   },
   {
-    label: 'Connect',
-    link: '#connect'
+    label: "Connect",
+    link: "#connect",
   },
   {
-    label: 'Desktop',
-    link: '#desktop'
+    label: "Desktop",
+    link: "#desktop",
   },
   {
-    label: 'FAQ',
-    link: '#faq'
-  }
+    label: "FAQ",
+    link: "#faq",
+  },
 ];
 ```
 
@@ -558,8 +556,8 @@ Add the links using `navItemsObject` instead of `navItemsArray`.
 Note the the 'dot' accessor notation for dealing with an object and the addition of the anchor tags:
 
 ```js
-navItemsObject.forEach(function(item) {
-  let listItem = document.createElement('li');
+navItemsObject.forEach(function (item) {
+  let listItem = document.createElement("li");
   listItem.innerHTML = `<a href="${item.link}">${item.label}</a>`;
   navList.appendChild(listItem);
 });
@@ -630,13 +628,13 @@ Note the inventors sample data in `navitems.js`:
 
 ```js
 const inventors = [
-  { first: 'Albert', last: 'Einstein', year: 1879, passed: 1955 },
-  { first: 'Isaac', last: 'Newton', year: 1643, passed: 1727 },
-  { first: 'Galileo', last: 'Galilei', year: 1564, passed: 1642 },
-  { first: 'Marie', last: 'Curie', year: 1867, passed: 1934 },
-  { first: 'Johannes', last: 'Kepler', year: 1571, passed: 1630 },
-  { first: 'Nicolaus', last: 'Copernicus', year: 1473, passed: 1543 },
-  { first: 'Max', last: 'Planck', year: 1858, passed: 1947 }
+  { first: "Albert", last: "Einstein", year: 1879, passed: 1955 },
+  { first: "Isaac", last: "Newton", year: 1643, passed: 1727 },
+  { first: "Galileo", last: "Galilei", year: 1564, passed: 1642 },
+  { first: "Marie", last: "Curie", year: 1867, passed: 1934 },
+  { first: "Johannes", last: "Kepler", year: 1571, passed: 1630 },
+  { first: "Nicolaus", last: "Copernicus", year: 1473, passed: 1543 },
+  { first: "Max", last: "Planck", year: 1858, passed: 1947 },
 ];
 ```
 
@@ -645,7 +643,7 @@ Filter the list of inventors for those who were born in the 1500's.
 In the console:
 
 ```js
-const fifteen = inventors.filter(function(inventor) {
+const fifteen = inventors.filter(function (inventor) {
   if (inventor.year >= 1500 && inventor.year <= 1599) {
     return true; // keep it
   }
@@ -662,7 +660,7 @@ Refactor using an arrow function with implicit return:
 
 ```js
 const fifteen = inventors.filter(
-  inventor => inventor.year >= 1500 && inventor.year < 1600
+  (inventor) => inventor.year >= 1500 && inventor.year < 1600
 );
 console.table(fifteen);
 ```
@@ -676,11 +674,11 @@ The map method transforms a collection by applying a function to all of its elem
 Provide an array of the inventors first and last names:
 
 ```js
-var fullNames = inventors.map(function(inventor) {
+var fullNames = inventors.map(function (inventor) {
   return `${inventor.first} ${inventor.last}`;
 });
 
-console.log('Full names: ' + fullNames);
+console.log("Full names: " + fullNames);
 ```
 
 Notice the commas separating the names.
@@ -689,10 +687,10 @@ Refactor it to use an arrow function and join the results with a slash:
 
 ```js
 const fullNames = inventors
-  .map(inventor => `${inventor.first} ${inventor.last}`)
-  .join(' / ');
+  .map((inventor) => `${inventor.first} ${inventor.last}`)
+  .join(" / ");
 
-console.log('Full names: ' + fullNames);
+console.log("Full names: " + fullNames);
 ```
 
 ## EXERCISE III - Using Array.prototype.map()
@@ -700,11 +698,11 @@ console.log('Full names: ' + fullNames);
 Let's try creating the list items using `map()` and template strings:
 
 ```js
-const nav = document.querySelector('.main-menu');
+const nav = document.querySelector(".main-menu");
 
 const markup = `
     <ul>
-      ${navItemsObject.map(function(item) {
+      ${navItemsObject.map(function (item) {
         return `<li><a href="${item.link}">${item.label}</a></li>`;
       })}
     </ul>
@@ -721,10 +719,10 @@ Join the array to avoid the comma:
 const markup = `
     <ul>
       ${navItemsObject
-        .map(function(item) {
+        .map(function (item) {
           return `<li><a href="${item.link}">${item.label}</a></li>`;
         })
-        .join('')}
+        .join("")}
     </ul>
     `;
 ```
@@ -735,8 +733,8 @@ Finally, refactor using an arrow function:
 const markup = `
 <ul>
   ${navItemsObject
-    .map(item => `<li><a href="${item.link}">${item.label}</a></li>`)
-    .join('')}
+    .map((item) => `<li><a href="${item.link}">${item.label}</a></li>`)
+    .join("")}
 </ul>
 `;
 ```
@@ -760,8 +758,8 @@ const markup = `
   <span class="fa fa-close" aria-hidden="true"></span>
   </a>
   ${navItemsObject
-    .map(item => `<li><a href="${item.link}">${item.label}</a></li>`)
-    .join('')}
+    .map((item) => `<li><a href="${item.link}">${item.label}</a></li>`)
+    .join("")}
 </ul>
 `;
 ```
@@ -793,8 +791,8 @@ Select the first list item on the nav, add a class and set the innerHTML so that
 
 ```js
 // logo
-const logo = nav.querySelector('.main-menu ul li');
-logo.classList.add('logo');
+const logo = nav.querySelector(".main-menu ul li");
+logo.classList.add("logo");
 logo.innerHTML = '<a href="#"><img src="img/logo.svg" /></a>';
 ```
 
@@ -847,22 +845,22 @@ E.g.:
 var xhr = new XMLHttpRequest();
 
 // Setup our listener to process request state changes
-xhr.onreadystatechange = function() {
+xhr.onreadystatechange = function () {
   // Only run if the request is complete
   if (xhr.readyState !== 4) return;
 
   // Process our return data
   if (xhr.status >= 200 && xhr.status < 300) {
     // This will run when the request is successful
-    console.log('success! ', xhr);
+    console.log("success! ", xhr);
   } else {
     // This will run when it's not
-    console.log('The request failed!');
+    console.log("The request failed!");
   }
 
   // This will run either way
   // All three of these are optional, depending on what you're trying to do
-  console.log('This always runs...');
+  console.log("This always runs...");
 };
 ```
 
@@ -875,23 +873,23 @@ Try this in the console:
 ```js
 var xhr = new XMLHttpRequest();
 
-xhr.onreadystatechange = function() {
+xhr.onreadystatechange = function () {
   if (xhr.readyState !== 4) return;
 
   // Process our return data
   if (xhr.status >= 200 && xhr.status < 300) {
-    console.log('success!', xhr);
+    console.log("success!", xhr);
   } else {
-    console.log('The request failed!');
+    console.log("The request failed!");
   }
 
-  console.log('This always runs...');
+  console.log("This always runs...");
 };
 
 // Create and send a GET request
 // The first argument is the post type (GET, POST, PUT, DELETE, etc.)
 // The second argument is the endpoint URL
-xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts');
+xhr.open("GET", "https://jsonplaceholder.typicode.com/posts");
 xhr.send();
 ```
 
@@ -920,7 +918,7 @@ Paste this into the console:
 ```js
 var xhr = new XMLHttpRequest();
 
-xhr.onreadystatechange = function() {
+xhr.onreadystatechange = function () {
   if (xhr.readyState !== 4) return;
 
   if (xhr.status >= 200 && xhr.status < 300) {
@@ -930,7 +928,7 @@ xhr.onreadystatechange = function() {
   }
 };
 
-xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts/10');
+xhr.open("GET", "https://jsonplaceholder.typicode.com/posts/10");
 xhr.send();
 ```
 
@@ -950,7 +948,7 @@ Once the data is an object we can work with it.
 var firstPost = data[0];
 
 // Loop through each post
-data.forEach(function(post) {
+data.forEach(function (post) {
   console.log(post);
 });
 ```
@@ -962,7 +960,7 @@ Here it is in full context:
 var xhr = new XMLHttpRequest();
 
 // Setup our listener to process request state changes
-xhr.onreadystatechange = function() {
+xhr.onreadystatechange = function () {
   // if the request is complete
   if (xhr.readyState !== 4) return;
 
@@ -976,7 +974,7 @@ xhr.onreadystatechange = function() {
   }
 };
 
-xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts');
+xhr.open("GET", "https://jsonplaceholder.typicode.com/posts");
 xhr.send();
 ```
 
@@ -1001,8 +999,8 @@ Start by removing the existing HTML content from the site-wrap div in `index.htm
 Store the API key, a template string with the complete URL, and the element we want to manipulate (`.site-wrap`) in a variable:
 
 ```js
-const root = document.querySelector('.site-wrap');
-const nytapi = 'uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0';
+const root = document.querySelector(".site-wrap");
+const nytapi = "uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0";
 const nytUrl = `https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=${nytapi}`;
 ```
 
@@ -1013,23 +1011,23 @@ The [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using
 `fetch()` returns a [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises).
 
 ```js
-fetch(nytUrl).then(response => console.log(response));
+fetch(nytUrl).then((response) => console.log(response));
 ```
 
 The response needs to be converted to JSON with `response.json()` (similar to `JSON.parse` above):
 
 ```js
-fetch(nytUrl).then(response => console.log(response.json()));
+fetch(nytUrl).then((response) => console.log(response.json()));
 ```
 
 We can then use the data in our app:
 
 ```js
 fetch(nytUrl)
-  .then(function(response) {
+  .then(function (response) {
     return response.json();
   })
-  .then(function(myJson) {
+  .then(function (myJson) {
     console.log(myJson.results);
   });
 ```
@@ -1038,10 +1036,10 @@ Instead of logging it we will pass it to a `renderStories` function:
 
 ```js
 fetch(nytUrl)
-  .then(function(response) {
+  .then(function (response) {
     return response.json();
   })
-  .then(function(myJson) {
+  .then(function (myJson) {
     renderStories(myJson);
   });
 ```
@@ -1060,7 +1058,7 @@ We will use a forEach loop to log each of the results:
 
 ```js
 function renderStories(data) {
-  data.results.forEach(function(story) {
+  data.results.forEach(function (story) {
     console.log(story);
   });
 }
@@ -1070,9 +1068,9 @@ Let's use the techniques covered above to create a DOM element for each of the s
 
 ```js
 function renderStories(data) {
-  data.results.forEach(function(story) {
-    var storyEl = document.createElement('div');
-    storyEl.className = 'entry';
+  data.results.forEach(function (story) {
+    var storyEl = document.createElement("div");
+    storyEl.className = "entry";
     storyEl.innerHTML = `
     <h3>${story.title}</h3>
     `;
@@ -1086,9 +1084,9 @@ Expand it to include images and abstracts:
 
 ```js
 function renderStories(data) {
-  data.results.forEach(story => {
-    var storyEl = document.createElement('div');
-    storyEl.className = 'entry';
+  data.results.forEach((story) => {
+    var storyEl = document.createElement("div");
+    storyEl.className = "entry";
     storyEl.innerHTML = `
     <img src="${story.multimedia[0].url}" alt="${story.title}" />
       <div>
@@ -1108,7 +1106,7 @@ Note: not all NYTimes stories include images and our script could error if `stor
   src="${
       story.multimedia.length > 0 ? story.multimedia[0].url : 'img/no-image.png'
     }"
-  alt='${story.title}'
+  alt="${story.title}"
 />
 ```
 
@@ -1136,16 +1134,16 @@ Refactor using arrow functions and `.map()`:
 
 ```js
 fetch(nytUrl)
-  .then(response => response.json())
-  .then(myJson => renderStories(myJson));
+  .then((response) => response.json())
+  .then((myJson) => renderStories(myJson));
 
 function renderStories(data) {
-  data.results.map(story => {
-    var storyEl = document.createElement('div');
-    storyEl.className = 'entry';
+  data.results.map((story) => {
+    var storyEl = document.createElement("div");
+    storyEl.className = "entry";
     storyEl.innerHTML = `
     <img src="${
-      story.multimedia.length > 0 ? story.multimedia[2].url : 'img/no-image.png'
+      story.multimedia.length > 0 ? story.multimedia[2].url : "img/no-image.png"
     }" alt="${story.title}" />
       <div>
         <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
@@ -1166,29 +1164,29 @@ Replace `navItemsObject.js` with
 ```js
 const navItemsObject = [
   {
-    label: 'arts',
-    link: '#arts'
+    label: "arts",
+    link: "#arts",
   },
   {
-    label: 'books',
-    link: '#books'
+    label: "books",
+    link: "#books",
   },
   {
-    label: 'fashion',
-    link: '#fashion'
+    label: "fashion",
+    link: "#fashion",
   },
   {
-    label: 'food',
-    link: '#food'
+    label: "food",
+    link: "#food",
   },
   {
-    label: 'movies',
-    link: '#movies'
+    label: "movies",
+    link: "#movies",
   },
   {
-    label: 'travel',
-    link: '#travel'
-  }
+    label: "travel",
+    link: "#travel",
+  },
 ];
 ```
 
@@ -1196,9 +1194,9 @@ Note: Arts does not appear in the nav because we are using the first li for our 
 
 ```js
 // logo
-const logo = document.createElement('li');
-const navList = nav.querySelector('nav ul');
-logo.classList.add('logo');
+const logo = document.createElement("li");
+const navList = nav.querySelector("nav ul");
+logo.classList.add("logo");
 logo.innerHTML = '<a href="#"><img src="img/logo.svg" /></a>';
 navList.prepend(logo);
 ```
@@ -1207,21 +1205,21 @@ Add a categories and limit variable:
 
 ```js
 const limit = 6;
-const categories = ['arts', 'books', 'fashion', 'food', 'movies', 'travel'];
+const categories = ["arts", "books", "fashion", "food", "movies", "travel"];
 ```
 
 Since our categories are available in `navItemsObject`, we can simplify things by making the categories variable a product of `navItemsObject`:
 
 ```js
 const limit = 6;
-const categories = navItemsObject.map(item => item.label);
+const categories = navItemsObject.map((item) => item.label);
 ```
 
 Create a new `getArticlesByCategory` function and call it with the categories array:
 
 ```js
 function getArticlesByCategory(cat) {
-  cat.forEach(function(category) {
+  cat.forEach(function (category) {
     fetchArticles(category);
   });
 }
@@ -1238,20 +1236,20 @@ function fetchArticles(section) {
   fetch(
     `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${nytapi}`
   )
-    .then(response => response.json())
-    .then(myJson => renderStories(myJson));
+    .then((response) => response.json())
+    .then((myJson) => renderStories(myJson));
 }
 ```
 
 Examine the results in the browser.
 
-Refactor the `renderStories()` function. 
+Refactor the `renderStories()` function.
 
 Begin by adding the title to a new div:
 
 ```js
 function renderStories(data) {
-  var sectionHead = document.createElement('div');
+  var sectionHead = document.createElement("div");
   sectionHead.id = data.section;
   sectionHead.innerHTML = `<h3 class="section-head">${data.section}</h3>`;
   root.prepend(sectionHead);
@@ -1262,19 +1260,19 @@ Prior to our `forEach` we will limit the number of stories with `stories = data.
 
 ```js
 function renderStories(data) {
-  var sectionHead = document.createElement('div');
+  var sectionHead = document.createElement("div");
   sectionHead.id = data.section;
   sectionHead.innerHTML = `<h3 class="section-head">${data.section}</h3>`;
   root.prepend(sectionHead);
 
   stories = data.results.slice(0, limit); // NEW
 
-  stories.map(story => {
-    storyEl = document.createElement('div');
-    storyEl.className = 'entry';
+  stories.map((story) => {
+    storyEl = document.createElement("div");
+    storyEl.className = "entry";
     storyEl.innerHTML = `
     <img src="${
-      story.multimedia.length > 0 ? story.multimedia[0].url : 'img/no-image.png'
+      story.multimedia.length > 0 ? story.multimedia[0].url : "img/no-image.png"
     }" />
     <div>
       <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
@@ -1301,7 +1299,7 @@ Demo: Following up on our discussion of filtering arrays, here is a script that 
 ```js
 // stories = data.results.slice(0, limit);
 const stories = data.results.filter(
-  story => story.subsection === 'Book Review'
+  (story) => story.subsection === "Book Review"
 );
 ```
 
@@ -1327,11 +1325,11 @@ Style the new category headers:
 
 ```js
 // variables
-var root = document.querySelector('.site-wrap');
-const nytapi = 'uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0';
+var root = document.querySelector(".site-wrap");
+const nytapi = "uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0";
 const limit = 6;
-const categories = navItemsObject.map(item => item.label);
-const nav = document.querySelector('.main-menu');
+const categories = navItemsObject.map((item) => item.label);
+const nav = document.querySelector(".main-menu");
 
 // navigation
 function renderNav() {
@@ -1348,22 +1346,22 @@ function renderNav() {
 
   <ul>
     ${navItemsObject
-      .map(item => `<li><a href="${item.link}">${item.label}</a></li>`)
-      .join('')}
+      .map((item) => `<li><a href="${item.link}">${item.label}</a></li>`)
+      .join("")}
   </ul>
   `;
   nav.innerHTML = markup;
 
-  const logo = document.createElement('li');
-  const navList = nav.querySelector('nav ul');
-  logo.classList.add('logo');
+  const logo = document.createElement("li");
+  const navList = nav.querySelector("nav ul");
+  logo.classList.add("logo");
   logo.innerHTML = '<a href="#"><img src="img/logo.svg" /></a>';
   navList.prepend(logo);
 }
 
 // articles
 function getArticlesByCategory(cat) {
-  cat.forEach(function(category, index) {
+  cat.forEach(function (category, index) {
     fetchArticles(category, index);
   });
 }
@@ -1372,24 +1370,24 @@ function fetchArticles(section) {
   fetch(
     `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${nytapi}`
   )
-    .then(response => response.json())
-    .then(myJson => renderStories(myJson));
+    .then((response) => response.json())
+    .then((myJson) => renderStories(myJson));
 }
 
 function renderStories(data) {
-  var sectionHead = document.createElement('div');
+  var sectionHead = document.createElement("div");
   sectionHead.id = data.section;
   sectionHead.innerHTML = `<h3 class="section-head">${data.section}</h3>`;
   root.prepend(sectionHead);
 
   stories = data.results.slice(0, limit);
 
-  stories.forEach(story => {
-    storyEl = document.createElement('div');
-    storyEl.className = 'entry';
+  stories.forEach((story) => {
+    storyEl = document.createElement("div");
+    storyEl.className = "entry";
     storyEl.innerHTML = `
     <img src="${
-      story.multimedia.length > 0 ? story.multimedia[0].url : 'img/no-image.png'
+      story.multimedia.length > 0 ? story.multimedia[0].url : "img/no-image.png"
     }" />
     <div>
       <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
@@ -1411,8 +1409,8 @@ renderNav();
 Move everything [out of](https://vanillajstoolkit.com/boilerplates/iife/) the global scope
 
 ```js
-(function() {
-  'use strict';
+(function () {
+  "use strict";
 
   // Code goes here...
 
@@ -1447,7 +1445,7 @@ function renderStories(data) {
 At the bottom of scripts:
 
 ```js
-let saved = localStorage.getItem('articles');
+let saved = localStorage.getItem("articles");
 if (saved) {
   root.innerHTML = saved;
 } else {
@@ -1461,10 +1459,10 @@ Time permitting:
 
 ```js
 localStorage.setItem(
-  'stories',
+  "stories",
   JSON.stringify({
     timestamp: new Date().getTime(),
-    data: stories
+    data: stories,
   })
 );
 ```
@@ -1472,19 +1470,19 @@ localStorage.setItem(
 Warning: not production code!
 
 ```js
-let saved = localStorage.getItem('stories');
+let saved = localStorage.getItem("stories");
 let savedJson = JSON.parse(saved);
 console.log(savedJson);
 console.log(savedJson.timestamp);
 if (saved) {
   var difference = new Date().getTime() - savedJson.timestamp;
-  console.log('difference ', difference);
+  console.log("difference ", difference);
   if (difference > 1000 * 5) {
     getArticlesByCategory(categories);
-    console.log('true');
+    console.log("true");
   } else {
     getArticlesByCategory(categories);
-    console.log('false');
+    console.log("false");
   }
 }
 
