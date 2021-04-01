@@ -23,37 +23,6 @@ const markup = `
 
 nav.innerHTML = markup;
 
-function fetchArticles(section) {
-  fetch(
-    `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${nytapi}`
-  )
-    .then((response) => response.json())
-    .then((myJson) => renderStories(myJson));
-}
-
-function renderStories(data) {
-  var sectionHead = document.createElement("div");
-  sectionHead.id = data.section.toLowerCase();
-  sectionHead.innerHTML = `<h3 class="section-head">${data.section}</h3>`;
-  root.prepend(sectionHead);
-
-  stories = data.results.slice(0, limit);
-  console.log(" stories ", stories);
-}
-
-const logo = document.createElement("li");
-const navList = nav.querySelector("nav ul");
+const logo = nav.querySelector(".main-menu ul li");
 logo.classList.add("logo");
 logo.innerHTML = '<a href="#"><img src="img/logo.svg" /></a>';
-navList.prepend(logo);
-
-const limit = 6;
-const categories = navItemsObject.map((item) => item.label);
-
-function getArticlesByCategory(cat) {
-  cat.forEach(function (category) {
-    fetchArticles(category);
-  });
-}
-
-getArticlesByCategory(categories);
