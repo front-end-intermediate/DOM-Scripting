@@ -408,9 +408,10 @@ The second file, `2-react-jsx.html`, uses [Babel](https://babeljs.io) to help cr
 
 So far we have been working with a simple array. However most of the data you will encounter will consist of an array of objects:
 
-- [JSON Placeholder](https://jsonplaceholder.typicode.com/posts)
-- [City Growth](https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json)
-- The [New York Times API](https://api.nytimes.com/svc/topstories/v2/nyregion.json?api-key=uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0)
+- [JSON Placeholder](https://jsonplaceholder.typicode.com/posts), [documentation](https://jsonplaceholder.typicode.com/)
+- [City Growth](https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json), [documentation](https://gist.github.com/Miserlou/c5cd8364bf9b2420bb29)
+- [New York Times API](https://api.nytimes.com/svc/topstories/v2/nyregion.json?api-key=uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0), [documentation](https://developer.nytimes.com/)
+- [Pokemon API](https://pokeapi.co/api/v2/ability/?limit=5&offset=0), [documentation](https://pokeapi.co)
 - and our navItemsObject:
 
 ```js
@@ -521,7 +522,7 @@ document.body.innerHTML = content;
 
 ### Array Methods
 
-We'll use another method for developing our nav - using Array methods `map`, `filter` and arrow functions.
+We'll generate our nav using Array methods `map`, `filter` and arrow functions.
 
 #### [Array.prototype.filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
 
@@ -542,6 +543,20 @@ const inventors = [
 Filter the list of inventors for those who were born in the 1500's.
 
 In the console:
+
+```js
+const fifteen = inventors.filter(filterInventors);
+
+function filterInventors(inventor) {
+  if (inventor.year >= 1500 && inventor.year <= 1599) {
+    return true; // keep it
+  }
+}
+
+console.table(fifteen);
+```
+
+Or:
 
 ```js
 const fifteen = inventors.filter(function (inventor) {
@@ -591,7 +606,7 @@ const fullNames = inventors
   .map((inventor) => `${inventor.first} ${inventor.last}`)
   .join(" / ");
 
-console.log("Full names: " + fullNames);
+console.log("Full names: ", fullNames);
 ```
 
 ## EXERCISE III - Using Array.prototype.map()
@@ -642,7 +657,7 @@ const markup = `
 
 Note the use of nested template strings here.
 
-These methods, `.map`, `.filter` (and others we have yet to look at such as `.reduce`) are _the prefered_ means of working with data. They are declarative as opposed to imperative and belong to the functional programmer's tool kit.
+These methods, `.map`, `.filter` (and others we have yet to look at such as `.reduce`) are _the prefered_ means of working with data. They are **declarative** as opposed to **imperative** and are important methods in the functional programmer's toolkit.
 
 The close button which is an integral part of the responsive navigation has been lost due to the use of `nav.innerHTML = markup;`. There are a number of simple ways to resolve this. For today we'll just cut the code from `index.html` and paste the code into our JavaScript:
 
@@ -699,10 +714,9 @@ logo.innerHTML = '<a href="#"><img src="img/logo.svg" /></a>';
 
 Examine the SVG file
 
-Some interesting applications of SVG:
+An interesting application of SVG:
 
 - [Responsive logos](http://responsivelogos.co.uk)
-- [Background generator](http://www.svgeneration.com/recipes/Beam-Center/)
 
 Format the logo for both mobile and wide screen:
 
@@ -720,6 +734,13 @@ Note the use of max-width above. We are using this because transitions do not an
 _AJAX stands for Asynchronous JavaScript And XML. In a nutshell, it is the use of the XMLHttpRequest object to communicate with servers. It can send and receive information in various formats, including JSON, XML, HTML, and text files. AJAX’s most appealing characteristic is its “asynchronous” nature, which means it can communicate with the server, exchange data, and update the page without having to refresh the page._ - [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/Guide/AJAX/Getting_Started)
 
 An API (Application Programming Interface) is a set of definitions, communication protocols, and tools for building software. In general terms, it is a set of clearly defined methods of communication among various components. A good API makes it easier to develop a computer program by providing all the building blocks, which are then put together by the programmer.
+
+See the documentation for one of our sample APIs:
+
+- [JSON Placeholder](https://jsonplaceholder.typicode.com/posts), [documentation](https://jsonplaceholder.typicode.com/)
+- [New York Times API](https://api.nytimes.com/svc/topstories/v2/nyregion.json?api-key=uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0), [documentation](https://developer.nytimes.com/)
+- [Pokemon API](https://pokeapi.co/api/v2/ability/?limit=5&offset=0), [documentation](https://pokeapi.co)
+- and our navItemsObject:
 
 ## EXERCISE - Adding Content
 
@@ -743,19 +764,19 @@ const nytUrl = `https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=${
 
 ### The fetch() API
 
+Web browsers offer a number of [built-in tools](https://developer.mozilla.org/en-US/docs/Web/API).
+
 We'll use the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) to get data from the New York Times.
 
 `fetch()` returns a [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises).
 
 ```js
-fetch(nytUrl).then((response) => console.log(response));
+fetch(nytUrl).then(function (response) {
+  console.log("Response ::: ", response);
+});
 ```
 
-The response needs to be converted to JSON with `response.json()` (similar to `JSON.parse` above):
-
-```js
-fetch(nytUrl).then((response) => response.json());
-```
+The response needs to be converted to JSON with `response.json()`.
 
 We can then use the data in our app:
 
@@ -769,22 +790,22 @@ fetch(nytUrl)
   });
 ```
 
+Most developers will use arrow functions:
+
 ```js
 fetch(nytUrl)
   .then((response) => response.json())
   .then((myJson) => console.log(myJson));
 ```
 
+Try `console.log(myJson.reults)`
+
 Instead of logging it we will pass it to a `renderStories` function:
 
 ```js
 fetch(nytUrl)
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (myJson) {
-    renderStories(myJson);
-  });
+  .then((response) => response.json())
+  .then((myJson) => renderStories(myJson));
 ```
 
 In `renderStories` we take the passed data (our JSON) and run a `forEach` on every item that creates a `div` with the desired content:
@@ -807,7 +828,7 @@ function renderStories(data) {
 }
 ```
 
-Let's use the techniques covered above to create a DOM element for each of the stories:
+Let's use the techniques we covered earlier to create a DOM element for each of the stories:
 
 ```js
 function renderStories(data) {
@@ -933,7 +954,7 @@ const navItemsObject = [
 ];
 ```
 
-Example the rendered page. Note: Arts does not appear in the nav because we are using the first li for our logo. Edit the logo related scripts:
+Examine the rendered page. Note: Arts does not appear in the nav because we are using the first li for our logo. Edit the logo related scripts:
 
 ```js
 // logo
@@ -948,15 +969,10 @@ Add categories and limit variables to `myscripts.js`:
 
 ```js
 const limit = 6;
-const categories = ["arts", "books", "fashion", "food", "movies", "travel"];
-```
-
-Since our categories are available in `navItemsObject`, we can simplify things by making the categories variable a product of `navItemsObject`:
-
-```js
-const limit = 6;
 const categories = navItemsObject.map((item) => item.label);
 ```
+
+Since our categories are available in `navItemsObject`, we can make the categories variable a product of `navItemsObject`:
 
 Create a new `getArticlesByCategory` function and call it with the categories array:
 
@@ -986,6 +1002,8 @@ function fetchArticles(section) {
 
 Examine the results in the browser.
 
+We need to add headers.
+
 Refactor the `renderStories()` function.
 
 Begin by adding the title to a new div:
@@ -1004,8 +1022,8 @@ Prior to our `forEach` we will limit the number of stories with `stories = data.
 ```js
 function renderStories(data) {
   var sectionHead = document.createElement("div");
-  sectionHead.id = data.section;
-  sectionHead.innerHTML = `<h3 class="section-head">${data.section}</h3>`;
+  sectionHead.id = data.section.toLowerCase();
+  sectionHead.innerHTML = `<h3  class="section-head">${data.section}</h3>`;
   root.prepend(sectionHead);
 
   stories = data.results.slice(0, limit); // NEW
@@ -1027,6 +1045,8 @@ function renderStories(data) {
 }
 ```
 
+Note that we are adding an id (`sectionHead.id = data.section;`) to the section heads **and** setting it to lower case so that our page fragment navigation will work.
+
 Log the stories variable to the console:
 
 ```js
@@ -1044,7 +1064,7 @@ Note the use of the Array method [`slice()`](<(https://developer.mozilla.org/en-
 
 The `slice()` method returns a _shallow_ copy of a portion of an array into a new array.
 
-Note also that we are adding an id (`sectionHead.id = data.section;`) to the section heads so that our page fragment navigation will work.
+<!--
 
 Demo: Following up on our discussion of filtering arrays, here is a script that could be employed to return subsections within a section:
 
@@ -1053,7 +1073,7 @@ Demo: Following up on our discussion of filtering arrays, here is a script that 
 const stories = data.results.filter(
   (story) => story.subsection === "Book Review"
 );
-```
+``` -->
 
 ---
 
@@ -1180,6 +1200,8 @@ function renderStories(data) {
   }
 }
 ```
+
+Add scroll-behavior:
 
 ```css
 html {
