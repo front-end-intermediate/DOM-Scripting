@@ -735,6 +735,13 @@ _AJAX stands for Asynchronous JavaScript And XML. In a nutshell, it is the use o
 
 An API (Application Programming Interface) is a set of definitions, communication protocols, and tools for building software. In general terms, it is a set of clearly defined methods of communication among various components. A good API makes it easier to develop a computer program by providing all the building blocks, which are then put together by the programmer.
 
+See the documentation for one of our sample APIs:
+
+- [JSON Placeholder](https://jsonplaceholder.typicode.com/posts), [documentation](https://jsonplaceholder.typicode.com/)
+- [New York Times API](https://api.nytimes.com/svc/topstories/v2/nyregion.json?api-key=uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0), [documentation](https://developer.nytimes.com/)
+- [Pokemon API](https://pokeapi.co/api/v2/ability/?limit=5&offset=0), [documentation](https://pokeapi.co)
+- and our navItemsObject:
+
 ## EXERCISE - Adding Content
 
 We will use the [NY Times developer](https://developer.nytimes.com) API for getting a data using my API key.
@@ -764,14 +771,12 @@ We'll use the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch
 `fetch()` returns a [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises).
 
 ```js
-fetch(nytUrl).then((response) => console.log(response));
+fetch(nytUrl).then(function (response) {
+  console.log("Response ::: ", response);
+});
 ```
 
-The response needs to be converted to JSON with `response.json()` (similar to `JSON.parse` above):
-
-```js
-fetch(nytUrl).then((response) => response.json());
-```
+The response needs to be converted to JSON with `response.json()`.
 
 We can then use the data in our app:
 
@@ -785,22 +790,22 @@ fetch(nytUrl)
   });
 ```
 
+Most developers will use arrow functions:
+
 ```js
 fetch(nytUrl)
   .then((response) => response.json())
   .then((myJson) => console.log(myJson));
 ```
 
+Try `console.log(myJson.reults)`
+
 Instead of logging it we will pass it to a `renderStories` function:
 
 ```js
 fetch(nytUrl)
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (myJson) {
-    renderStories(myJson);
-  });
+  .then((response) => response.json())
+  .then((myJson) => renderStories(myJson));
 ```
 
 In `renderStories` we take the passed data (our JSON) and run a `forEach` on every item that creates a `div` with the desired content:
@@ -823,7 +828,7 @@ function renderStories(data) {
 }
 ```
 
-Let's use the techniques covered above to create a DOM element for each of the stories:
+Let's use the techniques we covered earlier to create a DOM element for each of the stories:
 
 ```js
 function renderStories(data) {
@@ -949,7 +954,7 @@ const navItemsObject = [
 ];
 ```
 
-Example the rendered page. Note: Arts does not appear in the nav because we are using the first li for our logo. Edit the logo related scripts:
+Examine the rendered page. Note: Arts does not appear in the nav because we are using the first li for our logo. Edit the logo related scripts:
 
 ```js
 // logo
@@ -964,15 +969,10 @@ Add categories and limit variables to `myscripts.js`:
 
 ```js
 const limit = 6;
-const categories = ["arts", "books", "fashion", "food", "movies", "travel"];
-```
-
-Since our categories are available in `navItemsObject`, we can simplify things by making the categories variable a product of `navItemsObject`:
-
-```js
-const limit = 6;
 const categories = navItemsObject.map((item) => item.label);
 ```
+
+Since our categories are available in `navItemsObject`, we can make the categories variable a product of `navItemsObject`:
 
 Create a new `getArticlesByCategory` function and call it with the categories array:
 
@@ -1002,6 +1002,8 @@ function fetchArticles(section) {
 
 Examine the results in the browser.
 
+We need to add headers.
+
 Refactor the `renderStories()` function.
 
 Begin by adding the title to a new div:
@@ -1020,8 +1022,8 @@ Prior to our `forEach` we will limit the number of stories with `stories = data.
 ```js
 function renderStories(data) {
   var sectionHead = document.createElement("div");
-  sectionHead.id = data.section;
-  sectionHead.innerHTML = `<h3 class="section-head">${data.section}</h3>`;
+  sectionHead.id = data.section.toLowerCase();
+  sectionHead.innerHTML = `<h3  class="section-head">${data.section}</h3>`;
   root.prepend(sectionHead);
 
   stories = data.results.slice(0, limit); // NEW
@@ -1043,6 +1045,8 @@ function renderStories(data) {
 }
 ```
 
+Note that we are adding an id (`sectionHead.id = data.section;`) to the section heads **and** setting it to lower case so that our page fragment navigation will work.
+
 Log the stories variable to the console:
 
 ```js
@@ -1060,7 +1064,7 @@ Note the use of the Array method [`slice()`](<(https://developer.mozilla.org/en-
 
 The `slice()` method returns a _shallow_ copy of a portion of an array into a new array.
 
-Note also that we are adding an id (`sectionHead.id = data.section;`) to the section heads so that our page fragment navigation will work.
+<!--
 
 Demo: Following up on our discussion of filtering arrays, here is a script that could be employed to return subsections within a section:
 
@@ -1069,7 +1073,7 @@ Demo: Following up on our discussion of filtering arrays, here is a script that 
 const stories = data.results.filter(
   (story) => story.subsection === "Book Review"
 );
-```
+``` -->
 
 ---
 
@@ -1196,6 +1200,8 @@ function renderStories(data) {
   }
 }
 ```
+
+Add scroll-behavior:
 
 ```css
 html {
