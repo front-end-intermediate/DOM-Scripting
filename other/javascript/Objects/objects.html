@@ -3,6 +3,7 @@
   <head>
     <title>Objects</title>
   </head>
+
   <body>
     <script>
       const me = {
@@ -20,10 +21,24 @@
         },
       };
 
-      const first = me.first;
-      const last = me.last;
+      const { first, last } = me;
 
-      console.log(first);
+      const { twitter: tw, facebook: fb } = me.links.social;
+
+      console.log(fb);
+
+      const content = `
+        <div class="person">
+          <h2>
+            ${me.first} ${me.last}
+          </h2>
+          <span>${me.job}</span>
+          <p>Twitter: ${tw}</p>
+          <p>Blog: ${me.links.web.blog}</p>
+        </div>
+        `;
+
+      document.body.innerHTML = content;
     </script>
   </body>
 </html>
