@@ -102,3 +102,9 @@ li.logo img {
     scroll-margin-top: 4rem;
   }
 }
+
+@media (min-width: 800px) {
+  .scroll-margin {
+    scroll-margin-top: 4rem;
+  }
+}
