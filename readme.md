@@ -408,9 +408,10 @@ The second file, `2-react-jsx.html`, uses [Babel](https://babeljs.io) to help cr
 
 So far we have been working with a simple array. However most of the data you will encounter will consist of an array of objects:
 
-- [JSON Placeholder](https://jsonplaceholder.typicode.com/posts)
-- [City Growth](https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json)
-- The [New York Times API](https://api.nytimes.com/svc/topstories/v2/nyregion.json?api-key=uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0)
+- [JSON Placeholder](https://jsonplaceholder.typicode.com/posts), [documentation](https://jsonplaceholder.typicode.com/)
+- [City Growth](https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json), [documentation](https://gist.github.com/Miserlou/c5cd8364bf9b2420bb29)
+- [New York Times API](https://api.nytimes.com/svc/topstories/v2/nyregion.json?api-key=uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0), [documentation](https://developer.nytimes.com/)
+- [Pokemon API](https://pokeapi.co/api/v2/ability/?limit=5&offset=0), [documentation](https://pokeapi.co)
 - and our navItemsObject:
 
 ```js
