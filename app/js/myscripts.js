@@ -1,5 +1,5 @@
 const root = document.querySelector(".site-wrap");
-const nytapi = "uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0";
+const nytapi = "IBOst14SeT5OXhGNk8ZQOPhVBhj9ED0h";
 const nytUrl = `https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=${nytapi}`;
 
 const limit = 6;
@@ -44,25 +44,27 @@ function fetchArticles(section) {
 }
 
 function renderStories(data) {
-  data.results.forEach((story) => {
-    const storyEl = document.createElement("div");
+  var sectionHead = document.createElement("div");
+  sectionHead.id = data.section.toLowerCase();
+  sectionHead.classList.add("scroll-margin");
+  sectionHead.innerHTML = `<h3  class="section-head">${data.section}</h3>`;
+  root.prepend(sectionHead);
+
+  stories = data.results.slice(0, limit); // NEW
+
+  stories.map((story) => {
+    storyEl = document.createElement("div");
     storyEl.className = "entry";
     storyEl.innerHTML = `
-      <img 
-      src="${
-        story.multimedia.length > 0
-          ? story.multimedia[1].url
-          : "img/no-image.png"
-      }" 
-      alt="${story.title}" />
-        <div>
-          <h3><a target="_blank" href="${story.short_url}">${
-      story.title
-    }</a></h3>
-          <p>${story.abstract}</p>
-        </div>
-        `;
-    root.prepend(storyEl);
+    <img src="${
+      story.multimedia.length > 0 ? story.multimedia[0].url : "img/no-image.png"
+    }" />
+    <div>
+      <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
+      <p>${story.abstract}</p>
+    </div>
+    `;
+    sectionHead.append(storyEl); // NEW
   });
 }
 

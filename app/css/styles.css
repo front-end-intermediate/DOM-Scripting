@@ -12,6 +12,8 @@ body {
 html {
   box-sizing: border-box;
   background: #eee;
+
+  scroll-behavior: smooth;
 }
 
 *,
@@ -78,4 +80,22 @@ li.logo img {
 .entry a {
   color: #007eb6;
   text-decoration: none;
+}
+
+.section-head {
+  font-family: Lobster;
+  font-weight: normal;
+  color: #007eb6;
+  font-size: 2.5rem;
+  text-transform: capitalize;
+  padding-bottom: 0.25rem;
+  /* padding-top: 4rem; */
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #007eb6;
+}
+
+@media (min-width: 800px) {
+  .scroll-margin {
+    scroll-margin-top: 4rem;
+  }
 }
