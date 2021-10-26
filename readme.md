@@ -412,7 +412,7 @@ Switch out the concatenation for a _template string_:
 for (let i = 0; i < navItemsArray.length; i++) {
   let listItem = document.createElement("li");
   listItem.innerHTML = `<a href="#">${navItemsArray[i]}</a>`;
-  navList.appendChild(listItem);
+  navList.append(listItem);
 }
 ```
 
@@ -424,7 +424,7 @@ for (let i = 0; i < navItemsArray.length; i++) {
   listItem.innerHTML = `<a href="#${navItemsArray[i].toLowerCase()}">${
     navItemsArray[i]
   }</a>`;
-  navList.appendChild(listItem);
+  navList.append(listItem);
 }
 ```
 
@@ -460,7 +460,7 @@ nav.append(navList);
 
 Open for reference `other > React > 1-react.html` in a browser using [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer).
 
-Since we will be spending much of our time this semester in React, it is worthwhile to point out at this time that React is an alternate way to create DOM elements.
+Since we will be spending much of our time this semester in React, it is worthwhile to point out at this time that React -at its most basic - is simply an alternate way to create DOM elements.
 
 The second file, `2-react-jsx.html`, uses [Babel](https://babeljs.io) to help create a DOM element.
 
@@ -578,6 +578,13 @@ const content = `
 </div>
 `;
 document.body.innerHTML = content;
+```
+
+and an Array:
+
+```js
+const test = ["one", "two", "three", "four"];
+const [foo, bar, ...rest] = test;
 ```
 
 ---
