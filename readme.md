@@ -122,14 +122,18 @@ Open `index.html`, right click on it and choose 'Open with Live Server'.
 ```css
 @media (prefers-color-scheme: dark) {
   * {
-    --textcolor: #dadada;
-    --bgcolor: #141414;
+    --textcolor: #eee;
+    --bgcolor: #555;
+    --bgcolor-darker: #333;
     --highlight: #ffc400;
   }
 }
 body {
   color: var(--textcolor);
   background: var(--bgcolor);
+}
+.site-wrap {
+  background: var(--bgcolor-darker);
 }
 ```
 
@@ -160,6 +164,8 @@ section:target {
   display: block;
 }
 ```
+
+See demo: https://john-doe.neocities.org/
 
 ## DOM Scripting Review
 
@@ -211,7 +217,7 @@ var elems = document.querySelectorAll(".main-menu a");
 
 elems.forEach(function (item, index) {
   console.log(index); // index
-  console.log(item); // value
+  console.log(item.href); // value
 });
 ```
 
@@ -323,23 +329,23 @@ JavaScript offers a number of methods to determine the insertion point.
 
 ```js
 // Create a new HTML element and add some text
-> var div = document.createElement("div");
-div.textContent = "Hello world";
+> var elem = document.createElement("div");
+> elem.textContent = "Hello world";
 
 // Get the element to add your new HTML element before, after, or within
-> const target = document.querySelector(".main-menu");
+> var target = document.querySelector(".main-menu");
 
 // Inject the `div` element before the element
-> target.before(div);
+> target.before(elem);
 
 // Inject the `div` element after the element
-> target.after(div);
+> target.after(elem);
 
 // Inject the `div` element before the first item *inside* the element
-> target.prepend(div);
+> target.prepend(elem);
 
 // Inject the `div` element after the first item *inside* the element
-> target.append(div);
+> target.append(elem);
 ```
 
 Let's append a new div to the (now empty) nav.
@@ -375,7 +381,9 @@ nav.append(navList);
 
 Our nav bar now displays all the items in our array but the code is ugly. This is an example of [imperative programming](https://tylermcginnis.com/imperative-vs-declarative-programming/). In order to prepare for React we need to adopt a more declarative style.
 
-We will use [Functional Programming](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0) techniques. (See the `filter` examples `students.js` in today's `other` folder.)
+We will use [Functional Programming](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0) techniques.
+
+(See the `filter` examples `students.js` in today's `other` folder. Use [RunJS](https://runjs.app/).)
 
 ---
 
@@ -404,6 +412,18 @@ Switch out the concatenation for a _template string_:
 for (let i = 0; i < navItemsArray.length; i++) {
   let listItem = document.createElement("li");
   listItem.innerHTML = `<a href="#">${navItemsArray[i]}</a>`;
+  navList.appendChild(listItem);
+}
+```
+
+Note: if we wanted we could derive the hash from the Array values:
+
+```js
+for (let i = 0; i < navItemsArray.length; i++) {
+  let listItem = document.createElement("li");
+  listItem.innerHTML = `<a href="#${navItemsArray[i].toLowerCase()}">${
+    navItemsArray[i]
+  }</a>`;
   navList.appendChild(listItem);
 }
 ```
