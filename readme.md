@@ -109,13 +109,57 @@ $ pwd  // print working directory
 
 ## DO THIS
 
-`cd` into `app` - today's working directory - and type:
+`cd` into today's working directory - and type:
 
 ```sh
 code .
 ```
 
 Open `index.html`, right click on it and choose 'Open with Live Server'.
+
+## Single Page App
+
+```css
+@media (prefers-color-scheme: dark) {
+  * {
+    --textcolor: #dadada;
+    --bgcolor: #141414;
+    --highlight: #ffc400;
+  }
+}
+body {
+  color: var(--textcolor);
+  background: var(--bgcolor);
+}
+```
+
+```css
+html {
+  scroll-behavior: smooth;
+}
+
+/**
+ * Disable smooth scrolling when users have prefers-reduced-motion enabled
+ */
+@media screen and (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+```
+
+Or:
+
+```css
+section {
+  display: none;
+}
+
+section:target {
+  /* Show section */
+  display: block;
+}
+```
 
 ## DOM Scripting Review
 
@@ -1222,7 +1266,6 @@ Move everything [out of](https://vanillajstoolkit.com/boilerplates/iife/) the gl
   "use strict";
 
   // Code goes here...
-
 })();
 ```
 
